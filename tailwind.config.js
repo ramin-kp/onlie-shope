@@ -9,8 +9,14 @@ export default {
         danaMedium: "dana-medium",
         danaBold: "dana-bold",
         danaHeavy: "dana-heavy",
+        morabba: "morabba",
       },
     },
   },
-  plugins: [],
+  plugins: [
+    ({ addVariant }) => {
+      addVariant("childe", "&> *");
+      addVariant("childe-hover", "&> *:hover");
+    },
+  ],
 };
