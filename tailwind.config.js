@@ -11,6 +11,25 @@ export default {
         danaHeavy: "dana-heavy",
         morabba: "morabba",
       },
+      container: {
+        center: true,
+      },
+      colors: {
+        primary: {
+          100: "#ef4444",
+          200: "#dc2626",
+        },
+        secondary: {
+          100: "#1f2937",
+          200: "#111827",
+        },
+      },
+    },
+    screens: {
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
     },
   },
   plugins: [

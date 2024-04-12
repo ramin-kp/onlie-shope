@@ -4,15 +4,22 @@ import HomePage from "./Pages/HomePage";
 import RegisterPage from "./Pages/RegisterPage";
 import LoginPage from "./Pages/LoginPage";
 import { Toaster } from "react-hot-toast";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import defaultOptions from './Configs/queryClinet';
 
 function App() {
+  const queryClient = new QueryClient({
+    defaultOptions,
+  });
   return (
     <>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />
-      </Routes>
+      <QueryClientProvider client={queryClient}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/login" element={<LoginPage />} />
+        </Routes>
+      </QueryClientProvider>
       <Toaster toastOptions={{ style: { fontFamily: "dana" } }} />
     </>
   );
