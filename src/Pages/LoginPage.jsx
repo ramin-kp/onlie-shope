@@ -63,7 +63,7 @@ function LoginPage() {
           </div>
           <div className="relative">
             <input
-              className="grow w-full text-left ltr-text"
+              className="grow w-full"
               type={inputType ? "password" : "text"}
               {...register("password", {
                 required: {
@@ -74,7 +74,7 @@ function LoginPage() {
               placeholder="پسورد"
             />
             <span
-              className="absolute right-0 top-1/4  px-1  cursor-pointer"
+              className="absolute left-0 top-1/4  px-1  cursor-pointer"
               onClick={() => setInputType((prevData) => !prevData)}
             >
               <svg className={`${inputType ? "visible" : "hidden"} w-5 h-5`}>
@@ -82,7 +82,7 @@ function LoginPage() {
               </svg>
             </span>
             <span
-              className="absolute right-0 top-1/4  px-1  cursor-pointer"
+              className="absolute left-0 top-1/4  px-1  cursor-pointer"
               onClick={() => setInputType((prevData) => !prevData)}
             >
               <svg className={`${inputType ? "hidden" : "visible"} w-5 h-5`}>
