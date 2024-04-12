@@ -13,7 +13,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
       </Routes>
-      <Toaster />
+      <Toaster toastOptions={{ style: { fontFamily: "dana" } }} />
     </>
   );
 }

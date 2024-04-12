@@ -1,18 +1,34 @@
 import React, { useState } from "react";
 import SvgIcons from "../components/SvgIcons";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { userRegister } from "../Services/auth";
+import { toast } from "react-hot-toast";
+import { customToast } from "../utils/customToast";
+import { setCookie } from "../utils/cookie";
 
 function RegisterPage() {
   const [inputType, setInputType] = useState(true);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const submitHandler = (values) => {
-    console.log(values);
+  const submitHandler = async (values) => {
+    const { userName, email, phone, password } = values;
+    const userData = {
+      userName,
+      email,
+      phone,
+      password,
+      role: "USER",
+    };
+    navigate("/", { replace: true });
+    customToast("success", "با موفقیت ثبت نام انجام شد.");
+    setCookie(userData);
+    await userRegister(userData);
   };
   return (
     <main className="flex flex-col justify-center items-center h-screen ">
@@ -82,6 +98,10 @@ function RegisterPage() {
                 required: {
                   value: true,
                   message: "شماره موبایل خود را وارد کنید.",
+                },
+                maxLength: {
+                  value: 11,
+                  message: "شماره موبایل شما صحصح نمی باشد.",
                 },
                 pattern: {
                   value: /((0?9)|(\+?989))\d{2}\W?\d{3}\W?\d{4}/g,
