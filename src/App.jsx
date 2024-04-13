@@ -6,6 +6,7 @@ import LoginPage from "./Pages/LoginPage";
 import { Toaster } from "react-hot-toast";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import defaultOptions from './Configs/queryClinet';
+import SvgIcons from "./components/SvgIcons";
 
 function App() {
   const queryClient = new QueryClient({
@@ -20,6 +21,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
         </Routes>
       </QueryClientProvider>
+      <SvgIcons />
       <Toaster toastOptions={{ style: { fontFamily: "dana" } }} />
     </>
   );

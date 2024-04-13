@@ -6,8 +6,6 @@ function HomePage() {
   return (
     <>
       <Header />
-
-      <SvgIcons />
     </>
   );
 }

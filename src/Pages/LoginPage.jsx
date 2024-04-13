@@ -107,7 +107,6 @@ function LoginPage() {
           </Link>
         </form>
       </div>
-      <SvgIcons />
     </main>
   );
 }

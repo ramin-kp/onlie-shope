@@ -172,7 +172,6 @@ function RegisterPage() {
           </Link>
         </form>
       </div>
-      <SvgIcons />
     </main>
   );
 }

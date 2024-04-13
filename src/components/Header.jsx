@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import api from "../Configs/api";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import MobileHeader from "./MobileHeader";
 
 function Header() {
   const [theme, setTheme] = useState("moon");
+  const [isShown, setIsShown] = useState(false);
   const { data } = useQuery({
     queryKey: ["menu-data"],
     queryFn: async () => {
@@ -14,15 +16,31 @@ function Header() {
   });
   console.log(data);
   return (
-    // <!-- desktop header -->
+    // <!-- header -->
     <header>
-      {/* <!-- App Logo --> */}
-      <div className="container flex items-center justify-between my-5">
-        <Link to="/" className="w-[200px]">
+      <div className="flex items-center justify-between m-5 px-5 bg-white">
+        {/* // <!-- bars icon for Mobile version --> */}
+        <div
+          className="inline-block lg:hidden cursor-pointer"
+          onClick={() => setIsShown(true)}
+        >
+          <svg className="w-5 h-5">
+            <use href="#bars"></use>
+          </svg>
+        </div>
+        {/* <!-- mobile header --> */}
+        <MobileHeader
+          isShown={isShown}
+          setIsShown={setIsShown}
+          theme={theme}
+          setTheme={setTheme}
+        />
+        {/* <!-- App Logo --> */}
+        <Link to="/" className="w-[150px]">
           <img className="w-full" src="/images/logo-1.png" alt="logo-icon" />
         </Link>
         {/* <!-- menus --> */}
-        <ul className="flex  gap-x-20 childe:text-base childe:flex-center font-danaBold childe:duration-150">
+        <ul className="hidden lg:flex lg:gap-x-20 childe:text-base childe:flex-center font-danaBold childe:duration-150">
           <Link to="/" className="hover:text-primary-200">
             خانه
           </Link>
@@ -51,11 +69,11 @@ function Header() {
           </li>
         </ul>
         {/* <!-- register & card --> */}
-        <div className="flex-center gap-x-5 childe:duration-150">
+        <div className="flex-center gap-x-2 lg:gap-x-5 childe:duration-150">
           <div
             className={`${
-              theme === "sun" ? "flex-center" : "hidden"
-            } w-10 h-10 hover:bg-gray-100 rounded-full hover:cursor-pointer`}
+              theme === "sun" ? "lg:flex-center" : ""
+            } hidden w-10 h-10 hover:bg-gray-100 rounded-full hover:cursor-pointer`}
             onClick={() => setTheme("moon")}
           >
             <svg className="w-6 h-6 ">
@@ -64,8 +82,8 @@ function Header() {
           </div>
           <div
             className={`${
-              theme === "moon" ? "flex-center" : "hidden"
-            } w-10 h-10 hover:bg-gray-100 rounded-full hover:cursor-pointer`}
+              theme === "moon" ? "lg:flex-center" : ""
+            } hidden w-10 h-10 hover:bg-gray-100 rounded-full hover:cursor-pointer`}
             onClick={() => setTheme("sun")}
           >
             <svg className="w-6 h-6">
@@ -73,7 +91,7 @@ function Header() {
             </svg>
           </div>
           <Link
-            className="flex-center hover:text-primary-200 w-10 h-10 hover:bg-gray-100 rounded-full hover:cursor-pointer"
+            className="flex-center hover:text-primary-200 lg:w-10 lg:h-10 lg:hover:bg-gray-100 rounded-full hover:cursor-pointer"
             to=""
           >
             <svg className="w-5 h-5">
@@ -81,7 +99,7 @@ function Header() {
             </svg>
           </Link>
           <Link
-            className="flex-center hover:text-primary-200 w-10 h-10 hover:bg-gray-100 rounded-full hover:cursor-pointer"
+            className="flex-center hover:text-primary-200 lg:w-10 lg:h-10 lg:hover:bg-gray-100 rounded-full hover:cursor-pointer"
             to=""
           >
             <svg className="w-5 h-5">
