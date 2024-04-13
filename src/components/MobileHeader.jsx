@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 
 function MobileHeader({ isShown, setIsShown, theme, setTheme }) {
   return (
-    <header>
+    <header className="lg:hidden">
       <div
         className={`${
           isShown ? "translate-x-0" : "translate-x-full"
-        } absolute inset-0 flex flex-col lg:hidden w-[300px] h-screen p-3 bg-white transition-all duration-300 z-10`}
+        } absolute inset-0 flex flex-col  w-[300px] h-screen p-3 bg-white transition-all duration-300 z-10`}
       >
         {/* <!--  logo App --> */}
 

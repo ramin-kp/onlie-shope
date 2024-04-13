@@ -2,23 +2,22 @@ import React, { useState } from "react";
 import api from "../Configs/api";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+
 import MobileHeader from "./MobileHeader";
+import { getSubMenus } from "../Services/menus";
 
 function Header() {
   const [theme, setTheme] = useState("moon");
   const [isShown, setIsShown] = useState(false);
   const { data } = useQuery({
     queryKey: ["menu-data"],
-    queryFn: async () => {
-      const response = await api.get("menus");
-      return await response.data;
-    },
+    queryFn: getSubMenus,
   });
   console.log(data);
   return (
     // <!-- header -->
     <header>
-      <div className="flex items-center justify-between m-5 px-5 bg-white">
+      <div className="flex items-center justify-between m-5 p-5 bg-white">
         {/* // <!-- bars icon for Mobile version --> */}
         <div
           className="inline-block lg:hidden cursor-pointer"
@@ -40,14 +39,14 @@ function Header() {
           <img className="w-full" src="/images/logo-1.png" alt="logo-icon" />
         </Link>
         {/* <!-- menus --> */}
-        <ul className="hidden lg:flex lg:gap-x-20 childe:text-base childe:flex-center font-danaBold childe:duration-150">
+        <ul className="hidden lg:flex lg:gap-x-20 childe:p-3 childe:text-base childe:flex-center font-danaBold childe:duration-150">
           <Link to="/" className="hover:text-primary-200">
             خانه
           </Link>
 
-          <li className="hover:text-primary-200">
+          <li className=" group">
             <Link
-              className="flex items-end justify-center gap-1"
+              className="relative flex items-end justify-center gap-1 group-hover:text-primary-200"
               to="/products"
             >
               فروشگاه
@@ -55,16 +54,36 @@ function Header() {
                 <use href="#arrow-down"></use>
               </svg>
             </Link>
+            {/* <!-- subMenu for shopping --> */}
+            <ul className="sub-menu--show">
+              {data &&
+                data.map((item) => (
+                  <li key={item.id} className="childe:duration-1000">
+                    <Link
+                      to={`/${item.data.title.link}`}
+                      className="inline-block mb-5 hover:text-primary-200"
+                    >
+                      {item.data.title.text}
+                    </Link>
+                    <div className="flex flex-col items-start justify-start gap-y-5 font-dana childe:duration-100">
+                      {item.data.subMenus.map((item) => (
+                        <Link
+                          key={item.text}
+                          to={`/${item.link}`}
+                          className="hover:text-primary-200"
+                        >
+                          {item.text}
+                        </Link>
+                      ))}
+                    </div>
+                  </li>
+                ))}
+            </ul>
           </li>
+
           <li className="hover:text-primary-200">
-            <Link
-              className="flex items-end justify-center gap-1"
-              to="/about-us"
-            >
-              درباه‌ما
-              <svg className="w-5 h-5">
-                <use href="#arrow-down"></use>
-              </svg>
+            <Link className="flex items-end justify-center" to="/contact-us">
+              تماس با ما
             </Link>
           </li>
         </ul>
