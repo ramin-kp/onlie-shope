@@ -7,11 +7,7 @@ import ProductCard from "./ProductCard";
 
 function Main() {
   const queryKey = ["products-data"];
-  const {
-    data: productsData,
-    isPending,
-    isError,
-  } = useQuery({
+  const { data: productsData } = useQuery({
     queryKey,
     queryFn: getProductsData,
   });

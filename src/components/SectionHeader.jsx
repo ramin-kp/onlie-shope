@@ -3,10 +3,16 @@ import { Link } from "react-router-dom";
 
 function NewProducts({ title }) {
   return (
-    <div className="flex items-center justify-between gap-x-2 my-8" data-aos="fade-up">
+    <div
+      className="flex items-center justify-between gap-x-2 my-8"
+      data-aos="fade-up"
+    >
       <div className="flex-center">
-        <span className="w-4 h-4 ml-2 rounded-full bg-primary-200"></span>
-        <h2 className="font-morabba text-lg sm:text-xl lg:text-2xl dark:text-white">
+        <div className="relative left-5 -top-2 mr-5">
+          <span className="absolute inset-0 w-4 h-4 rounded-full bg-primary-200"></span>
+          <span className="absolute inset-0 w-4 h-4 rounded-full bg-primary-200/80 opacity-75 animate-ping"></span>
+        </div>
+        <h2 className="mr-2 font-morabba text-lg sm:text-xl lg:text-2xl dark:text-white">
           {title}
         </h2>
       </div>
