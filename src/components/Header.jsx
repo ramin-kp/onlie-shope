@@ -13,7 +13,6 @@ function Header() {
     queryKey: ["menu-data"],
     queryFn: getSubMenus,
   });
-  console.log(data);
   return (
     // <!-- header -->
     <header>

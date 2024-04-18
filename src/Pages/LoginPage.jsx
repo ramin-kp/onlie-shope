@@ -4,11 +4,16 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
 import SvgIcons from "../components/SvgIcons";
-import { userLogin } from "../Services/auth";
+import { authorizationUser, fetchUserLogin } from "../Services/auth";
 import { setCookie } from "../utils/cookie";
+import { useQuery } from "@tanstack/react-query";
 
 function LoginPage() {
   const [inputType, setInputType] = useState(true);
+  const { data, isPending } = useQuery({
+    queryKey: ["User-data"],
+    queryFn: fetchUserLogin,
+  });
   const navigate = useNavigate();
   const {
     register,
@@ -17,17 +22,15 @@ function LoginPage() {
   } = useForm();
 
   const submitHandler = async (values) => {
-    const res = await userLogin(values);
-
+    if (!data) return;
+    const res = authorizationUser(data, values);
     if (res) {
       toast.success("با موفقیت  وارد شدید");
       setCookie(res);
-      navigate("/", { replace: true });
+      navigate("/");
     } else {
       toast.error("نام کاربری یا  پسورد وارد شده صحیح نمی‌باشد.");
     }
-
-    console.log(res);
   };
   return (
     <main className="flex flex-col justify-center items-center h-screen ">

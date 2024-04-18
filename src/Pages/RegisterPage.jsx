@@ -3,12 +3,15 @@ import SvgIcons from "../components/SvgIcons";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { userRegister } from "../Services/auth";
-import { toast } from "react-hot-toast";
 import { customToast } from "../utils/customToast";
 import { setCookie } from "../utils/cookie";
+import { useMutation } from "@tanstack/react-query";
 
 function RegisterPage() {
   const [inputType, setInputType] = useState(true);
+  const { data, isPending, isError, isSuccess, mutate } = useMutation({
+    mutationFn: userRegister,
+  });
   const navigate = useNavigate();
   const {
     register,
@@ -25,10 +28,16 @@ function RegisterPage() {
       password,
       role: "USER",
     };
-    navigate("/", { replace: true });
+
+    await mutate(userData);
+
+    if (isError) {
+      customToast("error", "مشکلی پیش آمده لطفا دوباره امتحان کنید.");
+      return;
+    }
     customToast("success", "با موفقیت ثبت نام انجام شد.");
     setCookie(userData);
-    await userRegister(userData);
+    navigate("/");
   };
   return (
     <main className="flex flex-col justify-center items-center h-screen ">
@@ -131,10 +140,6 @@ function RegisterPage() {
                   value: 20,
                   message: "پسورد باید کمتر از بیست کاراکتر باشد.",
                 },
-                pattern: {
-                  value: /^[A-z0-9\-]+$/g,
-                  message: "پسورد وارد شده معتبر نمی‌باشد.",
-                },
               })}
               placeholder="پسورد"
             />
@@ -158,12 +163,22 @@ function RegisterPage() {
               {errors.password && errors.password.message}
             </h3>
           </div>
-          <button
-            type="submit"
-            className="p-2 px-3 bg-red-600 text-white font-danaBold rounded-lg hover:bg-red-700 duration-75"
-          >
-            ثبت نام
-          </button>
+          {isPending ? (
+            <button
+              type="submit"
+              className=" bg-red-600/60 text-white font-danaBold rounded-lg duration-75"
+              disabled
+            >
+              <span className="loader inline-block "></span>
+            </button>
+          ) : (
+            <button
+              type="submit"
+              className="p-2 px-3 bg-red-600 text-white font-danaBold rounded-lg hover:bg-red-700 duration-75"
+            >
+              ثبت نام
+            </button>
+          )}
           <Link
             to="/login"
             className="p-2 px-3 text-center border-2 border-blue-600 text-blue-600 hover:text-white font-danaBold rounded-lg hover:bg-blue-600 duration-75"

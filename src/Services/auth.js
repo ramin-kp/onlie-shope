@@ -1,15 +1,13 @@
 import api from "../Configs/api";
 
-const userLogin = async (userData) => {
-  const response = await api.get("users");
-  const hasUser = response.data.find((user) => {
-    return user.email === userData.email && user.password === userData.password;
-  });
-  return hasUser;
-};
-const userRegister = async (userData) => {
-  
-  await api.post("users", { ...userData });
-};
+const fetchUserLogin = () => api.get("users");
 
-export { userLogin, userRegister };
+const authorizationUser = (response, userData) =>
+  response.data.find(
+    (user) =>
+      user.email === userData.email && user.password === userData.password
+  );
+
+const userRegister = (userData) => api.post("users", userData);
+
+export { fetchUserLogin, authorizationUser, userRegister };
