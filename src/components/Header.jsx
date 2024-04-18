@@ -54,7 +54,7 @@ function Header() {
               </svg>
             </Link>
             {/* <!-- subMenu for shopping --> */}
-            <ul className="sub-menu--show">
+            <ul className="sub-menu--show z-50">
               {data &&
                 data.map((item) => (
                   <li key={item.id} className="childe:duration-1000">
