@@ -1,7 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { useQuery } from "@tanstack/react-query";
-
 import { fetchBanners } from "../Services/bannre";
 
 import "swiper/css";
@@ -18,14 +17,15 @@ function MainSlider() {
     queryKey,
     queryFn: fetchBanners,
   });
-  console.log({ bannerData, isPending, isError });
+
   return (
-    <>
+    // <!-- swiper -->
+    <section data-aos="fade-up">
       <Swiper
         spaceBetween={30}
         centeredSlides={true}
         autoplay={{
-          delay: 5000,
+          delay: 50000,
           disableOnInteraction: false,
         }}
         loop={true}
@@ -57,7 +57,7 @@ function MainSlider() {
             </SwiperSlide>
           ))}
       </Swiper>
-    </>
+    </section>
   );
 }
 

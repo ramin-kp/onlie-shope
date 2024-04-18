@@ -8,6 +8,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import defaultOptions from "./Configs/queryClinet";
 import SvgIcons from "./components/SvgIcons";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import Aos from "aos";
+import "aos/dist/aos.css";
 
 function App() {
   const queryClient = new QueryClient({
@@ -25,6 +27,7 @@ function App() {
       </QueryClientProvider>
       <SvgIcons />
       <Toaster toastOptions={{ style: { fontFamily: "dana" } }} />
+      {Aos.init()}
     </>
   );
 }

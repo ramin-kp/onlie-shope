@@ -6,27 +6,27 @@
   @font-face {
     font-family: "dana";
     font-style: normal;
-    src: url(/fonts/Dana-Regular.woff2) format("woff");
+    src: url(/fonts/DanaFaNum-Regular.woff2) format("woff");
   }
   @font-face {
     font-family: "dana-medium";
     font-style: normal;
-    src: url(/fonts/Dana-Medium.woff2) format("woff");
+    src: url(/fonts/DanaFaNum-Medium.woff2) format("woff");
   }
   @font-face {
     font-family: "dana-bold";
     font-style: normal;
-    src: url(/fonts/Dana-Bold.woff2) format("woff");
+    src: url(/fonts/DanaFaNum-Bold.woff2) format("woff");
   }
   @font-face {
     font-family: "dana-heavy";
     font-style: normal;
-    src: url(/fonts/Dana-Heavy.woff2) format("woff");
+    src: url(/fonts/DanaFaNum-Heavy.woff2) format("woff");
   }
   @font-face {
     font-family: "morabba";
     font-style: normal;
-    src: url(/fonts/Dana-Heavy.woff2) format("woff");
+    src: url(/fonts/Morabba-Bold.woff2) format("woff");
   }
   input {
     outline: none;
@@ -104,4 +104,7 @@
   .flex-center {
     @apply flex items-center justify-center;
   }
+}
+.swiper-pagination-bullet {
+  background: #ffffff !important;
 }
