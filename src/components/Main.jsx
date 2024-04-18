@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import SectionHeader from "./SectionHeader";
 import { getProductsData } from "../Services/products";
-import { Link } from "react-router-dom";
+import ProductCard from "./ProductCard";
 
 function Main() {
   const queryKey = ["products-data"];
@@ -15,7 +15,7 @@ function Main() {
     queryKey,
     queryFn: getProductsData,
   });
-  console.log({ productsData, isError, isPending });
+
   return (
     <>
       <SectionHeader title={"محصولات جدید"} />
@@ -25,28 +25,7 @@ function Main() {
       >
         {productsData &&
           productsData.data.map((product) => (
-            <div key={product.id} className="bg-gray-200 rounded-lg px-4 py-2">
-              <Link to={`products/${product.link}`}>
-                <img src={`/images/${product.image}`} alt="product-img" />
-              </Link>
-              <div className="my-5 h-[105px]">
-                <Link
-                  to={`/products/${product.link}`}
-                  className="font-danaBold text-base line-clamp-2 hover:text-primary-200 duration-100"
-                >
-                  {product.title}
-                </Link>
-                <p className="pt-2 opacity-60 line-clamp-2">
-                  {product.subTitle}
-                </p>
-              </div>
-              <div className="flex items-center justify-between p-2 font-danaMedium text-lg border-t border-gray-100">
-                <span>قیمت:</span>
-                <span className="text-primary-200 ">
-                  {product.price.toLocaleString()} تومان
-                </span>
-              </div>
-            </div>
+            <ProductCard key={product.id} data={product} />
           ))}
       </section>
     </>
