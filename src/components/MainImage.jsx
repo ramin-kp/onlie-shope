@@ -11,7 +11,14 @@ function MainImage() {
   });
   console.log({ proposalData, isPending });
   return (
-    <section className="hidden md:inline-block relative main-img lg:bg-center bg-cover xl:bg-contain h-[650px]">
+    <section
+      className="hidden md:inline-block relative main-img lg:bg-center bg-cover xl:bg-contain h-[650px]"
+      data-aos="fade-up"
+    >
+      <div className="absolute inline-flex flex-col items-end justify-end w-full mb-auto childe:px-5 childe:py-3 childe:bg-gray-100 childe:rounded-s-3xl">
+        <span className="text-lg font-dana tracking-wider">زندگی خود را تجهیز کنید</span>
+        <span className=" text-xl font-danaBold tracking-wider">موارد دلخواه جدید شما اینجا هستند</span>
+      </div>
       {proposalData && (
         <>
           <Link
@@ -68,7 +75,7 @@ function MainImage() {
           </Link>
           <Link
             to={`/products/${proposalData.data[2].link}`}
-            className="absolute -translate-x-[430px] lg:-translate-x-[530px] xl:-translate-x-[650px] translate-y-[300px]  cursor-pointer group"
+            className="absolute -translate-x-[430px] lg:-translate-x-[530px] xl:-translate-x-[650px] translate-y-[350px]  cursor-pointer group"
           >
             <span className="absolute w-4 h-4 rounded-full bg-white"></span>
             <span className="absolute w-4 h-4 rounded-full bg-white/80 opacity-75 animate-ping"></span>

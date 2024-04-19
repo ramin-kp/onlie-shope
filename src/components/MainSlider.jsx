@@ -20,19 +20,20 @@ function MainSlider() {
 
   return (
     // <!-- swiper -->
-    <section data-aos="fade-up">
+    <section>
       <Swiper
         spaceBetween={30}
         centeredSlides={true}
         autoplay={{
-          delay: 50000,
+          delay: 2500,
           disableOnInteraction: false,
         }}
         loop={true}
         pagination={{
           clickable: true,
         }}
-        modules={[Autoplay, Pagination, Navigation]}
+        modules={[Autoplay, Pagination]}
+        
         className="mySwiper h-[300px] lg:h-[400px] bg-primary-200 rounded-lg my-10 mx-2.5 sm:mx-auto group"
       >
         {!!bannerData &&

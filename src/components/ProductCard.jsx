@@ -15,7 +15,7 @@ function ProductCard({ data }) {
         >
           {title}
         </Link>
-        <p className="pt-2 opacity-60 line-clamp-2">{subTitle}</p>
+        <p className="pt-2 font-dana opacity-60 line-clamp-2">{subTitle}</p>
       </div>
       <div className="flex items-center justify-between p-2 font-danaMedium text-lg border-t border-gray-100">
         <span>قیمت:</span>
