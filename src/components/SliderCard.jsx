@@ -10,7 +10,7 @@ function SliderCard({ data }) {
       className="flex flex-col w-[200px] lg:w-[300px] xl:w-[350px] px-2 py-1 mx-5 lg:mx-auto"
     >
       <div className="w-[150px] lg:w-[200px] mx-auto">
-        <span className="inline-block p-1 mb-1  bg-primary-100 text-white rounded z-30">
+        <span className="inline-block px-2 py-1 mb-1 bg-primary-100 font-danaMedium text-white rounded z-30">
           {offer.discount}%
         </span>
         <img src={`/images/${image}`} alt={title} className="w-full" />
