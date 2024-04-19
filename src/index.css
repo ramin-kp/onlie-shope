@@ -54,7 +54,7 @@
     direction: ltr;
     text-align: left;
   }
-  .rtl-text{
+  .rtl-text {
     direction: rtl;
     text-align: right;
   }
@@ -124,21 +124,24 @@
 }
 .swiper-button-prev,
 .swiper-button-next {
-  width: 40px;
-  height: 40px;
+  @apply w-8 md:w-10 h-8 md:h-10;
   border-radius: 50%;
   background-color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  @apply bg-primary-200 duration-100;
+}
 .swiper-button-prev::after,
 .swiper-button-next::after {
-  @apply text-primary-200;
-  font-size: 20px;
+  @apply text-primary-200 hover:text-white duration-100 text-base md:text-xl;
   text-align: center;
   font-weight: 900;
 }
+
 .swiper-button-prev::after {
   margin-left: 5px;
 }

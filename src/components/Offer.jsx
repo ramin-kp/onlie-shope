@@ -33,40 +33,24 @@ function Offer({ response }) {
         title={"محصولات در تخفیف"}
         href={["همه محصولات", "/offers"]}
       />
-      <>
-        <Swiper
-          modules={[Virtual, Navigation, Pagination]}
-          slidesPerView={2}
-          spaceBetween={100}
-          navigation={true}
-          breakpoints={{
-            480: { slidesPerView: 2, spaceBetween: 50 },
-            640: { slidesPerView: 2, spaceBetween: 10 },
-            768: { slidesPerView: 3, spaceBetween: 50 },
-          }}
-        >
-          {data &&
-            data.map((item, index) => (
-              <SwiperSlide key={item.id} virtualIndex={index}>
-                <SliderCard data={item} />
-              </SwiperSlide>
-            ))}
-        </Swiper>
-
-        {/* <Swiper
-
+      <Swiper
+        modules={[Virtual, Navigation, Pagination]}
+        slidesPerView={2}
+        spaceBetween={100}
+        navigation={true}
+        breakpoints={{
+          480: { slidesPerView: 2, spaceBetween: 50 },
+          640: { slidesPerView: 2, spaceBetween: 10 },
+          768: { slidesPerView: 3, spaceBetween: 50 },
+        }}
       >
-        <SwiperSlide>Slide 1</SwiperSlide>
-        <SwiperSlide>Slide 2</SwiperSlide>
-        <SwiperSlide>Slide 3</SwiperSlide>
-        <SwiperSlide>Slide 4</SwiperSlide>
-        <SwiperSlide>Slide 5</SwiperSlide>
-        <SwiperSlide>Slide 6</SwiperSlide>
-        <SwiperSlide>Slide 7</SwiperSlide>
-        <SwiperSlide>Slide 8</SwiperSlide>
-        <SwiperSlide>Slide 9</SwiperSlide>
-      </Swiper> */}
-      </>
+        {data &&
+          data.map((item, index) => (
+            <SwiperSlide key={item.id} virtualIndex={index}>
+              <SliderCard data={item} />
+            </SwiperSlide>
+          ))}
+      </Swiper>
     </section>
   );
 }
