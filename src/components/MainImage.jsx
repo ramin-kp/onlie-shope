@@ -9,15 +9,18 @@ function MainImage() {
     queryKey,
     queryFn: getProposal,
   });
-  console.log({ proposalData, isPending });
   return (
     <section
       className="hidden md:inline-block relative main-img lg:bg-center bg-cover xl:bg-contain h-[650px]"
       data-aos="fade-up"
     >
       <div className="absolute inline-flex flex-col items-end justify-end w-full mb-auto childe:px-5 childe:py-3 childe:bg-gray-100 childe:rounded-s-3xl">
-        <span className="text-lg font-dana tracking-wider">زندگی خود را تجهیز کنید</span>
-        <span className=" text-xl font-danaBold tracking-wider">موارد دلخواه جدید شما اینجا هستند</span>
+        <span className="text-lg font-dana tracking-wider">
+          زندگی خود را تجهیز کنید
+        </span>
+        <span className=" text-xl font-danaBold tracking-wider">
+          موارد دلخواه جدید شما اینجا هستند
+        </span>
       </div>
       {proposalData && (
         <>
