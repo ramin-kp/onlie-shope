@@ -24,8 +24,8 @@ function HomePage() {
         <Main />
         <MainImage />
         <Obligations />
-        <Footer />
       </main>
+      <Footer />
     </>
   );
 }

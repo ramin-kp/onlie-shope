@@ -23,7 +23,7 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
         </Routes>
-        <ReactQueryDevtools />
+        {/* <ReactQueryDevtools /> */}
       </QueryClientProvider>
       <SvgIcons />
       <Toaster toastOptions={{ style: { fontFamily: "dana" } }} />
