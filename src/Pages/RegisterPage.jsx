@@ -53,7 +53,7 @@ function RegisterPage() {
         >
           <div>
             <input
-              className="w-full"
+              className="w-full ltr-text"
               type="text"
               {...register("userName", {
                 required: {
@@ -81,7 +81,7 @@ function RegisterPage() {
           </div>
           <div>
             <input
-              className="w-full"
+              className="w-full ltr-text"
               type="email"
               {...register("email", {
                 required: {
@@ -101,7 +101,7 @@ function RegisterPage() {
           </div>
           <div>
             <input
-              className="w-full"
+              className="w-full ltr-text"
               type="number"
               {...register("phone", {
                 required: {
@@ -125,7 +125,7 @@ function RegisterPage() {
           </div>
           <div className="relative">
             <input
-              className="grow w-full"
+              className="grow w-full ltr-text"
               type={inputType ? "password" : "text"}
               {...register("password", {
                 required: {

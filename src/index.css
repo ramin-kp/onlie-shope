@@ -55,10 +55,6 @@
 @layer components {
   .ltr-text {
     direction: ltr;
-    text-align: left;
-  }
-  .rtl-text {
-    direction: rtl;
     text-align: right;
   }
   .sub-menu--show {

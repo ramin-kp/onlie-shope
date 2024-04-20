@@ -46,7 +46,7 @@ function LoginPage() {
         >
           <div>
             <input
-              className="w-full"
+              className="w-full ltr-text"
               type="email"
               {...register("email", {
                 required: {
@@ -66,7 +66,7 @@ function LoginPage() {
           </div>
           <div className="relative">
             <input
-              className="grow w-full"
+              className="grow w-full ltr-text"
               type={inputType ? "password" : "text"}
               {...register("password", {
                 required: {
