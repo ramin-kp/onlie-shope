@@ -10,6 +10,7 @@ import SvgIcons from "./components/SvgIcons";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Aos from "aos";
 import "aos/dist/aos.css";
+import ThemContextProvider from "./context/ThemContextProvider";
 
 function App() {
   const queryClient = new QueryClient({
@@ -18,11 +19,13 @@ function App() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/login" element={<LoginPage />} />
-        </Routes>
+        <ThemContextProvider>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/login" element={<LoginPage />} />
+          </Routes>
+        </ThemContextProvider>
         {/* <ReactQueryDevtools /> */}
       </QueryClientProvider>
       <SvgIcons />

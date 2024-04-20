@@ -3,10 +3,15 @@ import { Link } from "react-router-dom";
 
 function Footer() {
   return (
-    <footer className="bg-white shadow-2xl" data-aos="fade-up">
+    <footer
+      className=" bg-white dark:bg-dark-100 shadow-2xl text-zinc-900 dark:text-white"
+      data-aos="fade-up"
+    >
       <div className="flex flex-wrap items-center justify-around gap-x-10 gap-y-5 px-8 py-5 container">
         <div className="grow">
-          <h3 className="font-danaBold text-base xs:text-xl text-center mb-2">فروشگاه ما</h3>
+          <h3 className="font-danaBold text-base xs:text-xl text-center mb-2">
+            فروشگاه ما
+          </h3>
           <p className="font-dana text-sm xs:text-lg text-center">
             آذربایجان شرقی -بناب-خیابان امام-فروشگاه پارس خزر
           </p>
@@ -27,7 +32,9 @@ function Footer() {
             </li>
           </ul>
           <ul className="font-dana text-sm xs:text-lg">
-            <h3 className="font-danaBold text-base xs:text-xl text-center mb-2">اطلاعات</h3>
+            <h3 className="font-danaBold text-base xs:text-xl text-center mb-2">
+              اطلاعات
+            </h3>
             <li className="hover:text-primary-200 duration-200">
               <Link to="/">حساب کاربری من</Link>
             </li>
@@ -40,11 +47,13 @@ function Footer() {
           </ul>
         </div>
       </div>
-      <div className="px-5 py-3 font-dana text-center text-sm xs:text-lg border-t border-gray-200">
+      <div className="px-5 py-3 font-dana text-center text-sm xs:text-lg border-t border-gray-200 dark:border-gray-700">
         <span>
           ساخته شده با ❤️ توسط{" "}
           <span className="font-danaMedium text-gray-400 hover:text-primary-200 duration-200">
-            <Link to="https://t.me/ramin_kp81">رامین کریم پور</Link>
+            <Link to="https://takl.ink/ramin_kp" target="_blank">
+              رامین کریم پور
+            </Link>
           </span>
         </span>
       </div>

@@ -5,18 +5,26 @@ import { useQuery } from "@tanstack/react-query";
 
 import MobileHeader from "./MobileHeader";
 import { getSubMenus } from "../Services/menus";
+import { useTheme } from "../context/ThemContextProvider";
 
 function Header() {
-  const [theme, setTheme] = useState("moon");
+  const { theme, setTheme } = useTheme();
   const [isShown, setIsShown] = useState(false);
   const { data } = useQuery({
     queryKey: ["menu-data"],
     queryFn: getSubMenus,
   });
+
+  const darkModeHandler = () => {
+    setTheme("dark");
+  };
+  const lightModeHandler = () => {
+    setTheme("light");
+  };
   return (
     // <!-- header -->
     <header>
-      <div className="flex items-center justify-between m-5 p-5 bg-white">
+      <div className="flex items-center justify-between m-5 p-5 bg-white dark:bg-dark-100 dark:text-white">
         {/* // <!-- bars icon for Mobile version --> */}
         <div
           className="inline-block lg:hidden cursor-pointer"
@@ -31,9 +39,12 @@ function Header() {
           isShown={isShown}
           setIsShown={setIsShown}
           theme={theme}
-          setTheme={setTheme}
+          darkModeHandler={darkModeHandler}
+          lightModeHandler={lightModeHandler}
+          data={data}
         />
-        {/* <!-- App Logo --> */}
+
+        {/* <!-- App Logo && desktop Header --> */}
         <Link to="/" className="w-[150px]">
           <img className="w-full" src="/images/logo-1.png" alt="logo-icon" />
         </Link>
@@ -54,10 +65,10 @@ function Header() {
               </svg>
             </Link>
             {/* <!-- subMenu for shopping --> */}
-            <ul className="sub-menu--show z-50">
+            <ul className="sub-menu--show z-50 dark:bg-dark-100">
               {data &&
                 data.map((item) => (
-                  <li key={item.id} className="childe:duration-1000">
+                  <li key={item.id} className="childe:duration-150">
                     <Link
                       to={`/${item.data.title.link}`}
                       className="inline-block mb-5 hover:text-primary-200"
@@ -90,9 +101,9 @@ function Header() {
         <div className="flex-center gap-x-2 lg:gap-x-5 childe:duration-150">
           <div
             className={`${
-              theme === "sun" ? "lg:flex-center" : ""
-            } hidden w-10 h-10 hover:bg-gray-100 rounded-full hover:cursor-pointer`}
-            onClick={() => setTheme("moon")}
+              theme === "dark" ? "lg:flex-center" : ""
+            } hidden w-10 h-10 lg:hover:bg-gray-100 lg:dark:hover:bg-dark-200 rounded-full hover:cursor-pointer text-yellow-500`}
+            onClick={lightModeHandler}
           >
             <svg className="w-6 h-6 ">
               <use href="#sun"></use>
@@ -100,25 +111,25 @@ function Header() {
           </div>
           <div
             className={`${
-              theme === "moon" ? "lg:flex-center" : ""
-            } hidden w-10 h-10 hover:bg-gray-100 rounded-full hover:cursor-pointer`}
-            onClick={() => setTheme("sun")}
+              theme === "light" ? "lg:flex-center" : ""
+            } hidden w-10 h-10 hover:bg-gray-100 rounded-full hover:cursor-pointer text-blue-800`}
+            onClick={darkModeHandler}
           >
             <svg className="w-6 h-6">
               <use href="#moon"></use>
             </svg>
           </div>
           <Link
-            className="flex-center hover:text-primary-200 lg:w-10 lg:h-10 lg:hover:bg-gray-100 rounded-full hover:cursor-pointer"
-            to=""
+            to="/user-dashboard"
+            className="flex-center hover:text-primary-200 lg:w-10 lg:h-10 lg:hover:bg-gray-100 lg:dark:hover:bg-dark-200 rounded-full hover:cursor-pointer group"
           >
             <svg className="w-5 h-5">
               <use href="#user"></use>
             </svg>
           </Link>
           <Link
-            className="flex-center hover:text-primary-200 lg:w-10 lg:h-10 lg:hover:bg-gray-100 rounded-full hover:cursor-pointer"
-            to=""
+            className="flex-center hover:text-primary-200 lg:w-10 lg:h-10 lg:hover:bg-gray-100 lg:dark:hover:bg-dark-200 rounded-full hover:cursor-pointer"
+            to="/orders"
           >
             <svg className="w-5 h-5">
               <use href="#shopping-cart"></use>

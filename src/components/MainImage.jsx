@@ -14,7 +14,7 @@ function MainImage() {
       className="hidden md:inline-block relative main-img lg:bg-center bg-cover xl:bg-contain h-[650px]"
       data-aos="fade-up"
     >
-      <div className="absolute inline-flex flex-col items-end justify-end w-full mb-auto childe:px-5 childe:py-3 childe:bg-gray-100 childe:rounded-s-3xl">
+      <div className="absolute inline-flex flex-col items-end justify-end w-full mb-auto childe:px-5 childe:py-3 childe:bg-gray-100  childe:rounded-s-3xl">
         <span className="text-lg font-dana tracking-wider">
           زندگی خود را تجهیز کنید
         </span>
@@ -30,7 +30,7 @@ function MainImage() {
           >
             <span className="absolute w-4 h-4 rounded-full bg-white"></span>
             <span className="absolute w-4 h-4 rounded-full bg-white/80 opacity-75 animate-ping"></span>
-            <div className="hidden group-hover:inline-block w-[250px] bg-white translate-x-1/2 translate-y-5 rounded-lg">
+            <div className="hidden group-hover:inline-block w-[250px] bg-white dark:bg-dark-100 text-zinc-900 dark:text-white translate-x-1/2 translate-y-5 rounded-lg">
               <div className="flex items-start justify-between gap-1 px-1.5 py-2">
                 <div>
                   <img
@@ -56,7 +56,7 @@ function MainImage() {
           >
             <span className="absolute w-4 h-4 rounded-full bg-white"></span>
             <span className="absolute w-4 h-4 rounded-full bg-white/80 opacity-75 animate-ping"></span>
-            <div className="hidden group-hover:inline-block w-[250px] bg-white rounded-lg translate-x-1/2 translate-y-5">
+            <div className="hidden group-hover:inline-block w-[250px] bg-white dark:bg-dark-100 text-zinc-900 dark:text-white rounded-lg translate-x-1/2 translate-y-5">
               <div className="flex items-start justify-between gap-1 px-1.5 py-2">
                 <div>
                   <img
@@ -82,7 +82,7 @@ function MainImage() {
           >
             <span className="absolute w-4 h-4 rounded-full bg-white"></span>
             <span className="absolute w-4 h-4 rounded-full bg-white/80 opacity-75 animate-ping"></span>
-            <div className="hidden group-hover:inline-block w-[250px] bg-white rounded-lg translate-x-1/2 translate-y-5">
+            <div className="hidden group-hover:inline-block w-[250px] bg-white dark:bg-dark-100 text-zinc-900 dark:text-white rounded-lg translate-x-1/2 translate-y-5">
               <div className="flex items-start justify-between gap-1 px-1.5 py-2">
                 <div>
                   <img

@@ -28,7 +28,7 @@ function Offer({ response }) {
     productsFilter();
   }, [productData]);
   return (
-    <section>
+    <section data-aos="fade-up">
       <SectionHeader
         title={"محصولات در تخفیف"}
         href={["همه محصولات", "/offers"]}

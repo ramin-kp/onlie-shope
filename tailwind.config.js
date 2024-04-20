@@ -23,6 +23,10 @@ export default {
           100: "#1f2937",
           200: "#111827",
         },
+        dark: {
+          100: "rgb(var(--color--dark))",
+          200: "#111827",
+        },
       },
     },
     screens: {

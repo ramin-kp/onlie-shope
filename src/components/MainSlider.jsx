@@ -39,7 +39,7 @@ function MainSlider() {
             <SwiperSlide
               key={item.id}
               className="flex items-center md:items-start justify-between
-              p-1 sm:p-4 md:p-8  cursor-pointer"
+              p-1 sm:p-4 md:p-8 cursor-pointer"
             >
               <div className="flex flex-col items-start justify-start gap-y-2 md:gap-y-7 mb-10 md:mb-0 md:mt-5 px-2 sm:px-8 text-white childe:text-right">
                 <h2 className="font-danaBold text-lg xs:text-xl sm:text-2xl lg:text-3xl leading-10 line-clamp-1 sm:line-clamp-2">

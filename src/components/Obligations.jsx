@@ -4,12 +4,12 @@ import SvgIcons from "./SvgIcons";
 function Obligations() {
   return (
     <section
-      className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-10 xs:gap-5 my-20"
+      className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-10 xs:gap-5 my-20 text-zinc-900 dark:text-white"
       data-aos="fade-up"
     >
       <div className="flex flex-col xl:flex-row items-center justify-center gap-x-5 mb-auto">
-        <div className="flex-center w-16 h-16 mb-2 xl:mb-auto rounded-full border border-gray-400">
-          <svg className="w-7 h-7 text-black">
+        <div className="flex-center w-16 h-16 mb-2 xl:mb-auto rounded-full border border-gray-400 dark:border-white">
+          <svg className="w-7 h-7">
             <use href="#truck"></use>
           </svg>
         </div>
@@ -22,8 +22,8 @@ function Obligations() {
       </div>
 
       <div className="flex flex-col xl:flex-row items-center justify-center gap-x-5 mb-auto">
-        <div className="flex-center w-16 h-16 mb-2 xl:mb-auto rounded-full border border-gray-400">
-          <svg className="w-7 h-7 text-black">
+        <div className="flex-center w-16 h-16 mb-2 xl:mb-auto rounded-full border border-gray-400 dark:border-white">
+          <svg className="w-7 h-7">
             <use href="#currency-dollar"></use>
           </svg>
         </div>
@@ -38,8 +38,8 @@ function Obligations() {
       </div>
 
       <div className="flex flex-col xl:flex-row items-center justify-center gap-x-5 mb-auto">
-        <div className="flex-center w-16 h-16 mb-2 xl:mb-auto rounded-full border border-gray-400">
-          <svg className="w-7 h-7 text-black">
+        <div className="flex-center w-16 h-16 mb-2 xl:mb-auto rounded-full border border-gray-400 dark:border-white">
+          <svg className="w-7 h-7">
             <use href="#phone"></use>
           </svg>
         </div>
@@ -54,8 +54,8 @@ function Obligations() {
       </div>
 
       <div className="flex flex-col xl:flex-row items-center justify-center gap-x-5 mb-auto">
-        <div className="flex-center w-16 h-16 mb-2 xl:mb-auto rounded-full border border-gray-400">
-          <svg className="w-7 h-7 text-black">
+        <div className="flex-center w-16 h-16 mb-2 xl:mb-auto rounded-full border border-gray-400 dark:border-white">
+          <svg className="w-7 h-7">
             <use href="#credit-card"></use>
           </svg>
         </div>
