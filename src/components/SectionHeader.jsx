@@ -13,15 +13,17 @@ function NewProducts({ title, href }) {
           {title}
         </h2>
       </div>
-      <Link
-        to={`${href[1]}`}
-        className="flex items-center justify-between p-2 font-danaMedium text-zinc-900 dark:text-white hover:bg-primary-200/60 dark:hover:bg-primary-200 childe:hover:text-white rounded-2xl duration-100"
-      >
-        <span className="text-sm sm:text-lg">{href[0]}</span>
-        <svg className="w-5 h-5 mr-2">
-          <use href="#arrow-left"></use>
-        </svg>
-      </Link>
+      {href && (
+        <Link
+          to={`${href[1]}`}
+          className="flex items-center justify-between p-2 font-danaMedium text-zinc-900 dark:text-white hover:bg-primary-200/60 dark:hover:bg-primary-200 childe:hover:text-white rounded-2xl duration-100"
+        >
+          <span className="text-sm sm:text-lg">{href[0]}</span>
+          <svg className="w-5 h-5 mr-2">
+            <use href="#arrow-left"></use>
+          </svg>
+        </Link>
+      )}
     </div>
   );
 }

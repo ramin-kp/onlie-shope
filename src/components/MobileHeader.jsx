@@ -9,7 +9,6 @@ function MobileHeader({
   lightModeHandler,
   data,
 }) {
-  console.log(data);
   const [isShowCategory, setIsShowCategory] = useState(false);
   return (
     <header className="lg:hidden">

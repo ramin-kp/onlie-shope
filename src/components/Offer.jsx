@@ -29,10 +29,7 @@ function Offer({ response }) {
   }, [productData]);
   return (
     <section data-aos="fade-up">
-      <SectionHeader
-        title={"محصولات در تخفیف"}
-        href={["همه محصولات", "/offers"]}
-      />
+      <SectionHeader title={"محصولات در تخفیف"} href={false} />
       <Swiper
         modules={[Virtual, Navigation, Pagination]}
         slidesPerView={2}
