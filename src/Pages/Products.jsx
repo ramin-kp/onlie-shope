@@ -13,6 +13,8 @@ import { customToast } from "../utils/customToast";
 //services
 import { getProductsData } from "../Services/products";
 import { useState } from "react";
+import { FormControl, MenuItem, Select } from "@mui/material";
+
 
 function Products() {
   const queryKey = ["products-data"];
@@ -25,6 +27,7 @@ function Products() {
     queryFn: getProductsData,
   });
   const [hovered, setHovered] = useState(false);
+  const [productDisplay, setProductDisplay] = useState("grid");
 
   if (isError) return customToast("error", "مشکلی پیش آمده ");
   return (
@@ -40,17 +43,32 @@ function Products() {
         </div>
         <div className="my-5 childe:my-5">
           <div className="flex items-start justify-between gap-x-5 w-full bg-white dark:bg-dark-100 px-5 py-3 rounded-lg">
+            {/* products sort */}
             <div className="flex items-center gap-x-5">
-              <svg className="w-7 h-7">
+              <svg
+                className={`${
+                  productDisplay === "grid"
+                    ? "text-primary-200"
+                    : "dark:text-white"
+                } w-7 h-7 cursor-pointer hover:scale-110 duration-200"`}
+                onClick={() => setProductDisplay("grid")}
+              >
                 <use href="#squares"></use>
               </svg>
-              <svg className="w-7 h-7">
+              <svg
+                className={`${
+                  productDisplay === "flex"
+                    ? "text-primary-200"
+                    : "dark:text-white"
+                } w-7 h-7 cursor-pointer hover:scale-110 duration-200"`}
+                onClick={() => setProductDisplay("flex")}
+              >
                 <use href="#list-bullet"></use>
               </svg>
             </div>
             <div className="w-[300px]">
-              <select className="border border-gray-500 w-full dark:text-white">
-                <option >select</option>
+              {/* <select className="border border-gray-500 w-full dark:text-white">
+                <option>select</option>
                 <option
                   onMouseEnter={() => setHovered(true)}
                   onMouseLeave={() => setHovered(false)}
@@ -72,7 +90,22 @@ function Products() {
                 >
                   ramin
                 </option>
-              </select>
+              </select> */}
+              <FormControl sx={{ m: 1, minWidth: 120 }}>
+                <Select
+                  // value={"age"}
+                  // onChange={"handleChange"}
+                  displayEmpty
+                  inputProps={{ "aria-label": "Without label" }}
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={"10"}>Ten</MenuItem>
+                  <MenuItem value={"20"}>Twenty</MenuItem>
+                  <MenuItem value={"30"}>Thirty</MenuItem>
+                </Select>
+              </FormControl>
             </div>
           </div>
           {isPending ? (
@@ -99,9 +132,19 @@ function Products() {
                   Lorem ipsum dolor sit..
                 </li>
               </ul>
-              <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
+              <div
+                className={`${
+                  productDisplay === "grid"
+                    ? "product-display--grid"
+                    : "product-display--flex"
+                } gap-5 mb-10`}
+              >
                 {products.data.map((product) => (
-                  <ProductCard key={product.id} data={product} />
+                  <ProductCard
+                    key={product.id}
+                    data={product}
+                    display={productDisplay}
+                  />
                 ))}
               </div>
             </div>

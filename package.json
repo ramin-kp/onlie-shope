@@ -10,6 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@mui/base": "^5.0.0-beta.40",
+    "@mui/material": "^5.15.15",
     "@tanstack/react-query": "^5.29.2",
     "@tanstack/react-query-devtools": "^5.29.2",
     "aos": "^2.3.4",

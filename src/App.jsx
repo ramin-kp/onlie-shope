@@ -23,6 +23,7 @@ import defaultOptions from "./Configs/queryClinet";
 
 //styles
 import "aos/dist/aos.css";
+import { StyledEngineProvider } from "@mui/material";
 
 function App() {
   const queryClient = new QueryClient({
@@ -30,21 +31,23 @@ function App() {
   });
   return (
     <>
-      <QueryClientProvider client={queryClient}>
-        <ThemContextProvider>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/*" element={<NotFound />} />
-          </Routes>
-        </ThemContextProvider>
-        <ReactQueryDevtools />
-      </QueryClientProvider>
-      <SvgIcons />
-      <Toaster toastOptions={{ style: { fontFamily: "dana" } }} />
-      {Aos.init()}
+      <StyledEngineProvider injectFirst>
+        <QueryClientProvider client={queryClient}>
+          <ThemContextProvider>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/products" element={<Products />} />
+              <Route path="/*" element={<NotFound />} />
+            </Routes>
+          </ThemContextProvider>
+          <ReactQueryDevtools />
+        </QueryClientProvider>
+        <SvgIcons />
+        <Toaster toastOptions={{ style: { fontFamily: "dana" } }} />
+        {Aos.init()}
+      </StyledEngineProvider>
     </>
   );
 }
