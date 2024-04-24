@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 function ProductCard({ data, display }) {
   const { id, link = "/", image, title, subTitle, price, Number } = data;
-  console.log(data);
   return (
     <div
       key={id}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 //component
@@ -13,21 +13,47 @@ import { customToast } from "../utils/customToast";
 //services
 import { getProductsData } from "../Services/products";
 import { useState } from "react";
-import { FormControl, MenuItem, Select } from "@mui/material";
-
+import SelectBox from "../components/SelectBox";
+import { useHover } from "@react-aria/interactions";
 
 function Products() {
+  const [hovered, setHovered] = useState(false);
+  const [productDisplay, setProductDisplay] = useState("grid");
+  const [productsFilter, setProductsFilter] = useState("Default");
+  const [filterTitle, setFilterTitle] = useState("مرتب‌سازی پیش‌فرض");
+  const [products, setProducts] = useState([]);
+  // const { hoverProps, isHovered } = useHover();
   const queryKey = ["products-data"];
-  const {
-    data: products,
-    isPending,
-    isError,
-  } = useQuery({
+  const { data, isPending, isError } = useQuery({
     queryKey,
     queryFn: getProductsData,
   });
-  const [hovered, setHovered] = useState(false);
-  const [productDisplay, setProductDisplay] = useState("grid");
+  useEffect(() => {
+    console.log("data", data);
+    setProducts(data?.data);
+    console.log("products", products);
+  }, [data]);
+  console.log(products);
+  useEffect(() => {
+    switch (productsFilter) {
+      case "Default":
+        setProducts(data?.data);
+        break;
+      case "Inexpensive":
+        console.log("Inexpensive");
+        products.sort((a, b) => a.price - b.price);
+        break;
+
+      case "Expensive":
+        console.log("Expensive");
+        products.sort((a, b) => b.price - a.price);
+
+        break;
+      default:
+        setProducts(data?.data);
+        break;
+    }
+  }, [productsFilter]);
 
   if (isError) return customToast("error", "مشکلی پیش آمده ");
   return (
@@ -67,50 +93,14 @@ function Products() {
               </svg>
             </div>
             <div className="w-[300px]">
-              {/* <select className="border border-gray-500 w-full dark:text-white">
-                <option>select</option>
-                <option
-                  onMouseEnter={() => setHovered(true)}
-                  onMouseLeave={() => setHovered(false)}
-                  className={`${hovered ? "bg-primary-200 text-white" : ""}`}
-                >
-                  ramin
-                </option>
-                <option
-                  onMouseEnter={() => setHovered(true)}
-                  onMouseLeave={() => setHovered(false)}
-                  className={`${hovered ? "bg-primary-200 text-white" : ""}`}
-                >
-                  ramin
-                </option>
-                <option
-                  onMouseEnter={() => setHovered(true)}
-                  onMouseLeave={() => setHovered(false)}
-                  className={`${hovered ? "bg-primary-200 text-white" : ""}`}
-                >
-                  ramin
-                </option>
-              </select> */}
-              <FormControl sx={{ m: 1, minWidth: 120 }}>
-                <Select
-                  // value={"age"}
-                  // onChange={"handleChange"}
-                  displayEmpty
-                  inputProps={{ "aria-label": "Without label" }}
-                >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem value={"10"}>Ten</MenuItem>
-                  <MenuItem value={"20"}>Twenty</MenuItem>
-                  <MenuItem value={"30"}>Thirty</MenuItem>
-                </Select>
-              </FormControl>
+              <SelectBox
+                filterTitle={filterTitle}
+                setFilterTitle={setFilterTitle}
+                setProductsFilter={setProductsFilter}
+              />
             </div>
           </div>
-          {isPending ? (
-            <Loader />
-          ) : (
+          {products?.length > 0 ? (
             <div className="flex justify-between items-start gap-x-10">
               <ul className="sticky top-28 flex flex-col items-center justify-start grow w-full shadow-lg rounded-lg">
                 <li className="w-full space-y-5 bg-red-400">
@@ -139,7 +129,7 @@ function Products() {
                     : "product-display--flex"
                 } gap-5 mb-10`}
               >
-                {products.data.map((product) => (
+                {data?.data.map((product) => (
                   <ProductCard
                     key={product.id}
                     data={product}
@@ -148,6 +138,8 @@ function Products() {
                 ))}
               </div>
             </div>
+          ) : (
+            <Loader />
           )}
         </div>
       </main>

@@ -23,7 +23,7 @@ import defaultOptions from "./Configs/queryClinet";
 
 //styles
 import "aos/dist/aos.css";
-import { StyledEngineProvider } from "@mui/material";
+// import { StyledEngineProvider } from "@mui/material";
 
 function App() {
   const queryClient = new QueryClient({
@@ -31,7 +31,7 @@ function App() {
   });
   return (
     <>
-      <StyledEngineProvider injectFirst>
+
         <QueryClientProvider client={queryClient}>
           <ThemContextProvider>
             <Routes>
@@ -47,7 +47,7 @@ function App() {
         <SvgIcons />
         <Toaster toastOptions={{ style: { fontFamily: "dana" } }} />
         {Aos.init()}
-      </StyledEngineProvider>
+      {/* </StyledEngineProvider> */}
     </>
   );
 }
