@@ -1,3 +1,4 @@
+import { useState } from "react";
 import React, { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 
@@ -6,56 +7,42 @@ import Header from "./../components/Header";
 import Footer from "./../components/Footer";
 import ProductCard from "./../components/ProductCard";
 import Loader from "../components/Loader";
+import SelectBox from "../components/SelectBox";
 
 //function
 import { customToast } from "../utils/customToast";
+import { filterProducts } from "../utils/products";
 
 //services
 import { getProductsData } from "../Services/products";
-import { useState } from "react";
-import SelectBox from "../components/SelectBox";
-import { useHover } from "@react-aria/interactions";
 
 function Products() {
-  const [hovered, setHovered] = useState(false);
   const [productDisplay, setProductDisplay] = useState("grid");
-  const [productsFilter, setProductsFilter] = useState("Default");
   const [filterTitle, setFilterTitle] = useState("مرتب‌سازی پیش‌فرض");
   const [products, setProducts] = useState([]);
-  // const { hoverProps, isHovered } = useHover();
+  const [query, setQuery] = useState({});
   const queryKey = ["products-data"];
   const { data, isPending, isError } = useQuery({
     queryKey,
     queryFn: getProductsData,
   });
+  const [finalProducts, setFinalProducts] = useState(
+    filterProducts(data?.data, query.filter)
+  );
+
   useEffect(() => {
-    console.log("data", data);
-    setProducts(data?.data);
-    console.log("products", products);
+    if (!data) return;
+    setProducts(data.data);
   }, [data]);
-  console.log(products);
+
   useEffect(() => {
-    switch (productsFilter) {
-      case "Default":
-        setProducts(data?.data);
-        break;
-      case "Inexpensive":
-        console.log("Inexpensive");
-        products.sort((a, b) => a.price - b.price);
-        break;
+    setProducts(finalProducts);
+  }, [finalProducts]);
 
-      case "Expensive":
-        console.log("Expensive");
-        products.sort((a, b) => b.price - a.price);
+  if (isError) {
+    customToast("error", "مشکلی پیش آمده ");
+  }
 
-        break;
-      default:
-        setProducts(data?.data);
-        break;
-    }
-  }, [productsFilter]);
-
-  if (isError) return customToast("error", "مشکلی پیش آمده ");
   return (
     <>
       <Header />
@@ -96,11 +83,13 @@ function Products() {
               <SelectBox
                 filterTitle={filterTitle}
                 setFilterTitle={setFilterTitle}
-                setProductsFilter={setProductsFilter}
+                query={query}
+                setQuery={setQuery}
               />
             </div>
           </div>
-          {products?.length > 0 ? (
+          {isPending && <Loader />}
+          {products?.length > 0 && (
             <div className="flex justify-between items-start gap-x-10">
               <ul className="sticky top-28 flex flex-col items-center justify-start grow w-full shadow-lg rounded-lg">
                 <li className="w-full space-y-5 bg-red-400">
@@ -138,8 +127,6 @@ function Products() {
                 ))}
               </div>
             </div>
-          ) : (
-            <Loader />
           )}
         </div>
       </main>
