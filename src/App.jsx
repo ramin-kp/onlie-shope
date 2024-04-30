@@ -31,22 +31,22 @@ function App() {
   });
   return (
     <>
-
-        <QueryClientProvider client={queryClient}>
-          <ThemContextProvider>
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/register" element={<RegisterPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/products" element={<Products />} />
-              <Route path="/*" element={<NotFound />} />
-            </Routes>
-          </ThemContextProvider>
-          <ReactQueryDevtools />
-        </QueryClientProvider>
-        <SvgIcons />
-        <Toaster toastOptions={{ style: { fontFamily: "dana" } }} />
-        {Aos.init()}
+      <QueryClientProvider client={queryClient}>
+        <ThemContextProvider>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/*" element={<NotFound />} />
+          </Routes>
+        </ThemContextProvider>
+        <ReactQueryDevtools />
+      </QueryClientProvider>
+      <SvgIcons />
+      <Toaster toastOptions={{ style: { fontFamily: "dana" } }} />
+      {Aos.init()}
+      
       {/* </StyledEngineProvider> */}
     </>
   );

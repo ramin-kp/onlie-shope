@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 @layer base {
   @font-face {
     font-family: "dana";
@@ -49,7 +48,7 @@
     @apply bg-gray-100 dark:bg-dark-200;
   }
   ::selection {
-    @apply bg-primary-200/65;
+    @apply bg-primary-200/65 text-white;
   }
 }
 @layer components {
@@ -118,8 +117,8 @@
   .product-display--flex {
     @apply flex flex-col items-start justify-center;
   }
-  .product-card--flex{
-    @apply flex
+  .product-card--flex {
+    @apply flex;
   }
 }
 @layer utilities {
@@ -156,3 +155,9 @@
 .swiper-button-next::after {
   margin-right: 5px;
 }
+
+.accordion-item h2 button span svg {
+  transform: rotate(90deg);
+  @apply data-[open=true]:-rotate-180 ;
+}
+

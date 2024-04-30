@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 
-function SelectBox({ filterTitle, setFilterTitle, query, setQuery }) {
+function SelectBox({ filterTitle, setFilterTitle, query, handleFilterChange }) {
   const [showSelectBox, setShowSelectBox] = useState(false);
-  const handleFilterChange = (title, filter) => {
+  const filterHandler = (title, filter) => {
     setFilterTitle(title);
-    setQuery({ ...query, filter });
+    handleFilterChange({ ...query, filter });
   };
   return (
     <div
-      className="relative max-w-xs p-3 border border-gray-400 dark:border-gray-600 rounded-lg cursor-pointer"
+      className="relative max-w-xs p-3 text-zinc-800 dark:text-white border border-gray-400 dark:border-gray-600 rounded-lg cursor-pointer"
       onClick={() => setShowSelectBox((prev) => !prev)}
     >
       <span className={` flex items-center justify-between`}>
@@ -32,7 +32,7 @@ function SelectBox({ filterTitle, setFilterTitle, query, setQuery }) {
               ? "bg-gray-300/60 dark:bg-gray-700"
               : ""
           } inline-block w-full h-full hover:bg-primary-200 hover:text-white`}
-          onClick={() => handleFilterChange("مرتب‌سازی پیش‌فرض", "default")}
+          onClick={() => filterHandler("مرتب‌سازی پیش‌فرض", "default")}
         >
           مرتب‌سازی پیش‌فرض
         </li>
@@ -43,7 +43,7 @@ function SelectBox({ filterTitle, setFilterTitle, query, setQuery }) {
               : ""
           } inline-block w-full h-full hover:bg-primary-200 hover:text-white`}
           onClick={() =>
-            handleFilterChange("مرتب‌سازی بر اساس ارزان‌ترین", "Inexpensive")
+            filterHandler("مرتب‌سازی بر اساس ارزان‌ترین", "Inexpensive")
           }
         >
           مرتب‌سازی بر اساس ارزان‌ترین
@@ -55,7 +55,7 @@ function SelectBox({ filterTitle, setFilterTitle, query, setQuery }) {
               : ""
           } inline-block w-full h-full hover:bg-primary-200 hover:text-white`}
           onClick={() =>
-            handleFilterChange("مرتب‌سازی بر اساس گران‌ترین", "Expensive")
+            filterHandler("مرتب‌سازی بر اساس گران‌ترین", "Expensive")
           }
         >
           مرتب‌سازی بر اساس گران‌ترین

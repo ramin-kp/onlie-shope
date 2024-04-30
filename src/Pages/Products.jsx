@@ -1,5 +1,5 @@
-import { useState } from "react";
 import React, { useEffect } from "react";
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 //component
@@ -12,32 +12,37 @@ import SelectBox from "../components/SelectBox";
 //function
 import { customToast } from "../utils/customToast";
 import { filterProducts } from "../utils/products";
+import { handelOpen } from "../utils/helper";
 
 //services
 import { getProductsData } from "../Services/products";
+import AccordionBox from "../components/AccordionBox";
 
 function Products() {
   const [productDisplay, setProductDisplay] = useState("grid");
   const [filterTitle, setFilterTitle] = useState("مرتب‌سازی پیش‌فرض");
   const [products, setProducts] = useState([]);
   const [query, setQuery] = useState({});
+  const [open, setOpen] = useState(0);
   const queryKey = ["products-data"];
   const { data, isPending, isError } = useQuery({
     queryKey,
     queryFn: getProductsData,
   });
-  const [finalProducts, setFinalProducts] = useState(
-    filterProducts(data?.data, query.filter)
-  );
 
   useEffect(() => {
     if (!data) return;
     setProducts(data.data);
   }, [data]);
 
-  useEffect(() => {
+  const handleFilterChange = async (newQuery) => {
+    console.log(newQuery);
+    setQuery(newQuery);
+    if (!data) return;
+    let finalProducts = await filterProducts(data.data, newQuery.filter);
+    console.log(finalProducts);
     setProducts(finalProducts);
-  }, [finalProducts]);
+  };
 
   if (isError) {
     customToast("error", "مشکلی پیش آمده ");
@@ -80,37 +85,23 @@ function Products() {
               </svg>
             </div>
             <div className="w-[300px]">
+              {/* select box */}
               <SelectBox
                 filterTitle={filterTitle}
                 setFilterTitle={setFilterTitle}
                 query={query}
-                setQuery={setQuery}
+                handleFilterChange={handleFilterChange}
               />
+
+              {/* select box */}
             </div>
           </div>
           {isPending && <Loader />}
           {products?.length > 0 && (
             <div className="flex justify-between items-start gap-x-10">
-              <ul className="sticky top-28 flex flex-col items-center justify-start grow w-full shadow-lg rounded-lg">
-                <li className="w-full space-y-5 bg-red-400">
-                  Lorem ipsum dolor sit..
-                </li>
-                <li className="w-full space-y-5 bg-red-400">
-                  Lorem ipsum dolor sit..
-                </li>
-                <li className="w-full space-y-5 bg-red-400">
-                  Lorem ipsum dolor sit..
-                </li>
-                <li className="w-full space-y-5 bg-red-400">
-                  Lorem ipsum dolor sit..
-                </li>
-                <li className="w-full space-y-5 bg-red-400">
-                  Lorem ipsum dolor sit..
-                </li>
-                <li className="w-full space-y-5 bg-red-400">
-                  Lorem ipsum dolor sit..
-                </li>
-              </ul>
+              <div className="sticky top-28 w-[350px] shadow-lg rounded-lg">
+                <AccordionBox />
+              </div>
               <div
                 className={`${
                   productDisplay === "grid"
@@ -118,13 +109,14 @@ function Products() {
                     : "product-display--flex"
                 } gap-5 mb-10`}
               >
-                {data?.data.map((product) => (
-                  <ProductCard
-                    key={product.id}
-                    data={product}
-                    display={productDisplay}
-                  />
-                ))}
+                {products &&
+                  products.map((product) => (
+                    <ProductCard
+                      key={product.id}
+                      data={product}
+                      display={productDisplay}
+                    />
+                  ))}
               </div>
             </div>
           )}
