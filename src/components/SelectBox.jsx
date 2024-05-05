@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 
+//function
+import { createQueryObject } from "../utils/products";
+
 function SelectBox({ filterTitle, setFilterTitle, query, handleFilterChange }) {
   const [showSelectBox, setShowSelectBox] = useState(false);
   const filterHandler = (title, filter) => {
     setFilterTitle(title);
-    handleFilterChange({ ...query, filter });
+    handleFilterChange(createQueryObject(query, { filter }));
   };
   return (
     <div
@@ -24,7 +27,7 @@ function SelectBox({ filterTitle, setFilterTitle, query, handleFilterChange }) {
       <ul
         className={`${
           showSelectBox ? "flex" : "hidden"
-        } absolute top-14 right-16 flex-col items-center justify-center childe:p-3 bg-white dark:bg-dark-100 font-dana text-center dark:childe:text-white rounded-lg transition-all childe:duration-150 overflow-hidden z-20`}
+        } absolute top-14 right-16 flex-col items-center justify-center childe:p-3 bg-white dark:bg-dark-200 font-dana text-center dark:childe:text-white rounded-lg transition-all childe:duration-150 overflow-hidden z-20`}
       >
         <li
           className={`${

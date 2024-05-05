@@ -11,9 +11,11 @@ import { getCategory } from "../Services/category";
 
 //function
 import { customToast } from "../utils/customToast";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { createQueryObject } from "../utils/products";
 
-function AccordionBox({ checked }) {
+function AccordionBox({ query, handleFilterChange }) {
+  const [price, setPrice] = useState([0, 100000000]);
   const queryKey = ["category-data"];
   const {
     data: category,
@@ -23,7 +25,11 @@ function AccordionBox({ checked }) {
     queryKey,
     queryFn: getCategory,
   });
-  console.log(category);
+
+  const clickHandler = (brand) => {
+    handleFilterChange(createQueryObject(query, {brand}));
+  };
+
   if (isError) return customToast("error", "مشکلی پیش آمده");
   return (
     <aside>
@@ -51,12 +57,15 @@ function AccordionBox({ checked }) {
               <AccordionDetails
                 key={item.id}
                 className={`${
-                  false ? "bg-gray-100 dark:bg-dark-100" : ""
-                } dark:bg-dark-100 hover:bg-gray-100 dark:hover:bg-dark-200/50 text-zinc-900 dark:text-white rounded transition-all  duration-150 cursor-pointer group`}
+                  query.title === item.value
+                    ? "bg-gray-100 !text-primary-200 dark:bg-dark-200/60 "
+                    : ""
+                } dark:bg-dark-100 hover:bg-gray-100 dark:hover:bg-dark-200/50 text-zinc-900  dark:text-white rounded transition-all duration-150 cursor-pointer group`}
+                onClick={() => clickHandler(item.value)}
               >
                 <Typography
                   component={"p"}
-                  className="font-dana group-hover:text-primary-200 transition-all duration-150"
+                  className="font-danaMedium group-hover:text-primary-200 transition-all duration-150"
                 >
                   <span>{item.title}</span>
                 </Typography>
@@ -83,11 +92,14 @@ function AccordionBox({ checked }) {
           </Typography>
         </AccordionSummary>
         <div className="pt-2 border-t border-gray-200 dark:border-gray-700">
-          <AccordionDetails
-            className={` dark:bg-dark-100 hover:bg-gray-100 dark:hover:bg-dark-200/50 hover:text-primary-200 text-zinc-900 dark:text-white rounded transition-all  duration-150 cursor-pointer group`}
-          >
-            سسس
-          </AccordionDetails>
+          {/* <Range /> */}
+          <div className="flex-center"></div>
+
+          {
+            <span className="font-danaBold">
+              {+price.toLocaleString()} تومان
+            </span>
+          }
         </div>
       </Accordion>
       <Accordion
@@ -110,12 +122,12 @@ function AccordionBox({ checked }) {
         </AccordionSummary>
         <div className="pt-2 border-t border-gray-200 dark:border-gray-700">
           <AccordionDetails
-            className={` dark:bg-dark-100 hover:bg-gray-100 dark:hover:bg-dark-200/50 hover:text-primary-200 text-zinc-900 dark:text-white rounded transition-all duration-150 cursor-pointer group`}
+            className={`dark:bg-dark-100 hover:bg-gray-100 dark:hover:bg-dark-200/50 hover:text-primary-200 text-zinc-900 dark:text-white rounded transition-all duration-150 cursor-pointer group`}
           >
             محصولات موجود
           </AccordionDetails>
           <AccordionDetails
-            className={` dark:bg-dark-100 hover:bg-gray-100 dark:hover:bg-dark-200/50 hover:text-primary-200 text-zinc-900 dark:text-white rounded transition-all duration-150 cursor-pointer group`}
+            className={`dark:bg-dark-100 hover:bg-gray-100 dark:hover:bg-dark-200/50 hover:text-primary-200 text-zinc-900 dark:text-white rounded transition-all duration-150 cursor-pointer group`}
           >
             محصولات ناموجود
           </AccordionDetails>

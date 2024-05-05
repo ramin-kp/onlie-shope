@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "react-router-dom";
 
 //component
 import Header from "./../components/Header";
@@ -11,8 +12,11 @@ import SelectBox from "../components/SelectBox";
 
 //function
 import { customToast } from "../utils/customToast";
-import { filterProducts } from "../utils/products";
-import { handelOpen } from "../utils/helper";
+import {
+  filterProductBrand,
+  filterProducts,
+  getInitialQuery,
+} from "../utils/products";
 
 //services
 import { getProductsData } from "../Services/products";
@@ -23,7 +27,7 @@ function Products() {
   const [filterTitle, setFilterTitle] = useState("مرتب‌سازی پیش‌فرض");
   const [products, setProducts] = useState([]);
   const [query, setQuery] = useState({});
-  const [open, setOpen] = useState(0);
+  const [searchParams, setSearchParams] = useSearchParams();
   const queryKey = ["products-data"];
   const { data, isPending, isError } = useQuery({
     queryKey,
@@ -31,22 +35,24 @@ function Products() {
   });
 
   useEffect(() => {
+    setQuery({});
     if (!data) return;
+    console.log("get", getInitialQuery(searchParams));
     setProducts(data.data);
   }, [data]);
 
   const handleFilterChange = async (newQuery) => {
-    console.log(newQuery);
-    setQuery(newQuery);
     if (!data) return;
+    console.log("newQuery", newQuery);
+    setQuery(newQuery);
+    setSearchParams(newQuery);
     let finalProducts = await filterProducts(data.data, newQuery.filter);
+    finalProducts = await filterProductBrand(finalProducts, newQuery.brand);
     console.log(finalProducts);
     setProducts(finalProducts);
   };
 
-  if (isError) {
-    customToast("error", "مشکلی پیش آمده ");
-  }
+  if (isError) customToast("error", "مشکلی پیش آمده ");
 
   return (
     <>
@@ -100,7 +106,11 @@ function Products() {
           {products?.length > 0 && (
             <div className="flex justify-between items-start gap-x-10">
               <div className="sticky top-28 w-[350px] shadow-lg rounded-lg">
-                <AccordionBox />
+                <AccordionBox
+                  query={query}
+                  setQuery={setQuery}
+                  handleFilterChange={handleFilterChange}
+                />
               </div>
               <div
                 className={`${
