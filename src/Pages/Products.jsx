@@ -65,15 +65,15 @@ function Products() {
     <>
       <Header />
       <main className="container my-5">
-        <div className=" mx-3 overflow-hidden rounded">
+        <div className="mx-3 overflow-hidden rounded">
           <img
             src="/images/banner-1.jpg"
             alt="banner-img"
-            className="lg:w-full mx-auto object-cover "
+            className="lg:w-full mx-auto object-contain"
           />
         </div>
-        <div className="my-5 childe:my-5">
-          <div className="flex items-start justify-between gap-x-5 w-full bg-white dark:bg-dark-100 px-5 py-3 rounded-lg">
+        <div className="my-5 mx-3 childe:my-5">
+          <div className="flex items-center justify-between gap-x-5 w-full mx-auto bg-gray-200 dark:bg-dark-100 px-5 py-3 rounded-lg">
             {/* products sort */}
             <div className="flex items-center gap-x-5">
               <svg
