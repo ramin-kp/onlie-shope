@@ -45,7 +45,7 @@
     --color--dark: 36 42 56;
   }
   body {
-    @apply bg-gray-100 dark:bg-dark-200;
+    @apply bg-gray-200 dark:bg-dark-200;
   }
   ::selection {
     @apply bg-primary-200/65 text-white;

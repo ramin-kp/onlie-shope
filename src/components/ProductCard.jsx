@@ -12,7 +12,7 @@ function ProductCard({ data, display }) {
     >
       {/* image */}
       <Link
-        to={`products/${title.replace(/\s/g,"-")}`}
+        to={`/products/${title.replace(/\s/g,"-")}`}
         className="inline-block flex-center shrink-0  rounded-lg overflow-hidden"
       >
         <img

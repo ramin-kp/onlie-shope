@@ -11,6 +11,7 @@ import RegisterPage from "./Pages/RegisterPage";
 import LoginPage from "./Pages/LoginPage";
 import Products from "./Pages/Products";
 import NotFound from "./Pages/NotFound";
+import ProductDetailsPage from "./Pages/ProductDetailsPage";
 
 //svgIcon
 import SvgIcons from "./components/SvgIcons";
@@ -23,7 +24,6 @@ import defaultOptions from "./Configs/queryClinet";
 
 //styles
 import "aos/dist/aos.css";
-// import { StyledEngineProvider } from "@mui/material";
 
 function App() {
   const queryClient = new QueryClient({
@@ -38,6 +38,8 @@ function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/products" element={<Products />} />
+            <Route path="products/:title" element={<ProductDetailsPage />} />
+
             <Route path="/*" element={<NotFound />} />
           </Routes>
         </ThemContextProvider>
@@ -46,7 +48,7 @@ function App() {
       <SvgIcons />
       <Toaster toastOptions={{ style: { fontFamily: "dana" } }} />
       {Aos.init()}
-      
+
       {/* </StyledEngineProvider> */}
     </>
   );
