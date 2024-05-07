@@ -14,7 +14,7 @@ function SelectBox({ filterTitle, setFilterTitle, query, handleFilterChange }) {
       className="relative max-w-xs p-3 text-zinc-800 dark:text-white border border-gray-400 dark:border-gray-600 rounded-lg cursor-pointer"
       onClick={() => setShowSelectBox((prev) => !prev)}
     >
-      <span className={` flex items-center justify-between`}>
+      <span className={`flex items-center justify-between font-danaMedium text-sm sm:text-lg`}>
         {filterTitle}
         <svg
           className={`${
@@ -27,12 +27,12 @@ function SelectBox({ filterTitle, setFilterTitle, query, handleFilterChange }) {
       <ul
         className={`${
           showSelectBox ? "flex" : "hidden"
-        } absolute top-14 right-16 flex-col items-center justify-center childe:p-3 bg-white dark:bg-dark-200 font-dana text-center dark:childe:text-white rounded-lg transition-all childe:duration-150 overflow-hidden z-20`}
+        } absolute top-14 xs:top-16 right-0 flex-col mt-4 xs:mt-auto items-center justify-center w-full childe:p-3 bg-gray-300 dark:bg-dark-200 text-sm sm:text-lg text-center dark:childe:text-white rounded-lg shadow-xl transition-all childe:duration-150 overflow-hidden z-20`}
       >
         <li
           className={`${
             filterTitle === "مرتب‌سازی پیش‌فرض"
-              ? "bg-gray-300/60 dark:bg-gray-700"
+              ? "bg-gray-400 dark:bg-gray-700"
               : ""
           } inline-block w-full h-full hover:bg-primary-200 hover:text-white`}
           onClick={() => filterHandler("مرتب‌سازی پیش‌فرض", "default")}
@@ -42,7 +42,7 @@ function SelectBox({ filterTitle, setFilterTitle, query, handleFilterChange }) {
         <li
           className={`${
             filterTitle === "مرتب‌سازی بر اساس ارزان‌ترین"
-              ? "bg-gray-300/60 dark:bg-gray-700"
+              ? "bg-gray-400 dark:bg-gray-700"
               : ""
           } inline-block w-full h-full hover:bg-primary-200 hover:text-white`}
           onClick={() =>
@@ -54,7 +54,7 @@ function SelectBox({ filterTitle, setFilterTitle, query, handleFilterChange }) {
         <li
           className={`${
             filterTitle === "مرتب‌سازی بر اساس گران‌ترین"
-              ? "bg-gray-300/60 dark:bg-gray-700"
+              ? "bg-gray-400 dark:bg-gray-700"
               : ""
           } inline-block w-full h-full hover:bg-primary-200 hover:text-white`}
           onClick={() =>

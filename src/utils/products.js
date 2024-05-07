@@ -14,10 +14,22 @@ const filterProducts = async (products, query) => {
   }
 };
 const filterProductBrand = async (products, query) => {
-  console.log("query", query);
   if (!query || query === "All") return products;
   const productsFilter = await products?.filter((item) => item.brand === query);
   return productsFilter;
+};
+const filterAvailableProducts = async (products, query) => {
+  console.log(query);
+  if (query === "AllProducts" || query === undefined) return products;
+  if (query === 0) {
+    return await products?.filter((item) => item.Number === 0);
+  }
+  if (query > 0) return await products?.filter((item) => item.Number > 0);
+};
+const filterPriceProducts = async (products, price) => {
+  return await products?.filter(
+    (product) => product.price >= price[0] && product.price <= price[1]
+  );
 };
 const createQueryObject = (currentQuery, newQuery) => {
   if (newQuery.filter === "default") {
@@ -28,20 +40,24 @@ const createQueryObject = (currentQuery, newQuery) => {
     const { brand, ...res } = currentQuery;
     return res;
   }
+
   return { ...currentQuery, ...newQuery };
 };
-const getInitialQuery = (searchParams) => {
-  const query = {};
-  const filter = searchParams.get("filter");
-  const brand = searchParams.get("brand");
-  if (filter) query.filter = filter;
-  if (brand) query.brand = brand;
-  return query;
-};
+// const getInitialQuery = (searchParams) => {
+//   const query = {};
+//   const filter = searchParams.get("filter");
+//   const brand = searchParams.get("brand");
+//   const available = searchParams.get("available");
+//   if (filter) query.filter = filter;
+//   if (brand) query.brand = brand;
+//   if (available) query.available = available;
+//   return query;
+// };
 
 export {
   filterProducts,
   filterProductBrand,
+  filterAvailableProducts,
+  filterPriceProducts,
   createQueryObject,
-  getInitialQuery,
 };

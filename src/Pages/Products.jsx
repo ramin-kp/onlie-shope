@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useSearchParams } from "react-router-dom";
 
 //component
 import Header from "./../components/Header";
@@ -13,9 +12,10 @@ import SelectBox from "../components/SelectBox";
 //function
 import { customToast } from "../utils/customToast";
 import {
+  filterAvailableProducts,
+  filterPriceProducts,
   filterProductBrand,
   filterProducts,
-  getInitialQuery,
 } from "../utils/products";
 
 //services
@@ -27,7 +27,7 @@ function Products() {
   const [filterTitle, setFilterTitle] = useState("مرتب‌سازی پیش‌فرض");
   const [products, setProducts] = useState([]);
   const [query, setQuery] = useState({});
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [price, setPrice] = useState([0, 100000000]);
   const queryKey = ["products-data"];
   const { data, isPending, isError } = useQuery({
     queryKey,
@@ -35,20 +35,27 @@ function Products() {
   });
 
   useEffect(() => {
-    setQuery({});
     if (!data) return;
-    console.log("get", getInitialQuery(searchParams));
     setProducts(data.data);
   }, [data]);
 
   const handleFilterChange = async (newQuery) => {
     if (!data) return;
-    console.log("newQuery", newQuery);
     setQuery(newQuery);
-    setSearchParams(newQuery);
-    let finalProducts = await filterProducts(data.data, newQuery.filter);
-    finalProducts = await filterProductBrand(finalProducts, newQuery.brand);
-    console.log(finalProducts);
+    let finalProducts = await filterProducts(data.data, newQuery?.filter);
+    console.log("finalProducts1", finalProducts);
+
+    finalProducts = await filterProductBrand(finalProducts, newQuery?.brand);
+    console.log("finalProducts2", finalProducts);
+
+    finalProducts = await filterAvailableProducts(
+      finalProducts,
+      newQuery?.available
+    );
+    console.log("finalProducts3", finalProducts);
+
+    finalProducts = await filterPriceProducts(finalProducts, price);
+    console.log("finalProducts4", finalProducts);
     setProducts(finalProducts);
   };
 
@@ -58,11 +65,11 @@ function Products() {
     <>
       <Header />
       <main className="container my-5">
-        <div className="w-full overflow-hidden rounded">
+        <div className=" mx-3 overflow-hidden rounded">
           <img
             src="/images/banner-1.jpg"
             alt="banner-img"
-            className="w-full mx-auto object-cover "
+            className="lg:w-full mx-auto object-cover "
           />
         </div>
         <div className="my-5 childe:my-5">
@@ -103,15 +110,17 @@ function Products() {
             </div>
           </div>
           {isPending && <Loader />}
-          {products?.length > 0 && (
-            <div className="flex justify-between items-start gap-x-10">
-              <div className="sticky top-28 w-[350px] shadow-lg rounded-lg">
-                <AccordionBox
-                  query={query}
-                  setQuery={setQuery}
-                  handleFilterChange={handleFilterChange}
-                />
-              </div>
+          <div className="flex flex-col sm:flex-row justify-between items-center sm:items-start gap-x-10 px-3 xs:px-5">
+            <div className="sm:sticky w-full my-5 sm:w-auto top-28 shadow-lg rounded-lg">
+              <AccordionBox
+                query={query}
+                setQuery={setQuery}
+                price={price}
+                setPrice={setPrice}
+                handleFilterChange={handleFilterChange}
+              />
+            </div>
+            {products?.length > 0 ? (
               <div
                 className={`${
                   productDisplay === "grid"
@@ -128,8 +137,12 @@ function Products() {
                     />
                   ))}
               </div>
-            </div>
-          )}
+            ) : (
+              <div className="flex-center w-full p-5 bg-gray-200 dark:bg-dark-100 dark:text-white font-danaBold text-xl rounded-lg">
+                محصولی با این فیلترها یافت نشد
+              </div>
+            )}
+          </div>
         </div>
       </main>
       <Footer />

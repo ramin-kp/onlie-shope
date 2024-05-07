@@ -8,7 +8,7 @@ function ProductCard({ data, display }) {
       key={id}
       className={`${
         display === "flex" ? "product-card--flex" : ""
-      } gap-10 px-4 py-2 bg-gray-200 dark:bg-dark-100 rounded-lg cursor-pointer hover:-translate-y-2 text-zinc-900 dark:text-white duration-500 shadow-lg`}
+      } gap-10 px-4 py-2 bg-gray-300/60 dark:bg-dark-100 rounded-lg cursor-pointer hover:-translate-y-2 text-zinc-900 dark:text-white duration-500 shadow-lg`}
     >
       {/* image */}
       <Link
