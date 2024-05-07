@@ -43,19 +43,12 @@ function Products() {
     if (!data) return;
     setQuery(newQuery);
     let finalProducts = await filterProducts(data.data, newQuery?.filter);
-    console.log("finalProducts1", finalProducts);
-
     finalProducts = await filterProductBrand(finalProducts, newQuery?.brand);
-    console.log("finalProducts2", finalProducts);
-
     finalProducts = await filterAvailableProducts(
       finalProducts,
       newQuery?.available
     );
-    console.log("finalProducts3", finalProducts);
-
     finalProducts = await filterPriceProducts(finalProducts, price);
-    console.log("finalProducts4", finalProducts);
     setProducts(finalProducts);
   };
 

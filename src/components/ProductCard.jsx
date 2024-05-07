@@ -12,7 +12,7 @@ function ProductCard({ data, display }) {
     >
       {/* image */}
       <Link
-        to={`products/${link}`}
+        to={`products/${title.replace(/\s/g,"-")}`}
         className="inline-block flex-center shrink-0  rounded-lg overflow-hidden"
       >
         <img
@@ -25,7 +25,7 @@ function ProductCard({ data, display }) {
       {/* details */}
       <div className="mt-5 flex flex-col justify-between ">
         <Link
-          to={`/products/${link}`}
+          to={`/products/${title.replace(/\s/g,"-")}`}
           className="h-[50px] font-danaBold text-base line-clamp-2 hover:text-primary-200 duration-100"
         >
           {title}
