@@ -25,7 +25,7 @@ function MainImage() {
       {proposalData && (
         <>
           <Link
-            to={`/products/${proposalData.data[0].link}`}
+            to={`/products/${proposalData.data[0].title}`}
             className="absolute inline-block -translate-x-[500px] lg:-translate-x-[950px] xl:-translate-x-[1100px] translate-y-[450px] cursor-pointer group"
           >
             <span className="absolute w-4 h-4 rounded-full bg-white"></span>
@@ -51,7 +51,7 @@ function MainImage() {
             </div>
           </Link>
           <Link
-            to={`/products/${proposalData.data[1].link}`}
+            to={`/products/${proposalData.data[1].title}`}
             className="absolute -translate-x-[100px] xl:-translate-x-[200px] translate-y-[350px]  cursor-pointer group"
           >
             <span className="absolute w-4 h-4 rounded-full bg-white"></span>
@@ -77,7 +77,7 @@ function MainImage() {
             </div>
           </Link>
           <Link
-            to={`/products/${proposalData.data[2].link}`}
+            to={`/products/${proposalData.data[2].title}`}
             className="absolute -translate-x-[430px] lg:-translate-x-[530px] xl:-translate-x-[650px] translate-y-[350px]  cursor-pointer group"
           >
             <span className="absolute w-4 h-4 rounded-full bg-white"></span>

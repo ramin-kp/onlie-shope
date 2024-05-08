@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 
 function Breadcrumb({ link, title }) {
   return (
-    <div>
+    <div className="mx-5 lg:mx-2">
       <Breadcrumbs
         aria-label="breadcrumb"
-        className="bg-gray-300 dark:bg-dark-100 p-5 my-5 font-dana text-lg dark:text-gray-400 rounded-md"
+        className="bg-gray-300 dark:bg-dark-100 p-5 my-5 font-dana text-sm md:text-base lg:text-lg dark:text-gray-400 rounded-md"
       >
         <Link
           to="/"
@@ -23,9 +23,9 @@ function Breadcrumb({ link, title }) {
         </Link>
         <Typography
           component="p"
-          className="font-dana text-lg text-zinc-900 dark:text-white"
+          className="font-dana text-sm md:text-base lg:text-lg text-zinc-900 dark:text-white"
         >
-          {title.replaceAll("-", " ")}
+          {title}
         </Typography>
       </Breadcrumbs>
     </div>

@@ -6,11 +6,12 @@ import { useQuery } from "@tanstack/react-query";
 import MobileHeader from "./MobileHeader";
 import { getSubMenus } from "../Services/menus";
 import { useTheme } from "../context/ThemContextProvider";
+import { customToast } from "../utils/customToast";
 
 function Header() {
   const { theme, setTheme } = useTheme();
   const [isShown, setIsShown] = useState(false);
-  const { data } = useQuery({
+  const { data, isError } = useQuery({
     queryKey: ["menu-data"],
     queryFn: getSubMenus,
   });
@@ -21,6 +22,8 @@ function Header() {
   const lightModeHandler = () => {
     setTheme("light");
   };
+  if (isError) return customToast("error", "مشکلی پیش آمده");
+
   return (
     // <!-- header -->
     <header className="sticky top-2 z-[100]">

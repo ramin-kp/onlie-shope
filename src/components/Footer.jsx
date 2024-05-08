@@ -51,7 +51,11 @@ function Footer() {
         <span>
           ساخته شده با ❤️ توسط{" "}
           <span className="font-danaMedium text-gray-400 hover:text-primary-200 duration-200">
-            <Link to="https://takl.ink/ramin_kp" target="_blank">
+            <Link
+              to="https://takl.ink/ramin_kp"
+              target="_blank"
+              className="underline underline-offset-[5px]"
+            >
               رامین کریم پور
             </Link>
           </span>
