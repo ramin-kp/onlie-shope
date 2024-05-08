@@ -11,7 +11,7 @@ function SelectBox({ filterTitle, setFilterTitle, query, handleFilterChange }) {
   };
   return (
     <div
-      className="relative max-w-xs p-3 text-zinc-800 dark:text-white border border-gray-400 dark:border-gray-600 rounded-lg cursor-pointer"
+      className="relative w-full lg:max-w-xs p-3 mx-auto text-zinc-800 dark:text-white border border-gray-400 dark:border-gray-600 rounded-lg cursor-pointer"
       onClick={() => setShowSelectBox((prev) => !prev)}
     >
       <span className={`flex items-center justify-between font-danaMedium text-sm sm:text-lg`}>

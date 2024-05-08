@@ -68,7 +68,7 @@ function Products() {
         <div className="my-5 mx-3 childe:my-5">
           <div className="flex items-center justify-between gap-x-5 w-full mx-auto bg-gray-200 dark:bg-dark-100 px-5 py-3 rounded-lg">
             {/* products sort */}
-            <div className="flex items-center gap-x-5">
+            <div className="hidden lg:flex items-center gap-x-5">
               <svg
                 className={`${
                   productDisplay === "grid"
@@ -90,7 +90,7 @@ function Products() {
                 <use href="#list-bullet"></use>
               </svg>
             </div>
-            <div className="w-[300px]">
+            <div className="w-full lg:w-[300px]">
               {/* select box */}
               <SelectBox
                 filterTitle={filterTitle}
