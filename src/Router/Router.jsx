@@ -11,7 +11,7 @@ import ContactUs from "../Pages/contactUs";
 import ProductDetailsPage from "../Pages/ProductDetailsPage";
 import ProductsByBrand from "../Pages/ProductsByBrand";
 import ProductsByCategory from "../Pages/ProductsByCategory";
-import NotFound from "../Pages/NotFound";
+import NotFoundPage from "./../Pages/NotFoundPage";
 
 //components
 import Modal from "../components/Modal";
@@ -34,7 +34,7 @@ function Router() {
 
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
+      <Route index element={<HomePage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/products" element={<Products />} />
@@ -45,7 +45,7 @@ function Router() {
         path="products/brand/:brandName/:category"
         element={<ProductsByCategory />}
       />
-      <Route path="/*" element={<NotFound />} />
+      <Route path="/*" element={<NotFoundPage />} />
     </Routes>
   );
 }

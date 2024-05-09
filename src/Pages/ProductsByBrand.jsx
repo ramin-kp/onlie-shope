@@ -61,7 +61,7 @@ function ProductsByBrand() {
   return (
     <>
       <Header />
-      <main className="container my-5">
+      <main className="container my-5" data-aos="fade-up">
         {/* products brandName */}
         <div className="flex items-center justify-center lg:justify-start gap-x-1 px-5 mx-3 my-10 w-full rounded">
           <span className="font-morabba text-xl xs:text-2xl">محصولات</span>

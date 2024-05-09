@@ -41,7 +41,7 @@ function RegisterPage() {
   };
   return (
     <main className="flex flex-col justify-center items-center h-screen ">
-      <div className="p-5 mx-2 bg-gray-200 shadow-lg  rounded-lg">
+      <div className="p-5 mx-2 bg-gray-300 shadow-lg  rounded-lg">
         <img
           src="/images/logo-1.png"
           alt="log-icon"
@@ -174,7 +174,7 @@ function RegisterPage() {
           ) : (
             <button
               type="submit"
-              className="p-2 px-3 bg-red-600 text-white font-danaBold rounded-lg hover:bg-red-700 duration-75"
+              className="p-2 px-3 bg-primary-200 text-white font-danaBold rounded-lg hover:bg-red-700 duration-75"
             >
               ثبت نام
             </button>

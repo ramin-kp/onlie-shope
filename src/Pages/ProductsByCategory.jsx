@@ -39,11 +39,9 @@ function ProductsByCategory() {
   useEffect(() => {
     if (!data) return;
     let productsData = filteredProductsByBrand(data.data, brandName);
-    productsData =  filteredProductsByCategory(productsData, category);
+    productsData = filteredProductsByCategory(productsData, category);
     setProducts(productsData);
-    console.log("ca", data.data);
-  }, [data, brandName,category]);
-  console.log(products);
+  }, [data, brandName, category]);
 
   const handleFilterChange = async (newQuery) => {
     if (!data) return;
@@ -67,7 +65,7 @@ function ProductsByCategory() {
   return (
     <>
       <Header />
-      <main className="container my-5">
+      <main className="container my-5" data-aos="fade-up">
         {/* products brandName */}
         <div className="flex items-center justify-center lg:justify-start gap-x-1 px-5 mx-3 my-10 w-full rounded">
           <span className="font-morabba text-xl xs:text-2xl">محصولات</span>

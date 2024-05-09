@@ -57,7 +57,7 @@ function Products() {
   return (
     <>
       <Header />
-      <main className="container my-5">
+      <main className="container my-5" data-aos="fade-up">
         <div className="mx-3 overflow-hidden rounded">
           <img
             src="/images/banner-1.jpg"

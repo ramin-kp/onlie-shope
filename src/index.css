@@ -57,7 +57,7 @@
     text-align: right;
   }
   .sub-menu--show {
-    @apply absolute top-[130px] group-hover:top-[95px] right-1/2 opacity-0 invisible group-hover:opacity-100 group-hover:visible flex items-start justify-around translate-x-1/2  w-[96%] xl:w-[97%] mx-auto py-5 font-danaBold text-center bg-white shadow-lg group-hover:transition-all duration-500;
+    @apply absolute top-[130px] group-hover:top-[95px] right-1/2 opacity-0 invisible group-hover:opacity-100 group-hover:visible flex items-start justify-around translate-x-1/2 w-[96%] xl:w-[97%] mx-auto py-5 font-danaBold text-center bg-white shadow-lg group-hover:transition-all duration-500;
   }
   .loader,
   .loader:before,

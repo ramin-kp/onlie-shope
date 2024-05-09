@@ -44,7 +44,7 @@ function ProductDetailsPage() {
   return (
     <>
       <Header />
-      <main className="container">
+      <main className="container" data-aos="fade-up">
         <Breadcrumb link={["products", "محصولات"]} title={params.title} />
         {productsData?.id ? (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-16 mx-2 p-3 font-dana">
