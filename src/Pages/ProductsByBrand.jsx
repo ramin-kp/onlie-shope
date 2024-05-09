@@ -40,7 +40,6 @@ function ProductsByBrand() {
     if (!data) return;
     setProducts(filteredProductsByBrand(data.data, brandName));
   }, [data, brandName]);
-  console.log(products);
 
   const handleFilterChange = async (newQuery) => {
     if (!data) return;

@@ -15,10 +15,15 @@ import { getProductsData } from "../Services/products";
 
 //function
 import { customToast } from "../utils/customToast";
+import { useCard } from "../context/CardContextProvider";
+import { quantityCount } from "../utils/helpers";
 
 function ProductDetailsPage() {
   const [productsData, setProductsData] = useState({});
   const params = useParams();
+  const [state, dispatch] = useCard();
+
+  const quantity = quantityCount(state, productsData);
   const queryKey = ["products-data"];
   const {
     data: products,
@@ -37,8 +42,7 @@ function ProductDetailsPage() {
     };
     getData();
   }, [products]);
-  console.log(productsData);
-
+  console.log(productsData.Number);
   if (isError) return customToast("error", "مشکلی پیش آمده");
 
   return (
@@ -59,7 +63,7 @@ function ProductDetailsPage() {
               <h1 className="font-danaBold text-base sm:text-xl lg:text-2xl">
                 {productsData.title}
               </h1>
-              {}
+
               {!!productsData.price == 0 ? (
                 <h3 className="pb-5 text-xl border-b border-gray-300">
                   ناموجود
@@ -85,16 +89,78 @@ function ProductDetailsPage() {
               ) : (
                 `${productsData.price.toLocaleString()} تومان`
               )}
-
               <div>
                 <p className="text-gray-600 dark:text-gray-500">
                   {productsData.subTitle}
                 </p>
-                <div className="my-5">
-                  <button className="px-5 py-3 bg-primary-200 font-dana text-white rounded-lg hover:bg-red-700 duration-75">
-                    افزودن به سبد خرید
-                  </button>
-                </div>
+                {/* button */}
+                {productsData.Number > 0 ? (
+                  <div className="my-10 flex items-center justify-start">
+                    {!quantity && (
+                      <button
+                        className="px-5 py-3 bg-primary-200 font-dana text-white rounded-lg hover:bg-red-700 duration-75"
+                        onClick={() =>
+                          dispatch({ type: "ADD_ITEM", payload: productsData })
+                        }
+                      >
+                        افزودن به سبد خرید
+                      </button>
+                    )}
+                    {quantity > 0 && (
+                      <button
+                        className={`${
+                          quantity >= 2
+                            ? "bg-primary-200/60"
+                            : "bg-primary-200 hover:bg-red-700"
+                        } px-5 py-3 font-danaBold text-white rounded-lg duration-75`}
+                        onClick={() =>
+                          dispatch({ type: "INCREASE", payload: productsData })
+                        }
+                        disabled={quantity >= 2}
+                      >
+                        +
+                      </button>
+                    )}
+                    <div className="flex flex-col items-center justify-center w-14 h-12 font-danaBold">
+                      <span className="font-dana text-base text-zinc-900 dark:text-white">
+                        {quantity >= 1 && quantity}
+                      </span>
+                      <span className="font-dana text-sm text-gray-500">
+                        {quantity >= 2 && "حداکثر"}
+                      </span>
+                    </div>
+                    {quantity === 1 && (
+                      <button
+                        className="px-5 py-3 bg-primary-200 font-dana text-white rounded-lg hover:bg-red-700 duration-75"
+                        onClick={() =>
+                          dispatch({
+                            type: "REMOVE_ITEM",
+                            payload: productsData,
+                          })
+                        }
+                      >
+                        <svg className="w-5 h-5 text-white">
+                          <use href="#trash"></use>
+                        </svg>
+                      </button>
+                    )}
+                    {quantity > 1 && (
+                      <button
+                        className="px-5 py-3 bg-primary-200 font-danaBold text-white rounded-lg hover:bg-red-700 duration-75"
+                        onClick={() =>
+                          dispatch({ type: "DECREASE", payload: productsData })
+                        }
+                      >
+                        -
+                      </button>
+                    )}
+                  </div>
+                ) : (
+                  <div className="flex-center p-2 my-5 bg-primary-200 font-danaMedium text-xl rounded-lg">
+                    <span className="text-white ">ناموجود</span>
+                  </div>
+                )}
+
                 <div className="childe:flex childe:items-center childe:justify-start childe:gap-5 space-y-3 font-dana text-base text-gray-600 dark:text-gray-400">
                   <h4>
                     برند:

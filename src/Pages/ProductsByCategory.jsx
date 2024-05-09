@@ -61,7 +61,6 @@ function ProductsByCategory() {
 
   if (isError) customToast("error", "مشکلی پیش آمده ");
 
-  console.log(useParams());
   return (
     <>
       <Header />

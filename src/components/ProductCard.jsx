@@ -40,7 +40,7 @@ function ProductCard({ data, display }) {
         </p>
 
         {/* price */}
-        {Number ? (
+        {Number > 0 ? (
           <div className="flex items-center justify-between px-2 pt-2 mt-2 font-danaMedium text-lg border-t border-gray-300 dark:border-gray-700">
             <span>قیمت:</span>
             <span className="text-primary-200 ">

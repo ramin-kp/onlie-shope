@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getProductsData } from "../Services/products";
 import Obligations from "../components/Obligations";
 import Footer from "../components/Footer";
+import { useCard } from "../context/CardContextProvider";
 
 function HomePage() {
   const queryKey = ["products-data"];
@@ -15,6 +16,7 @@ function HomePage() {
     queryFn: getProductsData,
   });
 
+  const [state, dispatch] = useCard();
   return (
     <>
       <Header />

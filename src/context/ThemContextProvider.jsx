@@ -21,7 +21,7 @@ function ThemContextProvider({ children }) {
 
 const useTheme = () => {
   const { theme, setTheme } = useContext(CreateTheme);
-  return { theme, setTheme };
+  return [theme, setTheme];
 };
 
 export default ThemContextProvider;

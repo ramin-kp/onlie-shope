@@ -7,10 +7,12 @@ import MobileHeader from "./MobileHeader";
 import { getSubMenus } from "../Services/menus";
 import { useTheme } from "../context/ThemContextProvider";
 import { customToast } from "../utils/customToast";
+import { useCard } from "../context/CardContextProvider";
 
 function Header() {
-  const { theme, setTheme } = useTheme();
+  const [theme, setTheme] = useTheme();
   const [isShown, setIsShown] = useState(false);
+  const [state] = useCard();
   const { data, isError } = useQuery({
     queryKey: ["menu-data"],
     queryFn: getSubMenus,
@@ -131,13 +133,22 @@ function Header() {
             </svg>
           </Link>
           <Link
-            className="flex-center hover:text-primary-200 lg:w-10 lg:h-10 lg:hover:bg-gray-100 lg:dark:hover:bg-dark-200 rounded-full hover:cursor-pointer"
+            className="relative flex-center hover:text-primary-200 lg:w-10 lg:h-10 lg:hover:bg-gray-100 lg:dark:hover:bg-dark-200 rounded-full hover:cursor-pointer"
             to="/orders"
           >
             <svg className="w-5 h-5">
               <use href="#shopping-cart"></use>
             </svg>
           </Link>
+          <span
+            className={`${
+              state.itemCounter === 0
+                ? "hidden"
+                : "absolute left-16 top-7 inline-block flex-center w-4 h-4 pt-1.5 bg-primary-200 font-dana text-lg text-center text-white rounded-full"
+            }`}
+          >
+            {state.itemCounter}
+          </span>
         </div>
       </div>
     </header>

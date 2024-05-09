@@ -13,6 +13,7 @@ import ScrollToTop from "./components/ScrollToTop";
 
 //context
 import ThemContextProvider from "./context/ThemContextProvider";
+import CardContextProvider from "./context/CardContextProvider";
 
 //configs
 import defaultOptions from "./Configs/queryClinet";
@@ -30,8 +31,10 @@ function App() {
     <>
       <QueryClientProvider client={queryClient}>
         <ThemContextProvider>
-          <Router />
-          <ScrollToTop />
+          <CardContextProvider>
+            <Router />
+            <ScrollToTop />
+          </CardContextProvider>
         </ThemContextProvider>
         <ReactQueryDevtools />
       </QueryClientProvider>
