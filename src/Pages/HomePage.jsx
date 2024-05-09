@@ -7,7 +7,6 @@ import { useQuery } from "@tanstack/react-query";
 import { getProductsData } from "../Services/products";
 import Obligations from "../components/Obligations";
 import Footer from "../components/Footer";
-import { useTheme } from "../context/ThemContextProvider";
 
 function HomePage() {
   const queryKey = ["products-data"];
@@ -15,7 +14,6 @@ function HomePage() {
     queryKey,
     queryFn: getProductsData,
   });
-  const { theme, setTheme } = useTheme();
 
   return (
     <>

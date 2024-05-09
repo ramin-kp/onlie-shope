@@ -63,7 +63,7 @@ function Header() {
               to="/products"
             >
               فروشگاه
-              <svg className="w-5 h-5">
+              <svg className="w-5 h-5 group-hover:rotate-180 transition-all duration-150">
                 <use href="#arrow-down"></use>
               </svg>
             </Link>

@@ -22,10 +22,10 @@ function Footer() {
               دسترسی سریع
             </h3>
             <li className="hover:text-primary-200 duration-200">
-              <Link to="/">حساب کاربری من</Link>
+              <Link to="/user-dashboard">حساب کاربری من</Link>
             </li>
             <li className="hover:text-primary-200 duration-200">
-              <Link to="/">سبد خرید</Link>
+              <Link to="/orders">سبد خرید</Link>
             </li>
             <li className="hover:text-primary-200 duration-200">
               <Link to="/">پیگیری سفارش</Link>
@@ -36,13 +36,10 @@ function Footer() {
               اطلاعات
             </h3>
             <li className="hover:text-primary-200 duration-200">
-              <Link to="/">حساب کاربری من</Link>
+              <Link to="/contact-us">تماس با ما</Link>
             </li>
             <li className="hover:text-primary-200 duration-200">
-              <Link to="/">سبد خرید</Link>
-            </li>
-            <li className="hover:text-primary-200 duration-200">
-              <Link to="/">پیگیری سفارش</Link>
+              <Link to="/products">محصولات</Link>
             </li>
           </ul>
         </div>

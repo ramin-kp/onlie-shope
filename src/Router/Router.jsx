@@ -11,6 +11,7 @@ import ContactUs from "../Pages/contactUs";
 import ProductDetailsPage from "../Pages/ProductDetailsPage";
 import ProductsByBrand from "../Pages/ProductsByBrand";
 import ProductsByCategory from "../Pages/ProductsByCategory";
+import Orders from "../Pages/Orders";
 import NotFoundPage from "./../Pages/NotFoundPage";
 
 //components
@@ -19,6 +20,7 @@ import Modal from "../components/Modal";
 //services
 import { getProductsData } from "../Services/products";
 import { getSubMenus } from "../Services/menus";
+import UserDashboard from "../Pages/UserDashboard";
 
 function Router() {
   const { isPending: isProductsLoading } = useQuery({
@@ -39,12 +41,14 @@ function Router() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/products" element={<Products />} />
       <Route path="/contact-us" element={<ContactUs />} />
+      <Route path="/orders" element={<Orders />} />
       <Route path="/products/:title" element={<ProductDetailsPage />} />
       <Route path="products/brand/:brandName" element={<ProductsByBrand />} />
       <Route
         path="products/brand/:brandName/:category"
         element={<ProductsByCategory />}
       />
+      <Route path="/user-dashboard" element={<UserDashboard />} />
       <Route path="/*" element={<NotFoundPage />} />
     </Routes>
   );
