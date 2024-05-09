@@ -15,7 +15,7 @@ const filterProducts = async (products, query) => {
 };
 const filterProductBrand = async (products, query) => {
   if (!query || query === "All") return products;
-  const productsFilter = await products?.filter((item) => item.brand === query);
+  const productsFilter = await products?.filter((item) => item.brand[0] === query);
   return productsFilter;
 };
 const filterAvailableProducts = async (products, query) => {

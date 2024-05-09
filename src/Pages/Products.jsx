@@ -38,6 +38,7 @@ function Products() {
     if (!data) return;
     setProducts(data.data);
   }, [data]);
+  console.log(data.data);
 
   const handleFilterChange = async (newQuery) => {
     if (!data) return;
