@@ -15,7 +15,9 @@ const filterProducts = async (products, query) => {
 };
 const filterProductBrand = async (products, query) => {
   if (!query || query === "All") return products;
-  const productsFilter = await products?.filter((item) => item.brand[0] === query);
+  const productsFilter = await products?.filter(
+    (item) => item.brand[0] === query
+  );
   return productsFilter;
 };
 const filterAvailableProducts = async (products, query) => {
@@ -42,6 +44,11 @@ const createQueryObject = (currentQuery, newQuery) => {
 
   return { ...currentQuery, ...newQuery };
 };
+const filteredProductsByBrand = (data, brandName) =>
+  data.filter((product) => product.brand[0] === brandName);
+const filteredProductsByCategory = (data, category) =>
+  data.filter((product) => product.category[0] === category);
+
 // const getInitialQuery = (searchParams) => {
 //   const query = {};
 //   const filter = searchParams.get("filter");
@@ -59,4 +66,6 @@ export {
   filterAvailableProducts,
   filterPriceProducts,
   createQueryObject,
+  filteredProductsByBrand,
+  filteredProductsByCategory,
 };

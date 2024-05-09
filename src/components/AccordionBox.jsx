@@ -15,7 +15,7 @@ import { useState } from "react";
 import { createQueryObject } from "../utils/products";
 import SliderBox from "./SliderBox";
 
-function AccordionBox({ query, price, setPrice, handleFilterChange }) {
+function AccordionBox({ query, price, setPrice, handleFilterChange, isBrand }) {
   const queryKey = ["category-data"];
   const { data: category, isError } = useQuery({
     queryKey,
@@ -63,46 +63,48 @@ function AccordionBox({ query, price, setPrice, handleFilterChange }) {
           />
         </div>
       </Accordion>
-      <Accordion
-        defaultExpanded
-        className="w-[200px] p-2 mb-2 dark:bg-dark-100 text-zinc-900 dark:text-white rounded"
-      >
-        <AccordionSummary
-          expandIcon={
-            <svg className="w-5 h-5 dark:text-white ">
-              <use href="#arrow-down"></use>
-            </svg>
-          }
-          aria-controls="panel1-content"
-          id="panel1-header"
-          className=" border-b border-gray-100 "
+      {!!isBrand && (
+        <Accordion
+          defaultExpanded
+          className="w-[200px] p-2 mb-2 dark:bg-dark-100 text-zinc-900 dark:text-white rounded"
         >
-          <Typography component={"h3"} className="font-danaMedium text-lg">
-            برند محصولات
-          </Typography>
-        </AccordionSummary>
-        <div className="pt-2 border-t border-gray-200 dark:border-gray-700">
-          {category &&
-            category.data.map((item) => (
-              <AccordionDetails
-                key={item.id}
-                className={`${
-                  query?.brand === item.value
-                    ? "bg-gray-200 !text-primary-200 dark:bg-dark-200/60"
-                    : ""
-                }  dark:bg-dark-100 hover:bg-gray-300 dark:hover:bg-dark-200/50 text-zinc-900  dark:text-white rounded transition-all duration-150 cursor-pointer group`}
-                onClick={() => productBrandHandler(item.value)}
-              >
-                <Typography
-                  component={"p"}
-                  className="font-danaMedium group-hover:text-primary-200 transition-all duration-150"
+          <AccordionSummary
+            expandIcon={
+              <svg className="w-5 h-5 dark:text-white ">
+                <use href="#arrow-down"></use>
+              </svg>
+            }
+            aria-controls="panel1-content"
+            id="panel1-header"
+            className=" border-b border-gray-100 "
+          >
+            <Typography component={"h3"} className="font-danaMedium text-lg">
+              برند محصولات
+            </Typography>
+          </AccordionSummary>
+          <div className="pt-2 border-t border-gray-200 dark:border-gray-700">
+            {category &&
+              category.data.map((item) => (
+                <AccordionDetails
+                  key={item.id}
+                  className={`${
+                    query?.brand === item.value
+                      ? "bg-gray-200 !text-primary-200 dark:bg-dark-200/60"
+                      : ""
+                  }  dark:bg-dark-100 hover:bg-gray-300 dark:hover:bg-dark-200/50 text-zinc-900  dark:text-white rounded transition-all duration-150 cursor-pointer group`}
+                  onClick={() => productBrandHandler(item.value)}
                 >
-                  <span>{item.title}</span>
-                </Typography>
-              </AccordionDetails>
-            ))}
-        </div>
-      </Accordion>
+                  <Typography
+                    component={"p"}
+                    className="font-danaMedium group-hover:text-primary-200 transition-all duration-150"
+                  >
+                    <span>{item.title}</span>
+                  </Typography>
+                </AccordionDetails>
+              ))}
+          </div>
+        </Accordion>
+      )}
       <Accordion
         defaultExpanded
         className="w-[200px] p-2 dark:bg-dark-100 text-zinc-900 dark:text-white rounded"

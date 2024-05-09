@@ -7,8 +7,11 @@ import HomePage from "../Pages/HomePage";
 import RegisterPage from "../Pages/RegisterPage";
 import LoginPage from "../Pages/LoginPage";
 import Products from "../Pages/Products";
+import ContactUs from "../Pages/contactUs";
 import ProductDetailsPage from "../Pages/ProductDetailsPage";
-import NotFound from "./../Pages/NotFound";
+import ProductsByBrand from "../Pages/ProductsByBrand";
+import ProductsByCategory from "../Pages/ProductsByCategory";
+import NotFound from "../Pages/NotFound";
 
 //components
 import Modal from "../components/Modal";
@@ -28,14 +31,20 @@ function Router() {
   });
 
   if (isProductsLoading && isMenuLoading) return <Modal />;
+
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/products" element={<Products />} />
-      <Route path="products/:title" element={<ProductDetailsPage />} />
-
+      <Route path="/contact-us" element={<ContactUs />} />
+      <Route path="/products/:title" element={<ProductDetailsPage />} />
+      <Route path="products/brand/:brandName" element={<ProductsByBrand />} />
+      <Route
+        path="products/brand/:brandName/:category"
+        element={<ProductsByCategory />}
+      />
       <Route path="/*" element={<NotFound />} />
     </Routes>
   );

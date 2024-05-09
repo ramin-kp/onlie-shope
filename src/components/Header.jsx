@@ -73,7 +73,7 @@ function Header() {
                 data.map((item) => (
                   <li key={item.id} className="childe:duration-150">
                     <Link
-                      to={`/${item.data.title.link}`}
+                      to={`/products/brand/${item.data.title.link}`}
                       className="inline-block mb-5 hover:text-primary-200"
                     >
                       {item.data.title.text}
@@ -82,7 +82,7 @@ function Header() {
                       {item.data.subMenus.map((item) => (
                         <Link
                           key={item.text}
-                          to={`/${item.link}`}
+                          to={`/products/brand/${item.link}`}
                           className="hover:text-primary-200"
                         >
                           {item.text}

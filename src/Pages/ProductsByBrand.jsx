@@ -1,33 +1,35 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 //component
-import Header from "./../components/Header";
-import Footer from "./../components/Footer";
-import ProductCard from "./../components/ProductCard";
-import Loader from "../components/Loader";
+import Header from "../components/Header";
 import SelectBox from "../components/SelectBox";
-
-//function
-import { customToast } from "../utils/customToast";
-import {
-  filterAvailableProducts,
-  filterPriceProducts,
-  filterProductBrand,
-  filterProducts,
-} from "../utils/products";
+import Loader from "../components/Loader";
+import AccordionBox from "../components/AccordionBox";
+import ProductCard from "../components/ProductCard";
+import Footer from "../components/Footer";
 
 //services
 import { getProductsData } from "../Services/products";
-import AccordionBox from "../components/AccordionBox";
 
-function Products() {
+//function
+import {
+  filterAvailableProducts,
+  filterPriceProducts,
+  filterProducts,
+  filteredProductsByBrand,
+} from "../utils/products";
+import { customToast } from "../utils/customToast";
+import { useParams } from "react-router-dom";
+import { setBrandName } from "../utils/helpers";
+
+function ProductsByBrand() {
   const [productDisplay, setProductDisplay] = useState("grid");
   const [filterTitle, setFilterTitle] = useState("مرتب‌سازی پیش‌فرض");
   const [products, setProducts] = useState([]);
   const [query, setQuery] = useState({});
   const [price, setPrice] = useState([0, 100000000]);
+  const { brandName } = useParams();
   const queryKey = ["products-data"];
   const { data, isPending, isError } = useQuery({
     queryKey,
@@ -36,14 +38,17 @@ function Products() {
 
   useEffect(() => {
     if (!data) return;
-    setProducts(data.data);
-  }, [data]);
+    setProducts(filteredProductsByBrand(data.data, brandName));
+  }, [data, brandName]);
+  console.log(products);
 
   const handleFilterChange = async (newQuery) => {
     if (!data) return;
     setQuery(newQuery);
-    let finalProducts = await filterProducts(data.data, newQuery?.filter);
-    finalProducts = await filterProductBrand(finalProducts, newQuery?.brand);
+    let finalProducts = await filterProducts(
+      filteredProductsByBrand(data.data, brandName),
+      newQuery?.filter
+    );
     finalProducts = await filterAvailableProducts(
       finalProducts,
       newQuery?.available
@@ -53,20 +58,19 @@ function Products() {
   };
 
   if (isError) customToast("error", "مشکلی پیش آمده ");
-
   return (
     <>
       <Header />
       <main className="container my-5">
-        <div className="mx-3 overflow-hidden rounded">
-          <img
-            src="/images/banner-1.jpg"
-            alt="banner-img"
-            className="lg:w-full mx-auto object-contain"
-          />
+        {/* products brandName */}
+        <div className="flex items-center justify-center lg:justify-start gap-x-1 px-5 mx-3 my-10 w-full rounded">
+          <span className="font-morabba text-xl xs:text-2xl">محصولات</span>
+          <span className="font-morabba text-xl xs:text-2xl">
+            {setBrandName(brandName)}
+          </span>
         </div>
         <div className="my-5 mx-3 childe:my-5">
-          <div className="flex items-center justify-between gap-x-5 w-full mx-auto bg-gray-200 dark:bg-dark-100 px-5 py-3 rounded-lg">
+          <div className="flex items-center justify-between gap-x-5 w-full mx-auto bg-gray-300 dark:bg-dark-100 px-5 py-3 rounded-lg">
             {/* products sort */}
             <div className="hidden lg:flex items-center gap-x-5">
               <svg
@@ -111,7 +115,7 @@ function Products() {
                 price={price}
                 setPrice={setPrice}
                 handleFilterChange={handleFilterChange}
-                isBrand={1}
+                isBrand={0}
               />
             </div>
             {products?.length > 0 ? (
@@ -144,4 +148,4 @@ function Products() {
   );
 }
 
-export default Products;
+export default ProductsByBrand;

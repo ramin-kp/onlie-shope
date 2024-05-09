@@ -37,6 +37,7 @@ function ProductDetailsPage() {
     };
     getData();
   }, [products]);
+  console.log(productsData);
 
   if (isError) return customToast("error", "مشکلی پیش آمده");
 
