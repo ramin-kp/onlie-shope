@@ -106,11 +106,11 @@ function ProductDetailsPage() {
                         افزودن به سبد خرید
                       </button>
                     )}
-                    {quantity > 0 && (
+                    {quantity >=1 && (
                       <button
                         className={`${
                           quantity >= 2
-                            ? "bg-primary-200/60"
+                            ? "bg-gray-500"
                             : "bg-primary-200 hover:bg-red-700"
                         } px-5 py-3 font-danaBold text-white rounded-lg duration-75`}
                         onClick={() =>
@@ -171,6 +171,7 @@ function ProductDetailsPage() {
                     <span className="">{productsData.category[1]}</span>
                   </h4>
                 </div>
+                <p className="inline-block p-1 mt-5 bg-primary-200 font-danaMedium text-base text-white rounded-md">برای پیگیری و اطلاع بیشتر در شبکه های اجتماعی با ما در ارتباط باشید</p>
                 <div className="flex items-center justify-start gap-x-5 mt-5">
                   <Link to="https://instagram.com/ramin._kp/" target="_blank">
                     <svg className="w-6 h-6 text-zinc-900 dark:bg-white rounded-md">
