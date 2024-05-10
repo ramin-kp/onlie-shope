@@ -59,7 +59,7 @@ function MobileHeader({
             >
               {data &&
                 data.map((item) => (
-                  <Link key={item.id} to={`/category/${item.data.title.link}`}>
+                  <Link key={item.id} to={`/products/brand/${item.data.title.link}`}>
                     {item.data.title.text}
                   </Link>
                 ))}

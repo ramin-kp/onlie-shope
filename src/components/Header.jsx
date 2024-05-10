@@ -140,15 +140,16 @@ function Header() {
               <use href="#shopping-cart"></use>
             </svg>
           </Link>
-          <span
+          <Link
+            to="/orders"
             className={`${
               state.itemCounter === 0
                 ? "hidden"
-                : "absolute left-16 top-7 inline-block flex-center w-4 h-4 pt-1.5 bg-primary-200 font-dana text-lg text-center text-white rounded-full"
+                : "absolute left-12 lg:left-16 top-7 inline-block flex-center w-4 h-4 pt-1.5 bg-primary-200 font-dana text-lg text-center text-white rounded-full"
             }`}
           >
             {state.itemCounter}
-          </span>
+          </Link>
         </div>
       </div>
     </header>
