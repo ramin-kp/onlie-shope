@@ -6,9 +6,11 @@ import { BrowserRouter } from "react-router-dom";
 import { StyledEngineProvider } from "@mui/material";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <StyledEngineProvider injectFirst>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </StyledEngineProvider>
+  <React.StrictMode>
+    <StyledEngineProvider injectFirst>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </StyledEngineProvider>
+  </React.StrictMode>
 );
