@@ -42,7 +42,6 @@ function ProductDetailsPage() {
     };
     getData();
   }, [products]);
-  console.log(productsData.Number);
   if (isError) return customToast("error", "مشکلی پیش آمده");
 
   return (

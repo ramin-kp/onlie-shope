@@ -120,6 +120,9 @@
   .product-card--flex {
     @apply flex;
   }
+  .quantity--shadow {
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.17);
+  }
 }
 @layer utilities {
   .flex-center {
