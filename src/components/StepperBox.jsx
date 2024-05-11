@@ -2,7 +2,7 @@ import { Step, StepLabel, Stepper } from "@mui/material";
 import React from "react";
 
 function StepperBox({ step }) {
-  const steps = ["سبد خرید", "ثبت مشخصات ", "تایید نهایی"];
+  const steps = ["سبد خرید", "ثبت نهایی "];
   return (
     <div className="my-8">
       <Stepper activeStep={step} alternativeLabel>

@@ -37,7 +37,7 @@ function Orders() {
                 dispatch={dispatch}
               />
             )}
-            {step === 1 && <CustomerDetails />}
+            {step === 1 && <CustomerDetails step={step} setStep={setStep} />}
           </>
         ) : (
           <div className=" w-full text-center">

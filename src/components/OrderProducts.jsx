@@ -5,7 +5,7 @@ function OrderProducts({ data, step, setStep, dispatch }) {
   const { selectedItems, total, itemCounter, checkout } = data;
 
   return (
-    <section className="flex flex-col lg:flex-row items-center justify-between gap-x-5">
+    <section className="flex flex-col lg:flex-row items-start justify-between gap-x-5">
       {/* products map */}
       <>
         <OrderTable products={selectedItems} dispatch={dispatch} />
