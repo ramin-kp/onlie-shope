@@ -123,6 +123,10 @@
   .quantity--shadow {
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.17);
   }
+  .stepper__dir {
+    text-align: left;
+    direction: ltr;
+  }
 }
 @layer utilities {
   .flex-center {
@@ -164,7 +168,18 @@
   @apply data-[open=true]:-rotate-180;
 }
 
+
+/* mui-style */
 .css-1as9v07-MuiSlider-thumb:hover,
 .css-1as9v07-MuiSlider-thumb.Mui-focusVisible {
   box-shadow: 0px 0px 0px 8px rgba(239, 68, 68, 0.25);
+}
+.muirtl-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root {
+  @apply  !text-3xl;
+}
+.muirtl-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active {
+  @apply !text-primary-200;
+}
+.muirtl-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed {
+  @apply !text-primary-200;
 }

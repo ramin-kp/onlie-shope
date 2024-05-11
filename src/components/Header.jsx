@@ -145,7 +145,7 @@ function Header() {
             className={`${
               state.itemCounter === 0
                 ? "hidden"
-                : "absolute left-12 lg:left-16 top-7 inline-block flex-center w-4 h-4 pt-1.5 bg-gray-200 font-dana text-sm text-center text-primary-200 rounded-full quantity--shadow"
+                : "absolute left-12 lg:left-16 top-7 inline-block flex-center w-4 h-4 pt-1.5 bg-gray-200 dark:bg-white font-dana text-sm text-center text-primary-200 rounded-full quantity--shadow"
             }`}
           >
             {state.itemCounter}
