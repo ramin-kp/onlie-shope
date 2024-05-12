@@ -196,7 +196,7 @@
   box-shadow: 0px 0px 0px 8px rgba(239, 68, 68, 0.25);
 }
 .muirtl-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root {
-  @apply !text-3xl;
+  @apply !text-3xl !text-gray-500;
 }
 .muirtl-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active {
   @apply !text-primary-200;
@@ -207,4 +207,10 @@
 .muirtl-dsy3z9-MuiStepLabel-label.Mui-active,
 .muirtl-dsy3z9-MuiStepLabel-label.Mui-completed {
   @apply !text-base !text-primary-200;
+}
+.MuiStepLabel-label,
+.Mui-disabled,
+.MuiStepLabel-alternativeLabel,
+.muirtl-dsy3z9-MuiStepLabel-label {
+  @apply text-gray-400;
 }

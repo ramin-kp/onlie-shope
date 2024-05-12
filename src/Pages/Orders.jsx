@@ -20,7 +20,10 @@ function Orders() {
   return (
     <>
       <Header />
-      <main className="container bg-white dark:bg-dark-100 p-5 my-10 text-zinc-900 dark:text-white rounded-2xl ">
+      <main
+        className="container bg-white dark:bg-dark-100 p-5 my-10 text-zinc-900 dark:text-white rounded-2xl"
+        data-aos="fade-up"
+      >
         {!!itemCounter ? (
           <>
             {" "}

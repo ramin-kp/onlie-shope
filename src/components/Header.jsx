@@ -29,7 +29,7 @@ function Header() {
   return (
     // <!-- header -->
     <header className="sticky top-2 z-[100]">
-      <div className="flex items-center justify-between m-5 p-5 bg-white dark:bg-dark-100 dark:text-white rounded-lg">
+      <div className="flex items-center justify-between m-5 p-5 bg-white dark:bg-dark-100 dark:text-white rounded-lg shadow-lg">
         {/* // <!-- bars icon for Mobile version --> */}
         <div
           className="inline-block lg:hidden cursor-pointer"
