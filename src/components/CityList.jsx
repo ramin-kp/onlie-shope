@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function CityList({
   provinces,
@@ -7,37 +7,106 @@ function CityList({
   setCityText,
   provinceText,
   setProvinceText,
+  provinceCode,
+  setProvinceCode,
 }) {
   const [isShowProvince, setIsShowProvince] = useState(false);
   const [isShowCity, setIsShowCity] = useState(false);
-  console.log({ provinces, cities });
+  const [selectBox, setSelectBox] = useState(null);
+  const [citiesData, setCitiesData] = useState([]);
+
+  //citiesFilter
+  useEffect(() => {
+    if (!cities) return;
+    const res = cities.data.filter((city) => city.province_id === provinceCode);
+    setCitiesData(res);
+  }, [cities, provinceCode]);
+
+  const provinceInputHandler = (provinceName, code) => {
+    setProvinceText(provinceName);
+    setIsShowProvince((prev) => !prev);
+    setProvinceCode(code);
+  };
+  const citiesInputHandler = (citiesName) => {
+    setCityText(citiesName);
+    setIsShowCity((prev) => !prev);
+  };
   return (
-    <div>
-      <div>
+    <>
+      <div className="relative w-full cursor-pointer form-field">
+        <label htmlFor="#province" className="form-field__label">
+          استان
+        </label>
         <span
-          className={"px-3 py-2 font-danaBold border border-gray-400"}
-          onClick={() => setIsShowProvince((prev) => !prev)}
+          id="province"
+          className={`form-field__select`}
+          onClick={() => {
+            setIsShowProvince((prev) => !prev);
+            setSelectBox("province");
+          }}
         >
-          {provinceText === 0
-            ? "استان خود را انتخاب کنید"
-            : provinces?.data[provinceText - 1].name}
+          {!provinceText ? "استان خود را انتخاب کنید" : provinceText}
         </span>
-        <ul className={`${isShowProvince ? "inline-block " : "hidden"} h-20 bg-gray-400 dark:bg-dark-100 overflow-y-auto`}>
+        <ul
+          className={`${
+            isShowProvince && selectBox === "province"
+              ? "inline-block "
+              : "hidden"
+          } form-field__option`}
+        >
           {provinces?.data.map((province) => (
-            <li key={province.id} onClick={() => setProvinceText(province.id)}>
+            <li
+              key={province.id}
+              className={`${
+                province.name === provinceText
+                  ? "bg-primary-200 text-white"
+                  : ""
+              } px-3 py-2 hover:bg-primary-200 hover:text-white transition-colors duration-150`}
+              onClick={() => provinceInputHandler(province.name, province.id)}
+            >
               {province.name}
             </li>
           ))}
         </ul>
       </div>
-      <div>
-        <ul className="h-40 overflow-y-scroll">
-          {cities?.data.map((city) => (
-            <li key={city.id}>{city.name}</li>
-          ))}
+      <div className="relative w-full childe:w-full cursor-pointer form-field">
+        <label htmlFor="#city" className="form-field__label">
+          شهر
+        </label>
+
+        <span
+          id="city"
+          className={`form-field__select`}
+          onClick={() => {
+            provinceText && setIsShowCity((prev) => !prev);
+            provinceText && setSelectBox("city");
+          }}
+        >
+          {!provinceText && "ابتدا استان خود را انتخاب کنید"}
+          {!cityText && provinceText ? "شهر خود را انتخاب کنید" : cityText}
+        </span>
+        <ul
+          className={`${
+            isShowCity && selectBox === "city" && !isShowProvince
+              ? "inline-block "
+              : "hidden"
+          } form-field__option`}
+        >
+          {citiesData?.length &&
+            citiesData.map((city) => (
+              <li
+                key={city.id}
+                className={`${
+                  city.name === cityText ? "bg-primary-200 text-white" : ""
+                } px-3 py-2 hover:bg-primary-200 hover:text-white transition-colors duration-150`}
+                onClick={() => citiesInputHandler(city.name)}
+              >
+                {city.name}
+              </li>
+            ))}
         </ul>
       </div>
-    </div>
+    </>
   );
 }
 

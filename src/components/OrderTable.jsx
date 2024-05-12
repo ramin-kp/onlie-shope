@@ -1,35 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 function OrderTable({ products, dispatch }) {
   return (
-    <table>
-      <thead className="inline-block grow w-full pb-5 border-b border-gray-300 dark:border-gray-600">
-        <tr className="flex items-center justify-between w-full childe:text-center">
-          <th className="w-[500px]">محصول</th>
-          <th className="w-[130px] !text-right">قیمت</th>
-          <th>تعداد</th>
-          <th className="w-[150px]">جمع جزء</th>
-        </tr>
-      </thead>
-      <tbody className="w-full">
+    <div className="w-full lg:w-2/3">
+      {/* table header */}
+      <div className="hidden sm:flex items-center justify-between gap-5 mx-5 font-danaBold childe:shrink-0">
+        <div className="w-[200px] md:w-[250px] lg:w-auto">محصول</div>
+        <div className="!text-right">قیمت</div>
+        <div>تعداد</div>
+        <div className="">جمع جزء</div>
+      </div>
+      {/* table body */}
+      <div className="divide-y dark:divide-gray-700 childe:py-2">
         {products.map((product) => (
-          <tr
+          <div
             key={product.id}
-            className="flex items-center justify-between gap-5 my-10"
+            className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 my-10"
           >
-            <td className="flex items-center justify-start gap-x-5 px-2 w-[500px]">
+            {/* products name */}
+            <div className="flex items-center justify-start gap-x-5 w-full sm:w-[350px] 2xl:w-[400px] px-2">
               <img
                 src={`images/${product.image}`}
                 alt="product-img"
-                className="w-[100px]"
+                className="w-16 xl:w-[100px]"
               />
-              <p className="text-sm">{product.title}</p>
-            </td>
-            <td className="w-[130px]">
+              <p className=" text-right text-sm">{product.title}</p>
+            </div>
+            <div className="text-center">
               {product.price.toLocaleString()} تومان
-            </td>
+            </div>
             {/* button */}
-            <td className="flex items-center justify-start px-2">
+            <div className="flex items-center justify-start w-36 sm:mx-auto px-2">
               {product.quantity >= 1 && (
                 <button
                   className={`${
@@ -84,14 +85,15 @@ function OrderTable({ products, dispatch }) {
                   -
                 </button>
               )}
-            </td>
-            <td className="w-[150px] px-2 font-danaBold text-center text-primary-200">{`${(
+            </div>
+            {/* products price */}
+            <div className="font-danaBold text-sm text-center text-primary-200">{`${(
               product.price * product.quantity
-            ).toLocaleString()} تومان`}</td>
-          </tr>
+            ).toLocaleString()} تومان`}</div>
+          </div>
         ))}
-      </tbody>
-    </table>
+      </div>
+    </div>
   );
 }
 

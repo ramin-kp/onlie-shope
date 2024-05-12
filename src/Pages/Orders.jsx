@@ -13,16 +13,14 @@ import CustomerDetails from "../components/CustomerDetails";
 function Orders() {
   const [state, dispatch] = useCard();
   const [step, setStep] = useState(+localStorage.getItem("step") || 0);
-  console.log(step);
   useEffect(() => {
     localStorage.setItem("step", +step);
   }, [step]);
   const { selectedItems, total, itemCounter, checkout } = state;
-  console.log(state);
   return (
     <>
       <Header />
-      <main className="container bg-white dark:bg-dark-100 p-5 my-10 text-zinc-900 dark:text-white rounded-2xl">
+      <main className="container bg-white dark:bg-dark-100 p-5 my-10 text-zinc-900 dark:text-white rounded-2xl ">
         {!!itemCounter ? (
           <>
             {" "}
@@ -37,7 +35,9 @@ function Orders() {
                 dispatch={dispatch}
               />
             )}
-            {step === 1 && <CustomerDetails step={step} setStep={setStep} />}
+            {step === 1 && (
+              <CustomerDetails step={step} setStep={setStep} data={state} />
+            )}
           </>
         ) : (
           <div className=" w-full text-center">

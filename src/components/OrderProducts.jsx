@@ -1,16 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import OrderTable from "./OrderTable";
 
 function OrderProducts({ data, step, setStep, dispatch }) {
   const { selectedItems, total, itemCounter, checkout } = data;
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [step]);
   return (
-    <section className="flex flex-col lg:flex-row items-start justify-between gap-x-5">
-      {/* products map */}
+    <section className="flex flex-col lg:flex-row items-start justify-between gap-x-10">
       <>
+        {/* products map */}
         <OrderTable products={selectedItems} dispatch={dispatch} />
         {/* total price */}
-        <div className="w-full p-5 border-[5px] font-dana border-gray-300 dark:border-gray-600 rounded">
+        <div className="w-full lg:w-1/3 p-5 border-[5px] font-dana border-gray-300 dark:border-gray-600 rounded">
           <h1 className="py-2 font-danaBold text-primary-200 text-xl">
             جمع کل سبد خرید
           </h1>
