@@ -9,6 +9,7 @@ import StepperBox from "../components/StepperBox";
 //context
 import { useCard } from "../context/CardContextProvider";
 import CustomerDetails from "../components/CustomerDetails";
+import { Link } from "react-router-dom";
 
 function Orders() {
   const [state, dispatch] = useCard();
@@ -39,7 +40,12 @@ function Orders() {
               />
             )}
             {step === 1 && (
-              <CustomerDetails step={step} setStep={setStep} data={state} />
+              <CustomerDetails
+                step={step}
+                setStep={setStep}
+                data={state}
+                dispatch={dispatch}
+              />
             )}
           </>
         ) : (

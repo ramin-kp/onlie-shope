@@ -60,9 +60,10 @@ const CardContext = createContext();
 
 function CardContextProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
+
   useEffect(() => {
     localStorage.setItem("products", JSON.stringify(state));
-  }, [state]);
+  }, [state,dispatch]);
 
   return (
     <CardContext.Provider value={{ state, dispatch }}>

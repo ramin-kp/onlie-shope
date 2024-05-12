@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import CityList from "./CityList";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { getCities, getProvinces } from "../Services/city";
 import Loader from "./Loader";
 import { useForm } from "react-hook-form";
 import { customToast } from "../utils/customToast";
+import { useNavigate } from "react-router-dom";
+import { postOrderDetails } from "../Services/products";
 
-function CustomerDetails({ step, setStep, data }) {
+function CustomerDetails({ step, setStep, data, dispatch }) {
   const [provinceText, setProvinceText] = useState("");
   const [cityText, setCityText] = useState("");
   const [provinceCode, setProvinceCode] = useState("");
+  const navigate = useNavigate();
   const { data: provinces, isPending: isProvinces } = useQuery({
     queryKey: ["provinces-data"],
     queryFn: getProvinces,
@@ -18,7 +21,17 @@ function CustomerDetails({ step, setStep, data }) {
     queryKey: ["cities-data"],
     queryFn: getCities,
   });
-  
+  const { data: orderDetails, mutate } = useMutation({
+    mutationFn: postOrderDetails,
+    onSuccess: () => {
+      setStep(0);
+      dispatch({ type: "CHECKOUT" });
+      navigate("/", { replace: true });
+      customToast("success", "پرداخت شما با موفقیت انجام شد");
+    },
+    onError: () =>
+      customToast("error", "مشکلی پیش آمده لطفا دوباره امتحان کنید"),
+  });
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [step]);
@@ -32,12 +45,21 @@ function CustomerDetails({ step, setStep, data }) {
     setCityText("");
   }, [provinceText]);
 
-  const SubmitHandler = (data) => {
-    if (!provinceText || !cityText)
-      return customToast("error", "استان و شهر خود را انتخاب کنید");
-    customToast("success", "پرداخت شما با موفقیت انجام شد");
-  };
+  console.log(orderDetails);
 
+  const SubmitHandler = (value) => {
+    if (!provinceText || !cityText) {
+      return customToast("error", "استان و شهر خود را انتخاب کنید");
+    }
+    const orderData = {
+      ...value,
+      province: provinceText,
+      city: cityText,
+      productsDetails: data,
+    };
+    console.log(orderData);
+    mutate(orderData);
+  };
   if (isProvinces && isCities) return <Loader />;
 
   const { selectedItems, total } = data;
