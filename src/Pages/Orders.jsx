@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 //components
 import Header from "./../components/Header";
 import Footer from "./../components/Footer";
 import OrderProducts from "../components/OrderProducts";
 import StepperBox from "../components/StepperBox";
+import CustomerDetails from "../components/CustomerDetails";
 
 //context
 import { useCard } from "../context/CardContextProvider";
-import CustomerDetails from "../components/CustomerDetails";
-import { Link } from "react-router-dom";
 
 function Orders() {
   const [state, dispatch] = useCard();
@@ -17,7 +17,7 @@ function Orders() {
   useEffect(() => {
     localStorage.setItem("step", +step);
   }, [step]);
-  const { selectedItems, total, itemCounter, checkout } = state;
+  const { itemCounter } = state;
   return (
     <>
       <Header />
@@ -27,7 +27,6 @@ function Orders() {
       >
         {!!itemCounter ? (
           <>
-            {" "}
             {/* Stepper  */}
             <StepperBox step={step} />
             {/* products */}

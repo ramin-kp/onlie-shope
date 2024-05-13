@@ -32,10 +32,13 @@ function CustomerDetails({ step, setStep, data, dispatch }) {
     onError: () =>
       customToast("error", "مشکلی پیش آمده لطفا دوباره امتحان کنید"),
   });
+
+  // useEffect
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [step]);
 
+  // react-hook-form
   const {
     register,
     handleSubmit,
@@ -45,24 +48,27 @@ function CustomerDetails({ step, setStep, data, dispatch }) {
     setCityText("");
   }, [provinceText]);
 
-  console.log(orderDetails);
-
   const SubmitHandler = (value) => {
     if (!provinceText || !cityText) {
       return customToast("error", "استان و شهر خود را انتخاب کنید");
     }
+    const { checkout, ...res } = data;
+
     const orderData = {
       ...value,
       province: provinceText,
       city: cityText,
-      productsDetails: data,
+      productsDetails: {
+        ...res,
+      },
     };
-    console.log(orderData);
     mutate(orderData);
   };
+
   if (isProvinces && isCities) return <Loader />;
 
   const { selectedItems, total } = data;
+
   return (
     <div className="">
       <div className="text-center md:text-right">
