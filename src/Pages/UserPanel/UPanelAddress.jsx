@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from "react";
-import CityList from "./CityList";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { getCities, getProvinces } from "../Services/city";
-import Loader from "./Loader";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { customToast } from "../utils/customToast";
-import { useNavigate } from "react-router-dom";
-import { postOrderDetails } from "../Services/products";
+import { useQuery } from "@tanstack/react-query";
 
-function CustomerDetails({ step, setStep, data, dispatch }) {
+//components
+import CityList from "../../components/CityList";
+
+//services
+import { getCities, getProvinces } from "../../Services/city";
+
+//function
+import { customToast } from "../../utils/customToast";
+
+function UPanelAddress() {
   const [provinceText, setProvinceText] = useState("");
   const [cityText, setCityText] = useState("");
   const [provinceCode, setProvinceCode] = useState("");
-  const navigate = useNavigate();
 
   //query
   const { data: provinces, isPending: isProvinces } = useQuery({
@@ -24,68 +26,37 @@ function CustomerDetails({ step, setStep, data, dispatch }) {
     queryFn: getCities,
   });
 
-  //mutation
-  const {
-    data: orderDetails,
-    mutate,
-    isError,
-  } = useMutation({
-    mutationFn: postOrderDetails,
-    onSuccess: () => {
-      dispatch({ type: "CHECKOUT" });
-      customToast("success", "پرداخت شما با موفقیت انجام شد");
-      navigate("/", { replace: true });
-    },
-    onError: () =>
-      customToast("error", "مشکلی پیش آمده لطفا دوباره امتحان کنید"),
-  });
-
-  // useEffect
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [step]);
-
-  // react-hook-form
+  //hook-form
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  useEffect(() => {
-    setCityText("");
-  }, [provinceText]);
 
+  //fn
   const SubmitHandler = (value) => {
     if (!provinceText || !cityText) {
       return customToast("error", "استان و شهر خود را انتخاب کنید");
     }
-    const { checkout, ...res } = data;
-
-    const orderData = {
-      ...value,
-      province: provinceText,
-      city: cityText,
-      productsDetails: {
-        ...res,
-      },
-    };
-    mutate(orderData);
-    !isError && setStep(0);
+    console.log(value);
   };
-
-  if (isProvinces && isCities) return <Loader />;
-
-  const { selectedItems, total } = data;
-
   return (
-    <div className="">
-      <div className="text-center md:text-right">
-        <button
-          className=" px-3 py-2 bg-primary-200 hover:bg-primary-100 text-white font-danaBold rounded-lg transition-colors duration-150"
-          onClick={() => setStep((step) => step - 1)}
-        >
-          برگشت به سبد خرید
-        </button>
+    <div>
+      <h1 className=" my-5 pb-5 font-danaBold text-2xl text-zinc-900 dark:text-white border-b-2 border-gray-200 dark:border-gray-700">
+        جزییات حساب کاربری
+      </h1>
+      <div className="font-dana">
+        <h2 className="font-danaBold text-xl">آدرس ثبت شده</h2>
+        <div>
+          <p>رامین کریم پور</p>
+          <p>آذربایجان شرقی</p>
+          <p>بناب</p>
+          <p>
+            بناب خیابان مطهری-خیابان وحدت شرقی -کوچه فردیس33جنب آموزشگاه رانندگی
+            سهند
+          </p>
+          <p> 5551979496</p>
+        </div>
       </div>
       <form
         className="flex flex-col md:flex-row items-start justify-between gap-x-5 w-full p-5"
@@ -254,86 +225,13 @@ function CustomerDetails({ step, setStep, data, dispatch }) {
               {errors.email && errors.email.message}
             </span>
           </div>
-          <div className="form-field">
-            <label htmlFor="description" className="form-field__label">
-              توضیخات سفارش(اختیاری)
-            </label>
-            <textarea
-              id="description"
-              {...register("description", {})}
-              className="form-field__input p-2.5 outline-none rounded-lg"
-              rows={5}
-            />
-          </div>
-        </div>
-        {/* product Details */}
-        <div className="grow w-full md:w-1/2 p-5 mt-5 bg-gray-100/50 dark:bg-dark-200 rounded ">
-          <div className="text-center">
-            <h1 className="font-danaBold text-xl">سفارشات شما</h1>
-            <p className="font-dana text-lg">جزئیات لیست سفارشات شما</p>
-          </div>
-          <div className="">
-            <div className="flex items-center justify-between pb-5 font-danaMedium text-lg border-b-2 border-gray-300">
-              <p>محصول</p>
-              <p>جمع جزء</p>
-            </div>
-            <div className="divide-y divide-gray-200">
-              {selectedItems.map((product) => (
-                <div
-                  key={product.id}
-                  className="flex items-center justify-between gap-x-5 py-5"
-                >
-                  <p className="text-sm text-right">
-                    {product.title} *{" "}
-                    <span className="ltr-text">{product.quantity}</span>
-                  </p>
-                  <p className="text-sm text-gray-700/60 dark:text-gray-400 text-left md:text-center">
-                    {(product.price * product.quantity).toLocaleString()} تومان
-                  </p>
-                </div>
-              ))}
-            </div>
-            <div className="flex items-center justify-between py-5 font-danaMedium text-lg border-t border-gray-300">
-              <p>جمع جزء</p>
-              <p className="text-primary-200">{total.toLocaleString()} تومان</p>
-            </div>
-            <div className=" pt-5 border-t border-gray-300">
-              <div className="flex items-center justify-between font-danaMedium text-lg ">
-                <p>حمل و نقل</p>
-                <p className="text-primary-200">
-                  {total > 500000 ? "رایگان" : "200000 تومان"}
-                </p>
-              </div>
-              <span className="text-primary-200 dark:text-primary-200 text-base font-dana">
-                بالای 500,000 تومان ارسال رایگان
-              </span>
-            </div>
-            <div className="flex items-center justify-between py-5 font-danaBold text-lg border-t border-gray-300">
-              <p>مجموع</p>
-              <p className="text-primary-200">
-                {total > 500000
-                  ? total.toLocaleString()
-                  : (total + 200000).toLocaleString()}{" "}
-                تومان
-              </p>
-            </div>
-            <div className="flex items-center justify-start gap-x-2 font-dana">
-              <input type="radio" name="zarin" id="zarin" />
-              <span>پرداخت با زرین‌پال</span>
-              <img src="/images/zarin.png" className="w-10" alt="zarin-img" />
-            </div>
-            <div className="flex items-center justify-start gap-x-2 my-2.5 font-dana">
-              <input type="radio" name="zarin" id="zarin" />
-              <span>پرداخت با بانک ملت</span>
-              <img src="/images/melat.png" className="w-10" alt="melat-img" />
-            </div>
-          </div>
+
           <div className="w-full my-5 text-center">
             <button
               type="submit"
               className="w-full px-3 py-2 bg-primary-200 hover:bg-primary-100 text-white font-danaBold rounded-lg transition-colors duration-150"
             >
-              ثبت سفارش
+              ثبت اطلاعات
             </button>
           </div>
         </div>
@@ -342,4 +240,4 @@ function CustomerDetails({ step, setStep, data, dispatch }) {
   );
 }
 
-export default CustomerDetails;
+export default UPanelAddress;

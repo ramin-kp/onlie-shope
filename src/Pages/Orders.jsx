@@ -16,7 +16,7 @@ function Orders() {
   const [step, setStep] = useState(+localStorage.getItem("step") || 0);
   useEffect(() => {
     localStorage.setItem("step", +step);
-  }, [step]);
+  }, [step,setStep]);
   const { itemCounter } = state;
   return (
     <>

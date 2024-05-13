@@ -27,7 +27,6 @@ function ProductDetailsPage() {
   const queryKey = ["products-data"];
   const {
     data: products,
-    isPending,
     isError,
   } = useQuery({
     queryKey,
@@ -37,12 +36,15 @@ function ProductDetailsPage() {
     const getData = () => {
       const res = products?.data.find(
         (product) => product.title === params.title
-      );
-      setProductsData(res);
-    };
-    getData();
-  }, [products]);
-  if (isError) return customToast("error", "مشکلی پیش آمده");
+        );
+        console.log({res});
+        setProductsData(res);
+      };
+      getData();
+    }, [products]);
+
+    console.log({products, productsData});
+    if (isError) return customToast("error", "مشکلی پیش آمده");
 
   return (
     <>
@@ -105,7 +107,7 @@ function ProductDetailsPage() {
                         افزودن به سبد خرید
                       </button>
                     )}
-                    {quantity >=1 && (
+                    {quantity >= 1 && (
                       <button
                         className={`${
                           quantity >= 2
@@ -170,7 +172,10 @@ function ProductDetailsPage() {
                     <span className="">{productsData.category[1]}</span>
                   </h4>
                 </div>
-                <p className="inline-block p-1 mt-5 bg-primary-200 font-danaMedium text-base text-white rounded-md">برای پیگیری و اطلاع بیشتر در شبکه های اجتماعی با ما در ارتباط باشید</p>
+                <p className="inline-block p-1 mt-5 bg-primary-200 font-danaMedium text-base text-white rounded-md">
+                  برای پیگیری و اطلاع بیشتر در شبکه های اجتماعی با ما در ارتباط
+                  باشید
+                </p>
                 <div className="flex items-center justify-start gap-x-5 mt-5">
                   <Link to="https://instagram.com/ramin._kp/" target="_blank">
                     <svg className="w-6 h-6 text-zinc-900 dark:bg-white rounded-md">

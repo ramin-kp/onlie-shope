@@ -22,7 +22,7 @@ function Footer() {
               دسترسی سریع
             </h3>
             <li className="hover:text-primary-200 duration-200">
-              <Link to="/user-dashboard">حساب کاربری من</Link>
+              <Link to="/my-account">حساب کاربری من</Link>
             </li>
             <li className="hover:text-primary-200 duration-200">
               <Link to="/orders">سبد خرید</Link>

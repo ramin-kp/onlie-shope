@@ -12,7 +12,12 @@ import ProductDetailsPage from "../Pages/ProductDetailsPage";
 import ProductsByBrand from "../Pages/ProductsByBrand";
 import ProductsByCategory from "../Pages/ProductsByCategory";
 import Orders from "../Pages/Orders";
+import UserPanel from "../Pages/UserPanel/UserPanel";
 import NotFoundPage from "./../Pages/NotFoundPage";
+import UPaneIndex from "../Pages/UserPanel/UPaneIndex";
+import UPanelOrders from "../Pages/UserPanel/UPanelOrders";
+import UPanelUserInfo from "../Pages/UserPanel/UPanelUserInfo";
+import UPanelAddress from "../Pages/UserPanel/UPanelAddress";
 
 //components
 import Modal from "../components/Modal";
@@ -20,7 +25,6 @@ import Modal from "../components/Modal";
 //services
 import { getProductsData } from "../Services/products";
 import { getSubMenus } from "../Services/menus";
-import UserDashboard from "../Pages/UserDashboard";
 
 function Router() {
   const { isPending: isProductsLoading } = useQuery({
@@ -48,7 +52,12 @@ function Router() {
         path="products/brand/:brandName/:category"
         element={<ProductsByCategory />}
       />
-      <Route path="/user-dashboard" element={<UserDashboard />} />
+      <Route path="/my-account/*" element={<UserPanel />}>
+        <Route index element={<UPaneIndex />} />
+        <Route path="orders" element={<UPanelOrders />} />
+        <Route path="address" element={<UPanelAddress />} />
+        <Route path="edit-account" element={<UPanelUserInfo />} />
+      </Route>
       <Route path="/*" element={<NotFoundPage />} />
     </Routes>
   );

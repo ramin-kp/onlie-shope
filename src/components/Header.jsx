@@ -125,10 +125,10 @@ function Header() {
             </svg>
           </div>
           <Link
-            to="/user-dashboard"
+            to="/my-account"
             className="flex-center hover:text-primary-200 lg:w-10 lg:h-10 lg:hover:bg-gray-100 lg:dark:hover:bg-dark-200 rounded-full hover:cursor-pointer group"
           >
-            <svg className="w-5 h-5">
+            <svg className="w-5 h-5 stroke-2">
               <use href="#user"></use>
             </svg>
           </Link>
