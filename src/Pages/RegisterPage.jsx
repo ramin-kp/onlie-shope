@@ -20,9 +20,9 @@ function RegisterPage() {
   } = useForm();
 
   const submitHandler = async (values) => {
-    const { userName, email, phone, password } = values;
+    const { username, email, phone, password } = values;
     const userData = {
-      userName,
+      username,
       email,
       phone,
       password,
@@ -55,7 +55,7 @@ function RegisterPage() {
             <input
               className="w-full ltr-text"
               type="text"
-              {...register("userName", {
+              {...register("username", {
                 required: {
                   value: true,
                   message: "نام کاربری خود را وارد کنید.",
@@ -76,7 +76,7 @@ function RegisterPage() {
               placeholder="نام کاربری"
             />
             <h3 className="mt-3 font-danaMedium w-full text-sm text-red-600">
-              {errors.userName && errors.userName.message}
+              {errors.username && errors.username.message}
             </h3>
           </div>
           <div>
@@ -134,7 +134,7 @@ function RegisterPage() {
                 },
                 minLength: {
                   value: 8,
-                  message: "پسورد باید بیشتر از سه کاراکتر باشد.",
+                  message: "پسورد باید بیشتر از هشت کاراکتر باشد.",
                 },
                 maxLength: {
                   value: 20,
@@ -174,7 +174,7 @@ function RegisterPage() {
           ) : (
             <button
               type="submit"
-              className="p-2 px-3 bg-primary-200 text-white font-danaBold rounded-lg hover:bg-red-700 duration-75"
+              className="p-2 px-3 bg-primary-200 text-white font-danaBold rounded-lg hover:bg-primary-100 outline-none transition-colors duration-75"
             >
               ثبت نام
             </button>

@@ -28,7 +28,7 @@ function Footer() {
               <Link to="/orders">سبد خرید</Link>
             </li>
             <li className="hover:text-primary-200 duration-200">
-              <Link to="/">پیگیری سفارش</Link>
+              <Link to="/my-account/orders">پیگیری سفارش</Link>
             </li>
           </ul>
           <ul className="font-dana text-sm xs:text-lg">

@@ -3,15 +3,15 @@ import { Link, Outlet } from "react-router-dom";
 
 function UserPanel() {
   const [activeLink, setActiveLink] = useState(
-    localStorage.getItem("activeLink") || "my-account"
+    localStorage.getItem("activeLinkUPanel") || "my-account"
   );
   useEffect(() => {
-    localStorage.setItem("activeLink", activeLink);
+    localStorage.setItem("activeLinkUPanel", activeLink);
   }, [activeLink]);
 
   return (
-    <main className="flex flex-col lg:flex-row items-start justify-between bg-white dark:bg-dark-100">
-      <section
+    <main className="flex flex-col lg:flex-row gap-x-2 xl:gap-x-14 px-2.5  xl:px-10 2xl:px-14 bg-white dark:bg-dark-100">
+      <aside
         className="
           w-full lg:w-auto px-5 lg:pr-10 py-10 bg-white lg:bg-transparent dark:bg-dark-200 lg:dark:bg-transparent z-50 lg:shadow-none transition-all duration-500"
       >
@@ -27,7 +27,7 @@ function UserPanel() {
               to="/my-account"
               className={`${
                 activeLink === "my-account" ? "bg-primary-200 text-white" : ""
-              } user-dashboard__li`}
+              } dashboard__li`}
               onClick={() => setActiveLink("my-account")}
             >
               <svg className="w-7 h-7">
@@ -41,7 +41,7 @@ function UserPanel() {
               to="orders"
               className={`${
                 activeLink === "orders" ? "bg-primary-200 text-white" : ""
-              } user-dashboard__li`}
+              } dashboard__li`}
               onClick={() => setActiveLink("orders")}
             >
               <svg className="w-7 h-7">
@@ -55,7 +55,7 @@ function UserPanel() {
               to="address"
               className={`${
                 activeLink === "address" ? "bg-primary-200 text-white" : ""
-              } user-dashboard__li`}
+              } dashboard__li`}
               onClick={() => setActiveLink("address")}
             >
               <svg className="w-7 h-7">
@@ -69,7 +69,7 @@ function UserPanel() {
               to="edit-account"
               className={`${
                 activeLink === "edit-account" ? "bg-primary-200 text-white" : ""
-              } user-dashboard__li`}
+              } dashboard__li`}
               onClick={() => setActiveLink("edit-account")}
             >
               <svg className="w-7 h-7 !stroke-[1.5px]">
@@ -79,7 +79,7 @@ function UserPanel() {
             </Link>
           </li>
           <li>
-            <Link to="#" className="user-dashboard__li">
+            <Link to="#" className="dashboard__li">
               <svg className="w-7 h-7">
                 <use href="#arrow-right-start-on-rectangle"></use>
               </svg>
@@ -87,8 +87,8 @@ function UserPanel() {
             </Link>
           </li>
         </ul>
-      </section>
-      <section className="container bg-gray-100 dark:bg-dark-200 grow  lg:mx-10 my-10 p-10 shadow-xl rounded-[35px]">
+      </aside>
+      <section className="max-w-[1432px] xl:grow mx-2.5 lg:mx-auto xl:px-10 bg-gray-100 dark:bg-dark-200 my-10 p-10 shadow-lg rounded-[35px]">
         <Outlet />
       </section>
     </main>

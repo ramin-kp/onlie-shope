@@ -13,11 +13,18 @@ import ProductsByBrand from "../Pages/ProductsByBrand";
 import ProductsByCategory from "../Pages/ProductsByCategory";
 import Orders from "../Pages/Orders";
 import UserPanel from "../Pages/UserPanel/UserPanel";
-import NotFoundPage from "./../Pages/NotFoundPage";
 import UPaneIndex from "../Pages/UserPanel/UPaneIndex";
 import UPanelOrders from "../Pages/UserPanel/UPanelOrders";
 import UPanelUserInfo from "../Pages/UserPanel/UPanelUserInfo";
 import UPanelAddress from "../Pages/UserPanel/UPanelAddress";
+import AdminPanel from "../Pages/AdminPanel/AdminPanel";
+import APanelIndex from "../Pages/AdminPanel/APanelIndex";
+import APanelUser from "../Pages/AdminPanel/APanelUser";
+import APanelCategory from "../Pages/AdminPanel/APanelCategory";
+import APanelProducts from "../Pages/AdminPanel/APanelProducts";
+import APanelOrders from "../Pages/AdminPanel/APanelOrders";
+import APanelTicket from "../Pages/AdminPanel/APanelTicket";
+import NotFoundPage from "../Pages/NotFoundPage";
 
 //components
 import Modal from "../components/Modal";
@@ -57,6 +64,14 @@ function Router() {
         <Route path="orders" element={<UPanelOrders />} />
         <Route path="address" element={<UPanelAddress />} />
         <Route path="edit-account" element={<UPanelUserInfo />} />
+      </Route>
+      <Route path="/admin-panel/*" element={<AdminPanel />}>
+        <Route index element={<APanelIndex />} />
+        <Route path="users" element={<APanelUser />} />
+        <Route path="category" element={<APanelCategory />} />
+        <Route path="products" element={<APanelProducts />} />
+        <Route path="orders" element={<APanelOrders />} />
+        <Route path="ticket" element={<APanelTicket />} />
       </Route>
       <Route path="/*" element={<NotFoundPage />} />
     </Routes>
