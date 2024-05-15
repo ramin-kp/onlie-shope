@@ -115,7 +115,7 @@ function AdminPanel() {
           </li>
         </ul>
       </aside>
-      <section className="max-w-[2000px] xl:grow mx-2.5 lg:mx-auto xl:px-10 bg-gray-100 dark:bg-dark-200 my-10 p-2.5 xl:p-10 shadow-lg rounded-[35px]">
+      <section className="max-w-[2000px] grow xl:grow mx-2.5 lg:mx-auto xl:px-10 bg-gray-100 dark:bg-dark-200 my-10 p-2.5 xl:p-10 shadow-lg rounded-[35px]">
         <Outlet />
       </section>
     </main>

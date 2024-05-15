@@ -1,8 +1,11 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-hot-toast";
 
 //components
 import Loader from "../../components/Loader";
+import RegisterUser from './../../components/adminPanel/RegisterUser';
+import DataTable from "../../components/adminPanel/DataTable";
 
 //services
 import {
@@ -10,10 +13,10 @@ import {
   removeUser,
   updateRoleUser,
 } from "../../Services/adminPanel";
-import DataTable from "../../components/adminPanel/DataTable";
-import { toast } from "react-hot-toast";
+
+//function
 import { customToast } from "../../utils/customToast";
-import RegisterUser from "./RegisterUser";
+
 
 function APanelUser() {
   //query
