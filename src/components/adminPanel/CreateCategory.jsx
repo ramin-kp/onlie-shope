@@ -69,7 +69,7 @@ function CreateCategory({queryClient}) {
                 message: "لینک را وارد کنید.",
               },
             })}
-            placeholder="لینک"
+            placeholder=" لینک به انگلیسی"
           />
           <h3 className="mt-3 font-danaMedium text-sm text-red-600">
             {errors.value && errors.value.message}
