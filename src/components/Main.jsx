@@ -11,7 +11,7 @@ function Main() {
     queryKey,
     queryFn: getProductsData,
   });
-
+  console.log(productsData?.data);
   return (
     <section data-aos="fade-up">
       <SectionHeader
@@ -21,7 +21,9 @@ function Main() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mx-2.5 my-5">
         {productsData &&
           productsData.data
-            .slice(0, 9).reverse()
+            .slice()
+            .reverse()
+            .slice(0, 9)
             .map((product) => <ProductCard key={product.id} data={product} />)}
       </div>
     </section>

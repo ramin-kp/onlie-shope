@@ -21,6 +21,7 @@ import AdminPanel from "../Pages/AdminPanel/AdminPanel";
 import APanelIndex from "../Pages/AdminPanel/APanelIndex";
 import APanelUser from "../Pages/AdminPanel/APanelUser";
 import APanelCategory from "../Pages/AdminPanel/APanelCategory";
+import APanelBrand from "../Pages/AdminPanel/APanelBrand";
 import APanelProducts from "../Pages/AdminPanel/APanelProducts";
 import APanelOrders from "../Pages/AdminPanel/APanelOrders";
 import APanelTicket from "../Pages/AdminPanel/APanelTicket";
@@ -68,6 +69,7 @@ function Router() {
       <Route path="/admin-panel/*" element={<AdminPanel />}>
         <Route index element={<APanelIndex />} />
         <Route path="users" element={<APanelUser />} />
+        <Route path="brand" element={<APanelBrand />} />
         <Route path="category" element={<APanelCategory />} />
         <Route path="products" element={<APanelProducts />} />
         <Route path="orders" element={<APanelOrders />} />

@@ -1,39 +1,36 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-hot-toast";
 
 //services
-import {
-  getCategoryProducts,
-  removeCategoryProducts,
-} from "../../Services/category";
+import { getCategory, removeCategory } from "../../Services/category";
 
 //components
 import Loader from "../../components/Loader";
 import DataTable from "../../components/adminPanel/DataTable";
-import CreateCategory from "../../components/adminPanel/CreateCategory";
+import CreateBrand from "../../components/adminPanel/CreateBrand";
 
 //Fn
 import { customToast } from "../../utils/customToast";
-import { toast } from "react-hot-toast";
 
-function APanelCategory() {
+function APanelBrand() {
   //queryClient
   const queryClient = useQueryClient();
 
   //query
-  const queryKey = ["categoryProducts-data"];
-  const { data: categoryProducts, isPending } = useQuery({
+  const queryKey = ["category-data"];
+  const { data: categories, isPending } = useQuery({
     queryKey,
-    queryFn: getCategoryProducts,
+    queryFn: getCategory,
   });
 
-  //mutate
+  //mutation
   const { mutate, isPending: isRemoveCategoryLoader } = useMutation({
-    mutationFn: removeCategoryProducts,
+    mutationFn: removeCategory,
   });
 
   //Fn
-  const removeHandler = (categoryId) => {
+  const removeHandler = (brandId) => {
     toast.custom((t) => (
       <div
         className={`${
@@ -41,7 +38,7 @@ function APanelCategory() {
         } inline-flex flex-col items-center justify-center p-5 bg-white dark:bg-zinc-800 pointer-events-auto rounded-xl`}
       >
         <h1 className="font-danaBold text-xl text-zinc-900 dark:text-white">
-          آیا از حذف دسته‌بندی مطمئن هستید
+          آیا از حذف برند مطمئن هستید
           <span className="mx-1 text-xl">❗</span>
         </h1>
         <div className="flex-center gap-x-5 my-2.5 text-white">
@@ -49,14 +46,15 @@ function APanelCategory() {
             className={`px-3 py-2 bg-red-600 font-dana rounded-lg transition-colors duration-150`}
             onClick={() => {
               toast.dismiss(t.id);
-              mutate(categoryId, {
+              mutate(brandId, {
                 onSuccess: () => {
-                  customToast("success", "دسته‌بندی مورد نظر با موفقیت حذف شد");
+                  customToast("success", "برند مورد نظر با موفقیت حذف شد");
                   queryClient.invalidateQueries({
-                    queryKey: ["categoryProducts-data"],
+                    queryKey: ["category-data"],
                   });
                 },
                 onError: () => {
+                  console.log(error);
                   customToast(
                     "error",
                     "مشکلی پیش آمده لطفا دوباره امتحان کنید"
@@ -80,19 +78,20 @@ function APanelCategory() {
   };
 
   if (isPending) return <Loader />;
+
   return (
     <>
-      <CreateCategory queryClient={queryClient} />
+      <CreateBrand queryClient={queryClient} />
       <div className="w-full grow">
-        <DataTable text={"دسته‌بندی محصولات"}>
+        <DataTable text={"برند محصولات"}>
           <table className="border-separate border-spacing-y-2 w-full font-dana text-zinc-900 dark:text-white">
             <thead>
               <tr className="font-danaBold text-wrap">
                 <th className="pr-1 bg-primary-100/65 py-5 rounded-r-md">
                   آیدی
                 </th>
-                <th className="bg-primary-100/65 py-5 ">نام دسته‌بندی</th>
-                <th className="bg-primary-100/65 py-5 ">ولیو</th>
+                <th className="bg-primary-100/65 py-5 ">نام برند</th>
+                <th className="bg-primary-100/65 py-5 ">لینک</th>
                 <th className="pl-1 bg-primary-100/65 py-5">حذف</th>
                 <th className="pl-1 bg-primary-100/65 py-5 rounded-l-md ">
                   ویرایش
@@ -100,7 +99,7 @@ function APanelCategory() {
               </tr>
             </thead>
             <tbody>
-              {categoryProducts.data.map((category, index) => (
+              {categories.data.map((category, index) => (
                 <tr
                   key={category.id}
                   className="text-center childe:py-5 childe:odd:bg-white dark:childe:odd:bg-dark-100 childe:even:bg-gray-300 dark:childe:even:bg-zinc-700"
@@ -134,4 +133,4 @@ function APanelCategory() {
   );
 }
 
-export default APanelCategory;
+export default APanelBrand;

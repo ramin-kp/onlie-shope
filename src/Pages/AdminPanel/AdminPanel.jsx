@@ -51,6 +51,20 @@ function AdminPanel() {
           </li>
           <li>
             <Link
+              to="brand"
+              className={`${
+                activeLink === "brand" ? "bg-primary-200 text-white" : ""
+              } dashboard__li`}
+              onClick={() => setActiveLink("brand")}
+            >
+              <svg className="w-7 h-7">
+                <use href="#queue-list"></use>
+              </svg>
+              <span>برند محصولات</span>
+            </Link>
+          </li>
+          <li>
+            <Link
               to="category"
               className={`${
                 activeLink === "category" ? "bg-primary-200 text-white" : ""
@@ -60,7 +74,7 @@ function AdminPanel() {
               <svg className="w-7 h-7">
                 <use href="#queue-list"></use>
               </svg>
-              <span>برند محصولات</span>
+              <span>دسته‌بندی</span>
             </Link>
           </li>
           <li>

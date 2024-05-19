@@ -198,7 +198,7 @@ function ProductDetailsPage() {
               <h2 className="font-danaBold text-2xl text-primary-200">
                 مشخصات کالا
               </h2>
-              <div className="flex items-center justify-start w-full my-5">
+              <div className="flex items-start justify-start w-full my-5">
                 <div className="w-1/3 divide-y divide-gray-300 dark:divide-gray-700">
                   {productsData.details.Attributes.map((item, index) => (
                     <div

@@ -126,7 +126,7 @@ function ProductsByBrand() {
                 } gap-5 mb-10`}
               >
                 {products &&
-                  products.map((product) => (
+                  products.slice().reverse().map((product) => (
                     <ProductCard
                       key={product.id}
                       data={product}

@@ -130,13 +130,16 @@ function ProductsByCategory() {
                 } gap-5 mb-10`}
               >
                 {products &&
-                  products.map((product) => (
-                    <ProductCard
-                      key={product.id}
-                      data={product}
-                      display={productDisplay}
-                    />
-                  ))}
+                  products
+                    .slice()
+                    .reverse()
+                    .map((product) => (
+                      <ProductCard
+                        key={product.id}
+                        data={product}
+                        display={productDisplay}
+                      />
+                    ))}
               </div>
             ) : (
               <div className="flex-center w-full p-5 bg-gray-300 dark:bg-dark-100 dark:text-white font-danaBold text-xl rounded-lg">

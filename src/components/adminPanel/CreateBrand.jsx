@@ -3,41 +3,41 @@ import React from "react";
 import { useForm } from "react-hook-form";
 
 //services
-import { createCategoryProducts } from "../../Services/category";
-
-//Fn
+import { createCategory } from "../../Services/category";
 import { customToast } from "../../utils/customToast";
 
-function CreateCategory({queryClient}) {
-  const { mutate, isPending } = useMutation({
-    mutationFn: createCategoryProducts,
-  });
-
+function CreateBrand({queryClient}) {
+  //mutation
+  const { mutate, isPending } = useMutation({ mutationFn: createCategory });
 
   //hook-form
   const {
     register,
     handleSubmit,
+    resetField,
     formState: { errors },
-  } = useForm();
-
-  //Fn
+  } = useForm({
+    mode: "onChange",
+    defaultValues: {
+      title: "",
+      value: "",
+    },
+  });
   const submitHandler = (values) => {
-    console.log(values);
+    resetField("title");
+    resetField("value");
     mutate(values, {
       onSuccess: () => {
-        customToast("success", "دسته‌بندی مورد نظر با موفقیت ایجاد شد");
-        queryClient.invalidateQueries({ queryKey: ["categoryProducts-data"] });
+        customToast("success", "برند محصول مورد نظر با موفقیت ایجاد شد");
+        queryClient.invalidateQueries({ queryKey: ["category-data"] });
       },
-      onError: () => {
-        customToast("error", "مشکلی پیش آمده لطفا دوباره امتحان کنید");
-      },
+      onError: () => customToast("error", "مشکلی پیش آمده دوباره امتحان کنید"),
     });
   };
   return (
     <div className="pb-10 border-b border-gray-300 dark:border-gray-700">
       <h1 className="my-5 mx-2 font-danaBold text-zinc-900 dark:text-white text-xl">
-        افزودن دسته‌بندی جدید
+        افزودن برند جدید
       </h1>
       <form
         className="flex flex-col justify-center items-center gap-y-5 childe:w-full text-zinc-900 dark:text-white"
@@ -50,10 +50,10 @@ function CreateCategory({queryClient}) {
             {...register("title", {
               required: {
                 value: true,
-                message: "نام دسته‌بندی را وارد کنید.",
+                message: "نام برند محصول را وارد کنید.",
               },
             })}
-            placeholder="دسته‌بندی"
+            placeholder="برند محصول"
           />
           <h3 className="mt-3 font-danaMedium w-full text-sm text-red-600">
             {errors.title && errors.title.message}
@@ -66,10 +66,10 @@ function CreateCategory({queryClient}) {
             {...register("value", {
               required: {
                 value: true,
-                message: "ولیو را وارد کنید.",
+                message: "لینک را وارد کنید.",
               },
             })}
-            placeholder=" ولیو به انگلیسی"
+            placeholder=" لینک به انگلیسی"
           />
           <h3 className="mt-3 font-danaMedium text-sm text-red-600">
             {errors.value && errors.value.message}
@@ -96,4 +96,4 @@ function CreateCategory({queryClient}) {
   );
 }
 
-export default CreateCategory;
+export default CreateBrand;
