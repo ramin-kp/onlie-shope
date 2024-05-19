@@ -60,7 +60,7 @@ function AdminPanel() {
               <svg className="w-7 h-7">
                 <use href="#queue-list"></use>
               </svg>
-              <span>دسته‌بندی‌ها</span>
+              <span>برند محصولات</span>
             </Link>
           </li>
           <li>

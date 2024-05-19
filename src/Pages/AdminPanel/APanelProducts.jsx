@@ -5,6 +5,7 @@ import { toast } from "react-hot-toast";
 //component
 import DataTable from "./../../components/adminPanel/DataTable";
 import Loader from "./../../components/Loader";
+import CreateProduct from "../../components/adminPanel/CreateProduct";
 
 //services
 import { getProductsData, removeProducts } from "../../Services/products";
@@ -82,7 +83,10 @@ function APanelProducts() {
   if (isPending) return <Loader />;
 
   return (
-    <div>
+    <>
+      {/* newProduct */}
+      <CreateProduct />
+      {/* Product table */}
       <DataTable text={"محصولات"}>
         <table className="border-separate border-spacing-y-2 w-full font-dana text-zinc-900 dark:text-white">
           <thead>
@@ -104,7 +108,14 @@ function APanelProducts() {
                 className="text-center childe:py-5 childe:odd:bg-white dark:childe:odd:bg-dark-100 childe:even:bg-gray-300 dark:childe:even:bg-zinc-700"
               >
                 <td className="rounded-r-xl">{index + 1}</td>
-                <td>{product.title}</td>
+                <td className="flex items-center justify-start gap-x-2.5">
+                  <img
+                    src={`/images/${product.image}`}
+                    alt="product-img"
+                    className="w-16 md:w-20"
+                  />
+                  {product.title}
+                </td>
                 <td>{product.brand[1]}</td>
                 <td>{product.Number}</td>
 
@@ -116,7 +127,7 @@ function APanelProducts() {
                     حذف
                   </button>
                 </td>
-                <td>
+                <td className="rounded-l-xl">
                   <button
                     className="px-3 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors duration-150"
                     // onClick={() => removeHandler(category.id)}
@@ -129,7 +140,7 @@ function APanelProducts() {
           </tbody>
         </table>
       </DataTable>
-    </div>
+    </>
   );
 }
 

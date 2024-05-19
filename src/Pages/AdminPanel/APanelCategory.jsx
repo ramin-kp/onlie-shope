@@ -89,14 +89,14 @@ function APanelCategory() {
     <>
       <CreateCategory queryClient={queryClient} />
       <div className="w-full grow">
-        <DataTable text={"دسته‌بندی‌ها"}>
+        <DataTable text={"برند محصولات"}>
           <table className="border-separate border-spacing-y-2 w-full font-dana text-zinc-900 dark:text-white">
             <thead>
               <tr className="font-danaBold text-wrap">
                 <th className="pr-1 bg-primary-100/65 py-5 rounded-r-md">
                   آیدی
                 </th>
-                <th className="bg-primary-100/65 py-5 ">نام دسته‌بندی</th>
+                <th className="bg-primary-100/65 py-5 ">نام برند</th>
                 <th className="bg-primary-100/65 py-5 ">لینک</th>
                 <th className="pl-1 bg-primary-100/65 py-5">حذف</th>
                 <th className="pl-1 bg-primary-100/65 py-5 rounded-l-md ">

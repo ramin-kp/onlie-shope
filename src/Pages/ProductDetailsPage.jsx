@@ -25,10 +25,7 @@ function ProductDetailsPage() {
 
   const quantity = quantityCount(state, productsData);
   const queryKey = ["products-data"];
-  const {
-    data: products,
-    isError,
-  } = useQuery({
+  const { data: products, isError } = useQuery({
     queryKey,
     queryFn: getProductsData,
   });
@@ -36,15 +33,15 @@ function ProductDetailsPage() {
     const getData = () => {
       const res = products?.data.find(
         (product) => product.title === params.title
-        );
-        console.log({res});
-        setProductsData(res);
-      };
-      getData();
-    }, [products]);
+      );
+      console.log({ res });
+      setProductsData(res);
+    };
+    getData();
+  }, [products]);
 
-    console.log({products, productsData});
-    if (isError) return customToast("error", "مشکلی پیش آمده");
+  console.log({ products, productsData });
+  if (isError) return customToast("error", "مشکلی پیش آمده");
 
   return (
     <>
@@ -83,9 +80,11 @@ function ProductDetailsPage() {
                       تومان
                     </h3>
                   </div>
-                  <span className="inline-block px-3 py-1.5 my-auto bg-primary-200 text-center text-white text-sm rounded-lg">
-                    {productsData.offer.discount}% تخفیف
-                  </span>
+                  {productsData.offer.discount < 0 && (
+                    <span className="inline-block px-3 py-1.5 my-auto bg-primary-200 text-center text-white text-sm rounded-lg">
+                      {productsData.offer.discount}% تخفیف
+                    </span>
+                  )}
                 </div>
               ) : (
                 `${productsData.price.toLocaleString()} تومان`

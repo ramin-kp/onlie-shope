@@ -28,7 +28,7 @@ function CreateCategory({queryClient}) {
     resetField("value");
     mutate(values, {
       onSuccess: () => {
-        customToast("success", "دسته‌بندی مورد نظر با موفقیت ایجاد شد");
+        customToast("success", "برند محصول مورد نظر با موفقیت ایجاد شد");
         queryClient.invalidateQueries({ queryKey: ["category-data"] });
       },
       onError: () => customToast("error", "مشکلی پیش آمده دوباره امتحان کنید"),
@@ -37,7 +37,7 @@ function CreateCategory({queryClient}) {
   return (
     <div>
       <h1 className="my-5 mx-2 font-danaBold text-zinc-900 dark:text-white text-xl">
-        افزودن دسته‌بندی جدید
+        افزودن برند جدید
       </h1>
       <form
         className="flex flex-col justify-center items-center gap-y-5 childe:w-full text-zinc-900 dark:text-white"
@@ -50,10 +50,10 @@ function CreateCategory({queryClient}) {
             {...register("title", {
               required: {
                 value: true,
-                message: "نام دسته‌بندی را وارد کنید.",
+                message: "نام برند محصول را وارد کنید.",
               },
             })}
-            placeholder="دسته بندی"
+            placeholder="برند محصول"
           />
           <h3 className="mt-3 font-danaMedium w-full text-sm text-red-600">
             {errors.title && errors.title.message}
