@@ -39,7 +39,9 @@ function App() {
         <ReactQueryDevtools />
       </QueryClientProvider>
       <SvgIcons />
-      <Toaster toastOptions={{ style: { fontFamily: "dana" } }} />
+      <Toaster
+        toastOptions={{ style: { fontFamily: "dana" }, duration: 5000 }}
+      />
       {Aos.init()}
     </>
   );

@@ -69,7 +69,6 @@ function APanelUser() {
                     });
                   },
                   onError: () => {
-                    console.log(error);
                     customToast(
                       "error",
                       "مشکلی پیش آمده لطفا دوباره امتحان کنید"
@@ -164,7 +163,6 @@ function APanelUser() {
                       });
                     },
                     onError: () => {
-                      console.log(error);
                       customToast(
                         "error",
                         "مشکلی پیش آمده لطفا دوباره امتحان کنید"

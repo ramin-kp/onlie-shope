@@ -23,7 +23,6 @@ function CreateCategory({queryClient}) {
 
   //Fn
   const submitHandler = (values) => {
-    console.log(values);
     mutate(values, {
       onSuccess: () => {
         customToast("success", "دسته‌بندی مورد نظر با موفقیت ایجاد شد");

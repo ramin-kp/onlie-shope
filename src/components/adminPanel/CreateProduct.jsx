@@ -41,7 +41,6 @@ function CreateProduct() {
 
   //Fn
   const submitHandler = (values) => {
-    console.log({ values, brandProducts, productsCategory });
     if ((!brandProducts, !productsCategory))
       return customToast("error", "لطفا دسته‌بندی و برند محصول را انتخاب کنید");
     const {

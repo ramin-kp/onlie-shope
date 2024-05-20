@@ -11,7 +11,6 @@ function Main() {
     queryKey,
     queryFn: getProductsData,
   });
-  console.log(productsData?.data);
   return (
     <section data-aos="fade-up">
       <SectionHeader

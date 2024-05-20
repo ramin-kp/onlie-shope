@@ -12,7 +12,7 @@ function AdminPanel() {
     <main className="flex flex-col lg:flex-row gap-x-2 xl:gap-x-14 px-2.5  xl:px-10 2xl:px-14 bg-white dark:bg-dark-100">
       <aside
         className="
-          w-full lg:w-auto xl:pr-10 py-10 bg-white lg:bg-transparent dark:bg-dark-200 lg:dark:bg-transparent z-50 lg:shadow-none transition-all duration-500"
+          w-full lg:w-auto xl:pr-5 py-10 bg-white lg:bg-transparent dark:bg-dark-200 lg:dark:bg-transparent z-50 lg:shadow-none transition-all duration-500 print:hidden"
       >
         <div className="w-[200px]">
           <Link to="/">
@@ -58,7 +58,7 @@ function AdminPanel() {
               onClick={() => setActiveLink("brand")}
             >
               <svg className="w-7 h-7">
-                <use href="#queue-list"></use>
+                <use href="#cube"></use>
               </svg>
               <span>برند محصولات</span>
             </Link>

@@ -24,6 +24,7 @@ import APanelCategory from "../Pages/AdminPanel/APanelCategory";
 import APanelBrand from "../Pages/AdminPanel/APanelBrand";
 import APanelProducts from "../Pages/AdminPanel/APanelProducts";
 import APanelOrders from "../Pages/AdminPanel/APanelOrders";
+import APanelOrderDetails from "../Pages/AdminPanel/APanelOrderDetails";
 import APanelTicket from "../Pages/AdminPanel/APanelTicket";
 import NotFoundPage from "../Pages/NotFoundPage";
 
@@ -73,6 +74,7 @@ function Router() {
         <Route path="category" element={<APanelCategory />} />
         <Route path="products" element={<APanelProducts />} />
         <Route path="orders" element={<APanelOrders />} />
+        <Route path="orders/:id" element={<APanelOrderDetails />} />
         <Route path="ticket" element={<APanelTicket />} />
       </Route>
       <Route path="/*" element={<NotFoundPage />} />

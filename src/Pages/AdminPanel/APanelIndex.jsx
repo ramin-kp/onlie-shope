@@ -16,7 +16,6 @@ function APanelIndex() {
   if (isPending) return <Loader />;
   const { users, totalPrice, totalOrders, totalTickets, charts, newUsers } =
     data?.data;
-  console.log({ newUsers });
   return (
     <div className="w-full">
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-5">

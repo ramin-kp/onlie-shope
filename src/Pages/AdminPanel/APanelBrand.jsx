@@ -54,7 +54,6 @@ function APanelBrand() {
                   });
                 },
                 onError: () => {
-                  console.log(error);
                   customToast(
                     "error",
                     "مشکلی پیش آمده لطفا دوباره امتحان کنید"

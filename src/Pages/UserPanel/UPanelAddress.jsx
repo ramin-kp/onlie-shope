@@ -38,7 +38,6 @@ function UPanelAddress() {
     if (!provinceText || !cityText) {
       return customToast("error", "استان و شهر خود را انتخاب کنید");
     }
-    console.log(value);
   };
   return (
     <div>

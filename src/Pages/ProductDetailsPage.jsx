@@ -34,13 +34,11 @@ function ProductDetailsPage() {
       const res = products?.data.find(
         (product) => product.title === params.title
       );
-      console.log({ res });
       setProductsData(res);
     };
     getData();
   }, [products]);
 
-  console.log({ products, productsData });
   if (isError) return customToast("error", "مشکلی پیش آمده");
 
   return (
