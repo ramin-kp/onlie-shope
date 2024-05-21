@@ -5,8 +5,12 @@ import { useForm } from "react-hook-form";
 //services
 import { createCategory } from "../../Services/category";
 import { customToast } from "../../utils/customToast";
+import { yupResolver } from "@hookform/resolvers/yup";
 
-function CreateBrand({queryClient}) {
+//config
+import { brandSchema } from "../../Configs/schema";
+
+function CreateBrand({ queryClient }) {
   //mutation
   const { mutate, isPending } = useMutation({ mutationFn: createCategory });
 
@@ -22,14 +26,18 @@ function CreateBrand({queryClient}) {
       title: "",
       value: "",
     },
+    resolver: yupResolver(brandSchema),
   });
+
+  //Fn
   const submitHandler = (values) => {
-    resetField("title");
-    resetField("value");
+    console.log(values);
     mutate(values, {
       onSuccess: () => {
         customToast("success", "برند محصول مورد نظر با موفقیت ایجاد شد");
         queryClient.invalidateQueries({ queryKey: ["category-data"] });
+        resetField("title");
+        resetField("value");
       },
       onError: () => customToast("error", "مشکلی پیش آمده دوباره امتحان کنید"),
     });
@@ -47,12 +55,7 @@ function CreateBrand({queryClient}) {
           <input
             className="w-full ltr-text dark:bg-dark-100"
             type="text"
-            {...register("title", {
-              required: {
-                value: true,
-                message: "نام برند محصول را وارد کنید.",
-              },
-            })}
+            {...register("title")}
             placeholder="برند محصول"
           />
           <h3 className="mt-3 font-danaMedium w-full text-sm text-red-600">
@@ -63,12 +66,7 @@ function CreateBrand({queryClient}) {
           <input
             className="w-full ltr-text dark:bg-dark-100"
             type="text"
-            {...register("value", {
-              required: {
-                value: true,
-                message: "لینک را وارد کنید.",
-              },
-            })}
+            {...register("value")}
             placeholder=" لینک به انگلیسی"
           />
           <h3 className="mt-3 font-danaMedium text-sm text-red-600">

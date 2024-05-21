@@ -17,6 +17,7 @@ import UPaneIndex from "../Pages/UserPanel/UPaneIndex";
 import UPanelOrders from "../Pages/UserPanel/UPanelOrders";
 import UPanelUserInfo from "../Pages/UserPanel/UPanelUserInfo";
 import UPanelAddress from "../Pages/UserPanel/UPanelAddress";
+import UPanelTicket from "../Pages/UserPanel/UPanelTicket";
 import AdminPanel from "../Pages/AdminPanel/AdminPanel";
 import APanelIndex from "../Pages/AdminPanel/APanelIndex";
 import APanelUser from "../Pages/AdminPanel/APanelUser";
@@ -65,6 +66,7 @@ function Router() {
         <Route index element={<UPaneIndex />} />
         <Route path="orders" element={<UPanelOrders />} />
         <Route path="address" element={<UPanelAddress />} />
+        <Route path="ticket" element={<UPanelTicket />} />
         <Route path="edit-account" element={<UPanelUserInfo />} />
       </Route>
       <Route path="/admin-panel/*" element={<AdminPanel />}>

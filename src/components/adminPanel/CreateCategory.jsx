@@ -7,19 +7,29 @@ import { createCategoryProducts } from "../../Services/category";
 
 //Fn
 import { customToast } from "../../utils/customToast";
+import { yupResolver } from "@hookform/resolvers/yup";
 
-function CreateCategory({queryClient}) {
+//config
+import { categorySchema } from "../../Configs/schema";
+
+function CreateCategory({ queryClient }) {
   const { mutate, isPending } = useMutation({
     mutationFn: createCategoryProducts,
   });
-
 
   //hook-form
   const {
     register,
     handleSubmit,
+    resetField,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      title: "",
+      value: "",
+    },
+    resolver: yupResolver(categorySchema),
+  });
 
   //Fn
   const submitHandler = (values) => {
@@ -27,6 +37,8 @@ function CreateCategory({queryClient}) {
       onSuccess: () => {
         customToast("success", "دسته‌بندی مورد نظر با موفقیت ایجاد شد");
         queryClient.invalidateQueries({ queryKey: ["categoryProducts-data"] });
+        resetField("title");
+        resetField("value");
       },
       onError: () => {
         customToast("error", "مشکلی پیش آمده لطفا دوباره امتحان کنید");
@@ -46,12 +58,7 @@ function CreateCategory({queryClient}) {
           <input
             className="w-full ltr-text dark:bg-dark-100"
             type="text"
-            {...register("title", {
-              required: {
-                value: true,
-                message: "نام دسته‌بندی را وارد کنید.",
-              },
-            })}
+            {...register("title")}
             placeholder="دسته‌بندی"
           />
           <h3 className="mt-3 font-danaMedium w-full text-sm text-red-600">
@@ -62,12 +69,7 @@ function CreateCategory({queryClient}) {
           <input
             className="w-full ltr-text dark:bg-dark-100"
             type="text"
-            {...register("value", {
-              required: {
-                value: true,
-                message: "ولیو را وارد کنید.",
-              },
-            })}
+            {...register("value")}
             placeholder=" ولیو به انگلیسی"
           />
           <h3 className="mt-3 font-danaMedium text-sm text-red-600">

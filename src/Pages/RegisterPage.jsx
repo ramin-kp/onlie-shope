@@ -1,25 +1,41 @@
 import React, { useState } from "react";
-import SvgIcons from "../components/SvgIcons";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+//services
 import { userRegister } from "../Services/auth";
+
+//Fn
 import { customToast } from "../utils/customToast";
 import { setCookie } from "../utils/cookie";
-import { useMutation } from "@tanstack/react-query";
+
+//config
+import { registerUserSchema } from "../Configs/schema";
 
 function RegisterPage() {
   const [inputType, setInputType] = useState(true);
-  const { data, isPending, isError, isSuccess, mutate } = useMutation({
+
+  //mutation
+  const { mutate, isPending, isError } = useMutation({
     mutationFn: userRegister,
   });
+
+  //navigate
   const navigate = useNavigate();
+
+  //hook-form
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(registerUserSchema),
+  });
 
-  const submitHandler = async (values) => {
+  //Fn
+  const submitHandler = (values) => {
     const { username, email, phone, password } = values;
     const userData = {
       username,
@@ -29,15 +45,15 @@ function RegisterPage() {
       role: "USER",
     };
 
-    await mutate(userData);
-
-    if (isError) {
-      customToast("error", "مشکلی پیش آمده لطفا دوباره امتحان کنید.");
-      return;
-    }
-    customToast("success", "با موفقیت ثبت نام انجام شد.");
-    setCookie(userData);
-    navigate("/");
+    mutate(userData, {
+      onSuccess: () => {
+        customToast("success", "با موفقیت ثبت نام انجام شد.");
+        setCookie(userData);
+        navigate("/");
+      },
+      onError: () =>
+        customToast("error", "مشکلی پیش آمده لطفا دوباره امتحان کنید."),
+    });
   };
   return (
     <main className="flex flex-col justify-center items-center h-screen ">
@@ -55,24 +71,7 @@ function RegisterPage() {
             <input
               className="w-full ltr-text"
               type="text"
-              {...register("username", {
-                required: {
-                  value: true,
-                  message: "نام کاربری خود را وارد کنید.",
-                },
-                minLength: {
-                  value: 3,
-                  message: "نام کاربری باید بیشتر از سه کاراکتر باشد.",
-                },
-                maxLength: {
-                  value: 20,
-                  message: "نام کاربری باید کمتر از بیست کاراکتر باشد.",
-                },
-                pattern: {
-                  value: /^[A-z0-9\-]+$/g,
-                  message: "نام کاربری وارد شده معتبر نمی‌باشد.",
-                },
-              })}
+              {...register("username")}
               placeholder="نام کاربری"
             />
             <h3 className="mt-3 font-danaMedium w-full text-sm text-red-600">
@@ -83,16 +82,7 @@ function RegisterPage() {
             <input
               className="w-full ltr-text"
               type="email"
-              {...register("email", {
-                required: {
-                  value: true,
-                  message: "ایمیل خود را وارد کنید.",
-                },
-                pattern: {
-                  value: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/g,
-                  message: "ایمیل وارد شده معتبر نمی‌باشد.",
-                },
-              })}
+              {...register("email")}
               placeholder="ایمیل"
             />
             <h3 className="mt-3 font-danaMedium text-sm text-red-600">
@@ -103,20 +93,7 @@ function RegisterPage() {
             <input
               className="w-full ltr-text"
               type="number"
-              {...register("phone", {
-                required: {
-                  value: true,
-                  message: "شماره موبایل خود را وارد کنید.",
-                },
-                maxLength: {
-                  value: 11,
-                  message: "شماره موبایل شما صحصح نمی باشد.",
-                },
-                pattern: {
-                  value: /((0?9)|(\+?989))\d{2}\W?\d{3}\W?\d{4}/g,
-                  message: "شماره موبایل وارد شده معتبر نمی‌باشد.",
-                },
-              })}
+              {...register("phone")}
               placeholder="شماره موبایل"
             />
             <h3 className="mt-3 font-danaMedium text-sm text-red-600">
@@ -127,20 +104,7 @@ function RegisterPage() {
             <input
               className="grow w-full ltr-text"
               type={inputType ? "password" : "text"}
-              {...register("password", {
-                required: {
-                  value: true,
-                  message: "پسورد خود را وارد کنید.",
-                },
-                minLength: {
-                  value: 8,
-                  message: "پسورد باید بیشتر از هشت کاراکتر باشد.",
-                },
-                maxLength: {
-                  value: 20,
-                  message: "پسورد باید کمتر از بیست کاراکتر باشد.",
-                },
-              })}
+              {...register("password")}
               placeholder="پسورد"
             />
             <span

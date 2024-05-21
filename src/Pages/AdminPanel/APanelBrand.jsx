@@ -23,7 +23,7 @@ function APanelBrand() {
     queryKey,
     queryFn: getCategory,
   });
-
+console.log(categories?.data);
   //mutation
   const { mutate, isPending: isRemoveCategoryLoader } = useMutation({
     mutationFn: removeCategory,
@@ -48,7 +48,10 @@ function APanelBrand() {
               toast.dismiss(t.id);
               mutate(brandId, {
                 onSuccess: () => {
-                  customToast("success", "برند مورد نظر با موفقیت حذف شد");
+                  customToast(
+                    "success",
+                    "برند محصول مورد نظر با موفقیت حذف شد"
+                  );
                   queryClient.invalidateQueries({
                     queryKey: ["category-data"],
                   });

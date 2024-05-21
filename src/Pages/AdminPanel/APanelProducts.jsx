@@ -31,52 +31,49 @@ function APanelProducts() {
 
   //Fn
   const removeHandler = (productId) => {
-    toast.custom(
-      (t) => (
-        <div
-          className={`${
-            t.visible ? "animate-enter" : "animate-leave"
-          } inline-flex flex-col items-center justify-center p-5 bg-white dark:bg-zinc-800 pointer-events-auto rounded-xl`}
-        >
-          <h1 className="font-danaBold text-xl text-zinc-900 dark:text-white">
-            آیا از حذف محصول مطمئن هستید
-            <span className="mx-1 text-xl">❗</span>
-          </h1>
-          <div className="flex-center gap-x-5 my-2.5 text-white">
-            <button
-              className={`px-3 py-2 bg-red-600 font-dana rounded-lg transition-colors duration-150`}
-              onClick={() => {
-                toast.dismiss(t.id);
-                mutate(productId, {
-                  onSuccess: () => {
-                    customToast("success", "محصول مورد نظر با موفقیت حذف شد");
-                    queryClient.invalidateQueries({
-                      queryKey: ["products-data"],
-                    });
-                  },
-                  onError: () => {
-                    customToast(
-                      "error",
-                      "مشکلی پیش آمده لطفا دوباره امتحان کنید"
-                    );
-                  },
-                });
-              }}
-              disabled={isRemoveCategoryLoader}
-            >
-              بله
-            </button>
-            <button
-              className="px-3 py-2 bg-blue-600 hover:bg-blue-500 font-dana rounded-lg transition-colors duration-150"
-              onClick={() => toast.dismiss(t.id)}
-            >
-              خیر
-            </button>
-          </div>
+    toast.custom((t) => (
+      <div
+        className={`${
+          t.visible ? "animate-enter" : "animate-leave"
+        } inline-flex flex-col items-center justify-center p-5 bg-white dark:bg-zinc-800 pointer-events-auto rounded-xl`}
+      >
+        <h1 className="font-danaBold text-xl text-zinc-900 dark:text-white">
+          آیا از حذف محصول مطمئن هستید
+          <span className="mx-1 text-xl">❗</span>
+        </h1>
+        <div className="flex-center gap-x-5 my-2.5 text-white">
+          <button
+            className={`px-3 py-2 bg-red-600 font-dana rounded-lg transition-colors duration-150`}
+            onClick={() => {
+              toast.dismiss(t.id);
+              mutate(productId, {
+                onSuccess: () => {
+                  customToast("success", "محصول مورد نظر با موفقیت حذف شد");
+                  queryClient.invalidateQueries({
+                    queryKey: ["products-data"],
+                  });
+                },
+                onError: () => {
+                  customToast(
+                    "error",
+                    "مشکلی پیش آمده لطفا دوباره امتحان کنید"
+                  );
+                },
+              });
+            }}
+            disabled={isRemoveCategoryLoader}
+          >
+            بله
+          </button>
+          <button
+            className="px-3 py-2 bg-blue-600 hover:bg-blue-500 font-dana rounded-lg transition-colors duration-150"
+            onClick={() => toast.dismiss(t.id)}
+          >
+            خیر
+          </button>
         </div>
-      ),
-      { duration: 5000 }
-    );
+      </div>
+    ));
   };
 
   //loader

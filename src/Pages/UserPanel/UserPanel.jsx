@@ -13,7 +13,7 @@ function UserPanel() {
     <main className="flex flex-col lg:flex-row gap-x-2 xl:gap-x-14 px-2.5  xl:px-10 2xl:px-14 bg-white dark:bg-dark-100">
       <aside
         className="
-          w-full lg:w-auto px-5 lg:pr-10 py-10 bg-white lg:bg-transparent dark:bg-dark-200 lg:dark:bg-transparent z-50 lg:shadow-none transition-all duration-500"
+          w-full lg:w-auto px-2.5 lg:pr-5 py-10 bg-white lg:bg-transparent dark:bg-dark-200 lg:dark:bg-transparent z-50 lg:shadow-none transition-all duration-500"
       >
         <div className="w-[200px]">
           <Link to="/">
@@ -62,6 +62,20 @@ function UserPanel() {
                 <use href="#map"></use>
               </svg>
               <span>آدرس</span>
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="ticket"
+              className={`${
+                activeLink === "ticket" ? "bg-primary-200 text-white" : ""
+              } dashboard__li`}
+              onClick={() => setActiveLink("ticket")}
+            >
+              <svg className="w-7 h-7">
+                <use href="#ticket"></use>
+              </svg>
+              <span>ارسال تیکت</span>
             </Link>
           </li>
           <li>

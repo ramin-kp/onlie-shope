@@ -1,12 +1,22 @@
 import React, { useEffect, useState } from "react";
-import CityList from "./CityList";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { getCities, getProvinces } from "../Services/city";
-import Loader from "./Loader";
 import { useForm } from "react-hook-form";
-import { customToast } from "../utils/customToast";
 import { useNavigate } from "react-router-dom";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+//services
+import { getCities, getProvinces } from "../Services/city";
 import { postOrderDetails } from "../Services/products";
+
+//components
+import Loader from "./Loader";
+import CityList from "./CityList";
+
+//config
+import { customerSchema } from "../Configs/schema";
+
+//Fn
+import { customToast } from "../utils/customToast";
 
 function CustomerDetails({ step, setStep, data, dispatch }) {
   const [provinceText, setProvinceText] = useState("");
@@ -45,16 +55,18 @@ function CustomerDetails({ step, setStep, data, dispatch }) {
     window.scrollTo(0, 0);
   }, [step]);
 
+  useEffect(() => {
+    setCityText("");
+  }, [provinceText]);
+
   // react-hook-form
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-  useEffect(() => {
-    setCityText("");
-  }, [provinceText]);
+  } = useForm({ resolver: yupResolver(customerSchema) });
 
+  //Fn
   const SubmitHandler = (value) => {
     if (!provinceText || !cityText) {
       return customToast("error", "استان و شهر خود را انتخاب کنید");
@@ -73,6 +85,7 @@ function CustomerDetails({ step, setStep, data, dispatch }) {
     !isError && setStep(0);
   };
 
+  //loader
   if (isProvinces && isCities) return <Loader />;
 
   const { selectedItems, total } = data;
@@ -100,17 +113,7 @@ function CustomerDetails({ step, setStep, data, dispatch }) {
             <input
               type="text"
               id="name"
-              {...register("name", {
-                required: { value: true, message: "نام خود را وارد کنید" },
-                minLength: {
-                  value: 3,
-                  message: "نام شما باید بیشتر از 3 کاراکتر باشد",
-                },
-                maxLength: {
-                  value: 20,
-                  message: "نام شما باید کمتر از 20 کاراکتر باشد",
-                },
-              })}
+              {...register("name")}
               className={`${
                 errors.name ? "border border-primary-200" : ""
               } form-field__input`}
@@ -126,20 +129,7 @@ function CustomerDetails({ step, setStep, data, dispatch }) {
             <input
               type="text"
               id="lastName"
-              {...register("lastName", {
-                required: {
-                  value: true,
-                  message: "نام خانوادگی خود را وارد کنید",
-                },
-                minLength: {
-                  value: 3,
-                  message: "نام خانوادگی شما باید بیشتر از3 کاراکتر باشد",
-                },
-                maxLength: {
-                  value: 20,
-                  message: "نام خانوادگی شما باید بیشتر از20 کاراکتر باشد",
-                },
-              })}
+              {...register("lastName")}
               className={`${
                 errors.lastName ? "border border-primary-200" : ""
               } form-field__input`}
@@ -154,16 +144,7 @@ function CustomerDetails({ step, setStep, data, dispatch }) {
             </label>
             <input
               id="location"
-              {...register("location", {
-                required: {
-                  value: true,
-                  message: "لطفا آدرس خود را وارد کنید",
-                },
-                minLength: {
-                  value: 10,
-                  message: "لطفا آدرس خود را به درستی وارد کنید",
-                },
-              })}
+              {...register("location")}
               className={`${
                 errors.location ? "border border-primary-200" : ""
               } form-field__input`}
@@ -190,16 +171,7 @@ function CustomerDetails({ step, setStep, data, dispatch }) {
             <input
               type="number"
               id="PostalCode"
-              {...register("PostalCode", {
-                required: {
-                  value: true,
-                  message: "لطفا کد پستی خود را وارد کنید",
-                },
-                pattern: {
-                  value: /\b(?!(\d)\1{3})[13-9]{4}[1346-9][013-9]{5}\b/,
-                  message: "لطفا کد پستی خود را به درستی وارد کنید",
-                },
-              })}
+              {...register("PostalCode")}
               className={`${
                 errors.PostalCode ? "border border-primary-200" : ""
               } form-field__input`}
@@ -215,16 +187,7 @@ function CustomerDetails({ step, setStep, data, dispatch }) {
             <input
               type="number"
               id="mobile"
-              {...register("mobile", {
-                required: {
-                  value: true,
-                  message: "لطفا تلفن همراه خود را وارد کنید",
-                },
-                pattern: {
-                  value: /^09\d{9}$/,
-                  message: "لطفا تلفن همراه خود را به درستی وارد کنید",
-                },
-              })}
+              {...register("mobile")}
               className={`${
                 errors.mobile ? "border border-primary-200" : ""
               } form-field__input`}
@@ -240,12 +203,7 @@ function CustomerDetails({ step, setStep, data, dispatch }) {
             <input
               type="email"
               id="email"
-              {...register("email", {
-                pattern: {
-                  value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-                  message: "لطفا آدرس ایمیل خود را به درستی وارد کنید",
-                },
-              })}
+              {...register("email")}
               className={`${
                 errors.email ? "border border-primary-200" : ""
               } form-field__input`}
@@ -260,10 +218,13 @@ function CustomerDetails({ step, setStep, data, dispatch }) {
             </label>
             <textarea
               id="description"
-              {...register("description", {})}
+              {...register("description")}
               className="form-field__input p-2.5 outline-none rounded-lg"
               rows={5}
             />
+            <span className="inline-block mt-3 font-danaMedium text-primary-200 text-base">
+              {errors.description && errors.description.message}
+            </span>
           </div>
         </div>
         {/* product Details */}

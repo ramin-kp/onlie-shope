@@ -1,18 +1,46 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+//config
+import { userInfoSchema } from "../../Configs/schema";
 
 function UPanelUserInfo() {
   const {
     register,
+    resetField,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      name: "",
+      lastName: "",
+      email: "",
+      mobile: "",
+      oldPassword: "",
+      newPassword: "",
+    },
+    resolver: yupResolver(userInfoSchema),
+  });
+
+  const submitHandler = (values) => {
+    console.log(values);
+    resetField("name");
+    resetField("lastName");
+    resetField("email");
+    resetField("mobile");
+    resetField("oldPassword");
+    resetField("newPassword");
+  };
   return (
     <div>
       <h1 className="my-5 pb-5 font-danaBold text-2xl text-zinc-900 dark:text-white border-b-2 border-gray-200 dark:border-gray-700">
         جزییات حساب کاربری
       </h1>
-      <form className="w-full lg:w-1/2 mx-auto">
+      <form
+        className="w-full lg:w-1/2 mx-auto"
+        onSubmit={handleSubmit(submitHandler)}
+      >
         <div className="form-field">
           <label htmlFor="name" className="form-field__label">
             نام
@@ -20,17 +48,7 @@ function UPanelUserInfo() {
           <input
             type="text"
             id="name"
-            {...register("name", {
-              required: { value: true, message: "نام خود را وارد کنید" },
-              minLength: {
-                value: 3,
-                message: "نام شما باید بیشتر از 3 کاراکتر باشد",
-              },
-              maxLength: {
-                value: 20,
-                message: "نام شما باید کمتر از 20 کاراکتر باشد",
-              },
-            })}
+            {...register("name")}
             className={`${
               errors.name ? "border border-primary-200" : ""
             } form-field__input`}
@@ -46,20 +64,23 @@ function UPanelUserInfo() {
           <input
             type="text"
             id="lastName"
-            {...register("lastName", {
-              required: {
-                value: true,
-                message: "نام خانوادگی خود را وارد کنید",
-              },
-              minLength: {
-                value: 3,
-                message: "نام خانوادگی شما باید بیشتر از3 کاراکتر باشد",
-              },
-              maxLength: {
-                value: 20,
-                message: "نام خانوادگی شما باید بیشتر از20 کاراکتر باشد",
-              },
-            })}
+            {...register("lastName")}
+            className={`${
+              errors.lastName ? "border border-primary-200" : ""
+            } form-field__input`}
+          />
+          <span className="inline-block mt-3 font-danaMedium text-primary-200 text-base">
+            {errors.lastName && errors.lastName.message}
+          </span>
+        </div>
+        <div className="form-field">
+          <label htmlFor="email" className="form-field__label">
+            ایمیل
+          </label>
+          <input
+            type="email"
+            id="email"
+            {...register("email")}
             className={`${
               errors.lastName ? "border border-primary-200" : ""
             } form-field__input`}
@@ -75,16 +96,7 @@ function UPanelUserInfo() {
           <input
             type="number"
             id="mobile"
-            {...register("mobile", {
-              required: {
-                value: true,
-                message: "لطفا تلفن همراه خود را وارد کنید",
-              },
-              pattern: {
-                value: /^09\d{9}$/,
-                message: "لطفا تلفن همراه خود را به درستی وارد کنید",
-              },
-            })}
+            {...register("mobile")}
             className={`${
               errors.mobile ? "border border-primary-200" : ""
             } form-field__input`}
@@ -100,18 +112,13 @@ function UPanelUserInfo() {
           <input
             type="password"
             id="oldPassword"
-            {...register("oldPassword", {
-              required: {
-                value: true,
-                message: "پسورد فعلی خود را وارد کنید.",
-              },
-            })}
+            {...register("oldPassword")}
             className={`${
-              errors.odlPassword ? "border border-primary-200" : ""
+              errors.oldPassword ? "border border-primary-200" : ""
             } form-field__input`}
           />
           <span className="inline-block mt-3 font-danaMedium text-primary-200 text-base">
-            {errors.odlPassword && errors.odlPassword.message}
+            {errors.oldPassword && errors.oldPassword.message}
           </span>
         </div>
         <div className="form-field">
@@ -121,20 +128,7 @@ function UPanelUserInfo() {
           <input
             type="password"
             id="newPassword"
-            {...register("newPassword", {
-              required: {
-                value: true,
-                message: "پسورد جدید خود را وارد کنید.",
-              },
-              minLength: {
-                value: 8,
-                message: "پسورد باید بیشتر از سه کاراکتر باشد.",
-              },
-              maxLength: {
-                value: 20,
-                message: "پسورد باید کمتر از بیست کاراکتر باشد.",
-              },
-            })}
+            {...register("newPassword")}
             className={`${
               errors.newPassword ? "border border-primary-200" : ""
             } form-field__input`}

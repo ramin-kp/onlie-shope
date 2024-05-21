@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 //services
 import { getCategory, getCategoryProducts } from "../../Services/category";
@@ -8,6 +9,9 @@ import { createProducts } from "../../Services/products";
 
 //Fn
 import { customToast } from "../../utils/customToast";
+
+//config
+import { productsSchema } from "../../Configs/schema";
 
 function CreateProduct() {
   const [brandProducts, setBrandProducts] = useState([]);
@@ -35,14 +39,30 @@ function CreateProduct() {
   //hook-form
   const {
     register,
+    resetField,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      title: "",
+      subTitle: "",
+      price: "",
+      Number: "",
+      discount: "",
+      Attributes: "",
+      Amounts: "",
+      brand: "",
+      category: "",
+      image: "",
+    },
+
+    resolver: yupResolver(productsSchema),
+  });
 
   //Fn
   const submitHandler = (values) => {
     if ((!brandProducts, !productsCategory))
-      return customToast("error", "لطفا دسته‌بندی و برند محصول را انتخاب کنید");
+      return customToast("error", "لطفا دسته‌بندی و برند کالا را انتخاب کنید");
     const {
       price,
       Number: numberProducts,
@@ -68,8 +88,18 @@ function CreateProduct() {
 
     mutate(newProductData, {
       onSuccess: () => {
-        customToast("success", "محصول جدید با موفقیت ایجاد شد");
+        customToast("success", "کالا جدید با موفقیت ایجاد شد");
         queryClient.invalidateQueries({ queryKey: ["products-data"] });
+        resetField("title");
+        resetField("subTitle");
+        resetField("price");
+        resetField("Number");
+        resetField("discount");
+        resetField("Attributes");
+        resetField("Amounts");
+        resetField("brand");
+        resetField("category");
+        resetField("image");
       },
       onError: () => customToast("error", "مشکلی پیش آمده دوباره امتحان کنید"),
     });
@@ -78,7 +108,7 @@ function CreateProduct() {
   return (
     <div className="pb-10 border-b border-gray-300 dark:border-gray-700">
       <h1 className="my-5 mx-2 font-danaBold text-zinc-900 dark:text-white text-xl">
-        افزودن محصول جدید
+        افزودن کالا جدید
       </h1>
       <form
         className="flex flex-col justify-center items-center gap-y-5 childe:w-full text-zinc-900 dark:text-white"
@@ -88,13 +118,8 @@ function CreateProduct() {
           <input
             className="w-full dark:bg-dark-100"
             type="text"
-            {...register("title", {
-              required: {
-                value: true,
-                message: "نام محصول را وارد کنید.",
-              },
-            })}
-            placeholder="نام محصول"
+            {...register("title")}
+            placeholder="نام کالا"
           />
           <h3 className="mt-3 font-danaMedium w-full text-sm text-red-600">
             {errors.title && errors.title.message}
@@ -104,12 +129,7 @@ function CreateProduct() {
           <textarea
             className="w-full px-2.5 dark:bg-dark-100 rounded-lg outline-none"
             type="text"
-            {...register("subTitle", {
-              required: {
-                value: true,
-                message: "توضیحات را وارد کنید.",
-              },
-            })}
+            {...register("subTitle")}
             rows={5}
             placeholder="توضیحات"
           />
@@ -121,12 +141,7 @@ function CreateProduct() {
           <input
             className="w-full dark:bg-dark-100"
             type="number"
-            {...register("price", {
-              required: {
-                value: true,
-                message: "قیمت را وارد کنید.",
-              },
-            })}
+            {...register("price")}
             placeholder="قیمت"
           />
           <h3 className="mt-3 font-danaMedium w-full text-sm text-red-600">
@@ -137,13 +152,8 @@ function CreateProduct() {
           <input
             className="w-full dark:bg-dark-100"
             type="number"
-            {...register("Number", {
-              required: {
-                value: true,
-                message: "تعداد محصول را وارد کنید.",
-              },
-            })}
-            placeholder="تعداد محصول"
+            {...register("Number")}
+            placeholder="تعداد کالا"
           />
           <h3 className="mt-3 font-danaMedium w-full text-sm text-red-600">
             {errors.Number && errors.Number.message}
@@ -153,13 +163,8 @@ function CreateProduct() {
           <input
             className="w-full dark:bg-dark-100"
             type="number"
-            {...register("discount", {
-              required: {
-                value: true,
-                message: "میزان تخفیف محصول را وارد کنید.",
-              },
-            })}
-            placeholder="میزان تخفیف محصول"
+            {...register("discount")}
+            placeholder="میزان تخفیف کالا"
           />
           <h3 className="mt-3 font-danaMedium w-full text-sm text-red-600">
             {errors.discount && errors.discount.message}
@@ -169,13 +174,8 @@ function CreateProduct() {
           <input
             className="w-full dark:bg-dark-100"
             type="text"
-            {...register("Attributes", {
-              required: {
-                value: true,
-                message: "مشخصات محصول را وارد کنید.",
-              },
-            })}
-            placeholder="مشخصات محصول را با - جدا جدا بنویسید"
+            {...register("Attributes")}
+            placeholder="جزئیات و مشخصات کالا را با - جدا جدا بنویسید"
           />
           <h3 className="mt-3 font-danaMedium w-full text-sm text-red-600">
             {errors.Attributes && errors.Attributes.message}
@@ -185,13 +185,8 @@ function CreateProduct() {
           <input
             className="w-full dark:bg-dark-100"
             type="text"
-            {...register("Amounts", {
-              required: {
-                value: true,
-                message: "مقادیر مشخصات محصول را وارد کنید.",
-              },
-            })}
-            placeholder="مقادیر مشخصات محصول را با - جدا جدا بنویسید"
+            {...register("Amounts")}
+            placeholder="مقادیر جزئیات و مشخصات کالا را با - جدا جدا بنویسید"
           />
           <h3 className="mt-3 font-danaMedium w-full text-sm text-red-600">
             {errors.Amounts && errors.Amounts.message}
@@ -201,12 +196,7 @@ function CreateProduct() {
           <select
             className="w-full p-2 dark:bg-dark-100 outline-none rounded-lg"
             type="number"
-            {...register("brand", {
-              required: {
-                value: true,
-                message: " برند محصول را وارد کنید.",
-              },
-            })}
+            {...register("brand")}
             onChange={(e) => setBrandProducts(e.target.value.split(","))}
           >
             {!isBrandLoader &&
@@ -216,7 +206,7 @@ function CreateProduct() {
                   disabled={brand.value === "All" && true}
                   value={[brand.value, brand.title]}
                 >
-                  {brand.title === "همه محصولات" ? "برند محصول" : brand.title}
+                  {brand.title === "همه کالاها" ? "برند کالا" : brand.title}
                 </option>
               ))}
           </select>
@@ -228,12 +218,7 @@ function CreateProduct() {
           <select
             className="w-full p-2 dark:bg-dark-100 outline-none rounded-lg"
             type="number"
-            {...register("category", {
-              required: {
-                value: true,
-                message: " دسته بندی محصول را وارد کنید.",
-              },
-            })}
+            {...register("category")}
             onChange={(e) => setProductsCategory(e.target.value.split(","))}
           >
             {!isCategoryProductsLoader &&
@@ -254,13 +239,8 @@ function CreateProduct() {
           <input
             className="w-full dark:bg-dark-100"
             type="text"
-            {...register("image", {
-              required: {
-                value: true,
-                message: "مسیرعکس محصول را وارد کنید.",
-              },
-            })}
-            placeholder="مسیرعکس محصول"
+            {...register("image")}
+            placeholder="مسیرعکس کالا"
           />
           <h3 className="mt-3 font-danaMedium w-full text-sm text-red-600">
             {errors.image && errors.image.message}
@@ -273,10 +253,10 @@ function CreateProduct() {
             {...register("file", {
               required: {
                 value: true,
-                message: "عکس محصول را وارد کنید.",
+                message: "عکس کالا را وارد کنید.",
               },
             })}
-            placeholder="عکس محصول"
+            placeholder="عکس کالا"
           />
           <h3 className="mt-3 font-danaMedium w-full text-sm text-red-600">
             {errors.file && errors.file.message}

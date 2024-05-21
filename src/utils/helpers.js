@@ -1,3 +1,9 @@
+const authorizationUser = (response, userData) =>
+  response.data.find(
+    (user) =>
+      user.email === userData.email && user.password === userData.password
+  );
+
 const setBrandName = (name) => {
   let newName = null;
   if (name === "snowa") newName = "اسنوا";
@@ -23,7 +29,9 @@ const sumProducts = (products) => {
 };
 
 const quantityCount = (state, data) => {
-  const product = state.selectedItems.find((product) => product.id === data?.id);
+  const product = state.selectedItems.find(
+    (product) => product.id === data?.id
+  );
   if (!product) {
     return false;
   } else {
@@ -31,4 +39,4 @@ const quantityCount = (state, data) => {
   }
 };
 
-export { setBrandName, sumProducts, quantityCount };
+export { authorizationUser, setBrandName, sumProducts, quantityCount };

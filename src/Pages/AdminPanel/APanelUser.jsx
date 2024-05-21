@@ -4,7 +4,7 @@ import { toast } from "react-hot-toast";
 
 //components
 import Loader from "../../components/Loader";
-import RegisterUser from './../../components/adminPanel/RegisterUser';
+import RegisterUser from "./../../components/adminPanel/RegisterUser";
 import DataTable from "../../components/adminPanel/DataTable";
 
 //services
@@ -16,7 +16,6 @@ import {
 
 //function
 import { customToast } from "../../utils/customToast";
-
 
 function APanelUser() {
   //query
@@ -124,69 +123,69 @@ function APanelUser() {
     //   </div>
     // ));
   };
+
   //roleUpdate-Fn
   const roleUpdateHandler = (userId, role) => {
-    toast.custom(
-      (t) => (
-        <div
-          className={`${
-            t.visible ? "animate-enter" : "animate-leave"
-          } inline-flex flex-col items-center justify-center p-5 bg-white dark:bg-zinc-800 pointer-events-auto rounded-xl`}
-        >
-          <h1 className="font-danaBold text-xl text-center text-zinc-900 dark:text-white">
-            آیا از تغییر نقش{" "}
-            <span className="text-red-600">
-              {role === "ADMIN" ? "کاربر" : "مدیر"}
-            </span>{" "}
-            به{" "}
-            <span className="text-red-600">
-              {role === "ADMIN" ? "مدیر" : "کاربر"}
-            </span>{" "}
-            مطمئن هستید
-            <span className="mx-1 text-xl">❗</span>
-          </h1>
-          <div className="flex-center gap-x-5 my-2.5 text-white">
-            <button
-              className={`px-3 py-2 bg-red-600 font-dana rounded-lg transition-colors duration-150`}
-              onClick={() => {
-                toast.dismiss(t.id);
-                updateRole(
-                  { userId, role },
-                  {
-                    onSuccess: () => {
-                      customToast(
-                        "success",
-                        "نقش کاربر مورد نظر با موفقیت  تغییر کرد"
-                      );
-                      queryClient.invalidateQueries({
-                        queryKey: ["getAllUsers"],
-                      });
-                    },
-                    onError: () => {
-                      customToast(
-                        "error",
-                        "مشکلی پیش آمده لطفا دوباره امتحان کنید"
-                      );
-                    },
-                  }
-                );
-              }}
-              disabled={isRemoveUserLoader}
-            >
-              بله
-            </button>
-            <button
-              className="px-3 py-2 bg-blue-600 hover:bg-blue-500 font-dana rounded-lg transition-colors duration-150"
-              onClick={() => toast.dismiss(t.id)}
-            >
-              خیر
-            </button>
-          </div>
+    toast.custom((t) => (
+      <div
+        className={`${
+          t.visible ? "animate-enter" : "animate-leave"
+        } inline-flex flex-col items-center justify-center p-5 bg-white dark:bg-zinc-800 pointer-events-auto rounded-xl`}
+      >
+        <h1 className="font-danaBold text-xl text-center text-zinc-900 dark:text-white">
+          آیا از تغییر نقش{" "}
+          <span className="text-red-600">
+            {role === "ADMIN" ? "کاربر" : "مدیر"}
+          </span>{" "}
+          به{" "}
+          <span className="text-red-600">
+            {role === "ADMIN" ? "مدیر" : "کاربر"}
+          </span>{" "}
+          مطمئن هستید
+          <span className="mx-1 text-xl">❗</span>
+        </h1>
+        <div className="flex-center gap-x-5 my-2.5 text-white">
+          <button
+            className={`px-3 py-2 bg-red-600 font-dana rounded-lg transition-colors duration-150`}
+            onClick={() => {
+              toast.dismiss(t.id);
+              updateRole(
+                { userId, role },
+                {
+                  onSuccess: () => {
+                    customToast(
+                      "success",
+                      "نقش کاربر مورد نظر با موفقیت  تغییر کرد"
+                    );
+                    queryClient.invalidateQueries({
+                      queryKey: ["getAllUsers"],
+                    });
+                  },
+                  onError: () => {
+                    customToast(
+                      "error",
+                      "مشکلی پیش آمده لطفا دوباره امتحان کنید"
+                    );
+                  },
+                }
+              );
+            }}
+            disabled={isRemoveUserLoader}
+          >
+            بله
+          </button>
+          <button
+            className="px-3 py-2 bg-blue-600 hover:bg-blue-500 font-dana rounded-lg transition-colors duration-150"
+            onClick={() => toast.dismiss(t.id)}
+          >
+            خیر
+          </button>
         </div>
-      ),
-      { duration: 5000 }
-    );
+      </div>
+    ));
   };
+
+  //loader
   if (isPending) return <Loader />;
   return (
     <>

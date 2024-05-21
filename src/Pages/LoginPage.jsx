@@ -2,25 +2,42 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-
-import SvgIcons from "../components/SvgIcons";
-import { authorizationUser, fetchUserLogin } from "../Services/auth";
-import { setCookie } from "../utils/cookie";
 import { useQuery } from "@tanstack/react-query";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+//services
+import { fetchUserLogin } from "../Services/auth";
+
+//components
+import Loader from "./../components/Loader";
+
+//Fn
+import { setCookie } from "../utils/cookie";
+import { authorizationUser } from "../utils/helpers";
+
+//config
+import { loginUserSchema } from "../Configs/schema";
 
 function LoginPage() {
   const [inputType, setInputType] = useState(true);
+  //query
+  const queryKey = ["User-data"];
   const { data, isPending } = useQuery({
-    queryKey: ["User-data"],
+    queryKey,
     queryFn: fetchUserLogin,
   });
+
+  //navigate
   const navigate = useNavigate();
+
+  //hook-form
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({ defaultValues: {}, resolver: yupResolver(loginUserSchema) });
 
+  //Fn
   const submitHandler = async (values) => {
     if (!data) return;
     const res = authorizationUser(data, values);
@@ -32,6 +49,9 @@ function LoginPage() {
       toast.error("نام کاربری یا  پسورد وارد شده صحیح نمی‌باشد.");
     }
   };
+
+  if (isPending) return <Loader />;
+
   return (
     <main className="flex flex-col justify-center items-center h-screen ">
       <div className="p-5 mx-2 bg-gray-300 shadow-lg  rounded-lg">
@@ -48,16 +68,7 @@ function LoginPage() {
             <input
               className="w-full ltr-text"
               type="email"
-              {...register("email", {
-                required: {
-                  value: true,
-                  message: "ایمیل خود را وارد کنید.",
-                },
-                pattern: {
-                  value: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/g,
-                  message: "ایمیل وارد شده معتبر نمی‌باشد.",
-                },
-              })}
+              {...register("email")}
               placeholder="ایمیل"
             />
             <h3 className="mt-3 font-danaMedium text-sm text-red-600">
@@ -68,12 +79,7 @@ function LoginPage() {
             <input
               className="grow w-full ltr-text"
               type={inputType ? "password" : "text"}
-              {...register("password", {
-                required: {
-                  value: true,
-                  message: "پسورد خود را وارد کنید.",
-                },
-              })}
+              {...register("password")}
               placeholder="پسورد"
             />
             <span

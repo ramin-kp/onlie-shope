@@ -1,8 +1,16 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+//services
 import { userRegister } from "../../Services/auth";
+
+//Fn
 import { customToast } from "../../utils/customToast";
+
+//config
+import { aPanelUserSchema } from "../../Configs/schema";
 
 function RegisterUser() {
   //hook-form
@@ -20,6 +28,7 @@ function RegisterUser() {
       password: "",
       role: "USER",
     },
+    resolver: yupResolver(aPanelUserSchema),
   });
 
   //queryClient
@@ -27,16 +36,18 @@ function RegisterUser() {
 
   //mutation
   const { mutate, isPending } = useMutation({ mutationFn: userRegister });
+
+  //Fn
   const submitHandler = (values) => {
-    resetField("username");
-    resetField("email");
-    resetField("phone");
-    resetField("password");
-    resetField("role");
     mutate(values, {
       onSuccess: () => {
         customToast("success", "کاربر مورد نظر با موفقیت ایجاد شد");
         queryClient.invalidateQueries({ queryKey: ["getAllUsers"] });
+        resetField("username");
+        resetField("email");
+        resetField("phone");
+        resetField("password");
+        resetField("role");
       },
       onError: () => customToast("error", "مشکلی پیش آمده دوباره امتحان کنید"),
     });
@@ -55,24 +66,7 @@ function RegisterUser() {
           <input
             className="w-full ltr-text dark:bg-dark-100"
             type="text"
-            {...register("username", {
-              required: {
-                value: true,
-                message: "نام کاربری را وارد کنید.",
-              },
-              minLength: {
-                value: 3,
-                message: "نام کاربری باید بیشتر از سه کاراکتر باشد.",
-              },
-              maxLength: {
-                value: 20,
-                message: "نام کاربری باید کمتر از بیست کاراکتر باشد.",
-              },
-              pattern: {
-                value: /^[A-z0-9\-]+$/g,
-                message: "نام کاربری وارد شده معتبر نمی‌باشد.",
-              },
-            })}
+            {...register("username")}
             placeholder="نام کاربری"
           />
           <h3 className="mt-3 font-danaMedium w-full text-sm text-red-600">
@@ -83,16 +77,7 @@ function RegisterUser() {
           <input
             className="w-full ltr-text dark:bg-dark-100"
             type="email"
-            {...register("email", {
-              required: {
-                value: true,
-                message: "ایمیل را وارد کنید.",
-              },
-              pattern: {
-                value: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/g,
-                message: "ایمیل وارد شده معتبر نمی‌باشد.",
-              },
-            })}
+            {...register("email")}
             placeholder="ایمیل"
           />
           <h3 className="mt-3 font-danaMedium text-sm text-red-600">
@@ -103,20 +88,7 @@ function RegisterUser() {
           <input
             className="w-full ltr-text dark:bg-dark-100"
             type="number"
-            {...register("phone", {
-              required: {
-                value: true,
-                message: "شماره موبایل را وارد کنید.",
-              },
-              maxLength: {
-                value: 11,
-                message: "شماره موبایل شما صحصح نمی باشد.",
-              },
-              pattern: {
-                value: /((0?9)|(\+?989))\d{2}\W?\d{3}\W?\d{4}/g,
-                message: "شماره موبایل وارد شده معتبر نمی‌باشد.",
-              },
-            })}
+            {...register("phone")}
             placeholder="شماره موبایل"
           />
           <h3 className="mt-3 font-danaMedium text-sm text-red-600">
@@ -127,20 +99,7 @@ function RegisterUser() {
           <input
             className="w-full ltr-text dark:bg-dark-100"
             type="password"
-            {...register("password", {
-              required: {
-                value: true,
-                message: "پسورد را وارد کنید.",
-              },
-              minLength: {
-                value: 8,
-                message: "پسورد باید بیشتر از هشت کاراکتر باشد.",
-              },
-              maxLength: {
-                value: 20,
-                message: "پسورد باید کمتر از بیست کاراکتر باشد.",
-              },
-            })}
+            {...register("password")}
             placeholder="پسورد"
           />
           <h3 className="mt-3 font-danaMedium w-full text-sm text-red-600">
@@ -150,12 +109,7 @@ function RegisterUser() {
         <div>
           <select
             className="w-full py-2.5 px-2 dark:bg-dark-100 font-dana rounded outline-none"
-            {...register("role", {
-              required: {
-                value: true,
-                message: "نقش کاربر را انتخاب کنید",
-              },
-            })}
+            {...register("role")}
           >
             <option disabled>نقش کاربر را انتخاب کنید</option>
             <option value="USER">کاربر</option>

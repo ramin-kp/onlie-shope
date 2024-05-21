@@ -40,7 +40,7 @@ function App() {
       </QueryClientProvider>
       <SvgIcons />
       <Toaster
-        toastOptions={{ style: { fontFamily: "dana" }, duration: 5000 }}
+        toastOptions={{ style: { fontFamily: "dana" }, duration: 2000 }}
       />
       {Aos.init()}
     </>
