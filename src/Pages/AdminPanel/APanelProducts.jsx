@@ -88,7 +88,7 @@ function APanelProducts() {
         <table className="border-separate border-spacing-y-2 w-full font-dana text-zinc-900 dark:text-white">
           <thead>
             <tr className="font-danaBold text-wrap">
-              <th className="pr-1 bg-primary-100/65 py-5 rounded-r-md">آیدی</th>
+              <th className="pr-1 bg-primary-100/65 py-5 rounded-r-md">ردیف</th>
               <th className="bg-primary-100/65 py-5 ">نام محصول</th>
               <th className="bg-primary-100/65 py-5 ">برند</th>
               <th className="bg-primary-100/65 py-5 ">تعداد</th>

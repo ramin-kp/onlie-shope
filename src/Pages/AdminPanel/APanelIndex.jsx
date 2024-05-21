@@ -47,12 +47,14 @@ function APanelIndex() {
             <thead className="">
               <tr className="font-danaBold">
                 <th className="pr-1 bg-primary-100/65 py-2 rounded-r-md">
-                  آیدی
+                  ردیف
                 </th>
                 <th className="bg-primary-100/65 py-2 ">نام کاربری</th>
                 <th className="bg-primary-100/65 py-2 ">نقش</th>
                 <th className="bg-primary-100/65 py-2 ">ایمیل</th>
-                <th className="pl-1 bg-primary-100/65 py-2 rounded-l-md">موبایل</th>
+                <th className="pl-1 bg-primary-100/65 py-2 rounded-l-md">
+                  موبایل
+                </th>
               </tr>
             </thead>
             <tbody>

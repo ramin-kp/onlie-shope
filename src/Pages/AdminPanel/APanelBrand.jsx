@@ -23,7 +23,7 @@ function APanelBrand() {
     queryKey,
     queryFn: getCategory,
   });
-console.log(categories?.data);
+  console.log(categories?.data);
   //mutation
   const { mutate, isPending: isRemoveCategoryLoader } = useMutation({
     mutationFn: removeCategory,
@@ -90,7 +90,7 @@ console.log(categories?.data);
             <thead>
               <tr className="font-danaBold text-wrap">
                 <th className="pr-1 bg-primary-100/65 py-5 rounded-r-md">
-                  آیدی
+                  ردیف
                 </th>
                 <th className="bg-primary-100/65 py-5 ">نام برند</th>
                 <th className="bg-primary-100/65 py-5 ">لینک</th>

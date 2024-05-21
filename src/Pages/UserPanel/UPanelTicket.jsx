@@ -30,15 +30,16 @@ function UPanelTicket() {
 
   //Fn
   const SubmitHandler = (values) => {
-    resetField("title");
-    resetField("text");
     console.log(values);
     mutate(values, {
-      onSuccess: () =>
+      onSuccess: () => {
         customToast(
           "success",
           "تیکت شما با موفقیت ارسال شد بعد برسی مدیران پاسخ داده می‌شود."
         ),
+          resetField("title");
+        resetField("text");
+      },
       onError: () =>
         customToast("error", "مشکلی پیش آمده لطفا دوباره امتحان کنید"),
     });

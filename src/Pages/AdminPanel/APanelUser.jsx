@@ -196,7 +196,7 @@ function APanelUser() {
             <thead>
               <tr className="font-danaBold text-wrap">
                 <th className="pr-1 bg-primary-100/65 py-5 rounded-r-md">
-                  آیدی
+                  ردیف
                 </th>
                 <th className="bg-primary-100/65 py-5 ">نام کاربری</th>
                 <th className="bg-primary-100/65 py-5 ">نقش</th>

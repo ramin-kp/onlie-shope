@@ -1,5 +1,7 @@
 import api from "../Configs/api";
 
-const sendTicket = () => api.post("ticket");
+const getTicket = () => api.get("ticket");
+const sendTicket = (data) => api.post("ticket", data);
+const removeTicket = (id) => api.delete(`ticket/${id}`);
 
-export { sendTicket };
+export { getTicket, sendTicket, removeTicket };

@@ -12,7 +12,7 @@ function AdminPanel() {
     <main className="flex flex-col lg:flex-row gap-x-2 xl:gap-x-14 px-2.5  xl:px-10 2xl:px-14 bg-white dark:bg-dark-100">
       <aside
         className="
-          w-full lg:w-auto xl:pr-5 py-10 bg-white lg:bg-transparent dark:bg-dark-200 lg:dark:bg-transparent z-50 lg:shadow-none transition-all duration-500 print:hidden"
+          w-full lg:w-auto xl:pr-5 py-10 bg-white lg:bg-transparent dark:bg-dark-200 lg:dark:bg-transparent z-30 lg:shadow-none transition-all duration-500 print:hidden"
       >
         <div className="w-[200px]">
           <Link to="/">
