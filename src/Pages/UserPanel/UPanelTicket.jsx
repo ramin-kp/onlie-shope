@@ -30,8 +30,12 @@ function UPanelTicket() {
 
   //Fn
   const SubmitHandler = (values) => {
-    console.log(values);
-    mutate(values, {
+    const ticketData = {
+      answer: 0,
+      title: values.title,
+      ticketData: [{ text: values.text, role: "USER" }],
+    };
+    mutate(ticketData, {
       onSuccess: () => {
         customToast(
           "success",
