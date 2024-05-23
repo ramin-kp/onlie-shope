@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 //services
 import { getCities, getProvinces } from "../Services/city";
 import { postOrderDetails } from "../Services/products";
+import { postAddress } from "../Services/address";
 
 //components
 import Loader from "./Loader";
@@ -17,6 +18,9 @@ import { customerSchema } from "../Configs/schema";
 
 //Fn
 import { customToast } from "../utils/customToast";
+
+//context
+import { useUser } from "../context/UserInfoContextProvider";
 
 function CustomerDetails({ step, setStep, data, dispatch }) {
   const [provinceText, setProvinceText] = useState("");
@@ -49,8 +53,25 @@ function CustomerDetails({ step, setStep, data, dispatch }) {
     onError: () =>
       customToast("error", "مشکلی پیش آمده لطفا دوباره امتحان کنید"),
   });
-
+  const { mutate: addressMutate, isError: isErrorAddress } = useMutation({
+    mutationFn: postAddress,
+    onSuccess: () => {
+      customToast("success", "آدرس شما با موفقیت ثبت شد");
+    },
+    onError: () =>
+      customToast("error", "مشکلی پیش آمده لطفا دوباره امتحان کنید"),
+  });
   // useEffect
+  useEffect(() => {
+    if (!userInfo) {
+      navigate("/login");
+      customToast(
+        "error",
+        "ابتدا به حساب کاربری خود وارد شوید یا یک حساب کاربری ایجاد کنید."
+      );
+    }
+  }, [step]);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [step]);
@@ -66,22 +87,33 @@ function CustomerDetails({ step, setStep, data, dispatch }) {
     formState: { errors },
   } = useForm({ resolver: yupResolver(customerSchema) });
 
+  //context
+  const [userInfo] = useUser();
+
   //Fn
-  const SubmitHandler = (value) => {
+  const SubmitHandler = (values) => {
     if (!provinceText || !cityText) {
       return customToast("error", "استان و شهر خود را انتخاب کنید");
     }
     const { checkout, ...res } = data;
+    const { description, ...address } = values;
 
     const orderData = {
-      ...value,
+      ...values,
       province: provinceText,
       city: cityText,
       productsDetails: {
         ...res,
       },
     };
+    const addressData = {
+      ...address,
+      province: provinceText,
+      city: cityText,
+      userId: userInfo.id,
+    };
     mutate(orderData);
+    addressMutate(addressData);
     !isError && setStep(0);
   };
 
@@ -234,11 +266,11 @@ function CustomerDetails({ step, setStep, data, dispatch }) {
             <p className="font-dana text-lg">جزئیات لیست سفارشات شما</p>
           </div>
           <div className="">
-            <div className="flex items-center justify-between pb-5 font-danaMedium text-lg border-b-2 border-gray-300">
+            <div className="flex items-center justify-between pb-5 font-danaMedium text-lg border-b-2 border-gray-300 dark:border-gray-700">
               <p>محصول</p>
               <p>جمع جزء</p>
             </div>
-            <div className="divide-y divide-gray-200">
+            <div className="divide-y divide-gray-200 dark:divide-gray-700">
               {selectedItems.map((product) => (
                 <div
                   key={product.id}
@@ -254,11 +286,11 @@ function CustomerDetails({ step, setStep, data, dispatch }) {
                 </div>
               ))}
             </div>
-            <div className="flex items-center justify-between py-5 font-danaMedium text-lg border-t border-gray-300">
+            <div className="flex items-center justify-between py-5 font-danaMedium text-lg border-t border-gray-300 dark:border-gray-700">
               <p>جمع جزء</p>
               <p className="text-primary-200">{total.toLocaleString()} تومان</p>
             </div>
-            <div className=" pt-5 border-t border-gray-300">
+            <div className=" pt-5 border-t border-gray-300 dark:border-gray-700">
               <div className="flex items-center justify-between font-danaMedium text-lg ">
                 <p>حمل و نقل</p>
                 <p className="text-primary-200">
@@ -269,7 +301,7 @@ function CustomerDetails({ step, setStep, data, dispatch }) {
                 بالای 500,000 تومان ارسال رایگان
               </span>
             </div>
-            <div className="flex items-center justify-between py-5 font-danaBold text-lg border-t border-gray-300">
+            <div className="flex items-center justify-between py-5 font-danaBold text-lg border-t border-gray-300 dark:border-gray-700">
               <p>مجموع</p>
               <p className="text-primary-200">
                 {total > 500000

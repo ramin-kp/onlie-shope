@@ -17,9 +17,11 @@ import { useUser } from "../context/UserInfoContextProvider";
 import { customToast } from "../utils/customToast";
 
 function Header() {
-  const [theme, setTheme] = useTheme();
   const [isShown, setIsShown] = useState(false);
   const [state] = useCard();
+
+  //context
+  const [theme, setTheme] = useTheme();
   const [userInfo, setUserInfo] = useUser();
 
   //query

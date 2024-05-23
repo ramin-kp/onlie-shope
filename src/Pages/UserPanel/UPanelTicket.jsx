@@ -50,8 +50,8 @@ function UPanelTicket() {
   };
 
   return (
-    <div>
-      <h1>ارسال تیکت</h1>
+    <div className="text-zinc-900 dark:text-white">
+      <h1 className="my-5 pb-5 font-danaBold text-2xl text-zinc-900 dark:text-white border-b-2 border-gray-200 dark:border-gray-700">ارسال تیکت</h1>
       <form
         className="flex flex-col md:flex-row items-start justify-between gap-x-5 w-full p-5"
         onSubmit={handleSubmit(SubmitHandler)}

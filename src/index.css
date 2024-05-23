@@ -139,10 +139,10 @@
     @apply w-full my-2 font-danaBold;
   }
   .form-field__input {
-    @apply w-full bg-gray-100 dark:bg-dark-200 font-dana text-zinc-900 dark:text-white text-base border border-gray-400 dark:border-transparent;
+    @apply w-full bg-gray-100 dark:bg-dark-200 font-dana text-zinc-900 dark:text-white text-base border border-gray-400 dark:border-gray-600;
   }
   .form-field__select {
-    @apply w-full px-3 py-2 bg-gray-100 dark:bg-dark-200 font-dana text-zinc-900 dark:text-white text-base border border-gray-400 dark:border-transparent rounded-lg;
+    @apply w-full px-3 py-2 bg-gray-100 dark:bg-dark-200 font-dana text-zinc-900 dark:text-white text-base border border-gray-400 dark:border-gray-600 rounded-lg;
   }
   .form-field__option {
     @apply absolute top-16 w-full mt-5 h-48 bg-gray-100 dark:bg-dark-200 font-dana text-zinc-900 dark:text-white shadow-lg rounded-md overflow-y-auto z-10;

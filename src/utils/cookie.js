@@ -1,7 +1,7 @@
 const setCookie = (data) => {
-  const { username, email, password, phone, role } = data;
+  const { username, email, password, phone, role,id } = data;
   const userData = btoa(
-    JSON.stringify({ username, email, password, phone, role })
+    JSON.stringify({ username, email, password, phone, role,id })
   );
   document.cookie = `userData=${userData}; max-age=${30 * 60 * 60}`;
 };

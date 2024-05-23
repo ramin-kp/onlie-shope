@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 //services
 import { getCities, getProvinces } from "../../Services/city";
+import { getAddress, updateAddress } from "../../Services/address";
 
 //components
 import CityList from "../../components/CityList";
@@ -16,10 +17,18 @@ import { customToast } from "../../utils/customToast";
 //config
 import { addersSchema } from "../../Configs/schema";
 
+//context
+import { useUser } from "../../context/UserInfoContextProvider";
+
 function UPanelAddress() {
+  const [isShowAddressForm, setIsShowAddressForm] = useState(false);
   const [provinceText, setProvinceText] = useState("");
   const [cityText, setCityText] = useState("");
   const [provinceCode, setProvinceCode] = useState("");
+  const [newAddress, setNewAddress] = useState({});
+
+  //context
+  const [userInfo] = useUser();
 
   //query
   const { data: provinces, isPending: isProvinces } = useQuery({
@@ -31,52 +40,106 @@ function UPanelAddress() {
     queryKey: ["cities-data"],
     queryFn: getCities,
   });
+  const { data: userAddress, isPending: isUserAddressLoading } = useQuery({
+    queryKey: ["userAddress-data"],
+    queryFn: getAddress,
+  });
+
+  //mutation
+  const { mutate: updateUserAddress, isPending: isUpdateAddressLoading } =
+    useMutation({
+      mutationFn: updateAddress,
+    });
+
+  //queryClient
+  const queryClient = useQueryClient();
+
+  console.log(userAddress?.data);
 
   //hook-form
   const {
     register,
-    resetField,
+    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    defaultValues: {
-      name: "",
-      lastName: "",
-      location: "",
-      PostalCode: "",
-      mobile: "",
-      email: "",
-    },
     resolver: yupResolver(addersSchema),
   });
 
-  //fn
-  const SubmitHandler = (value) => {
+  //useEffect
+  useEffect(() => {
+    if (isUserAddressLoading) return;
+    const res = userAddress.data.find(
+      (address) => address.userId === userInfo.id
+    );
+    setNewAddress(res);
+    console.log("res", res);
+  }, [userAddress]);
+
+  useEffect(() => {
+    setValue("name", newAddress?.name);
+    setValue("lastName", newAddress?.lastName);
+    setValue("location", newAddress?.location);
+    setValue("PostalCode", newAddress?.PostalCode);
+    setValue("mobile", newAddress?.mobile);
+    setValue("email", newAddress?.email);
+  }, [newAddress]);
+
+  //Fn
+  const SubmitHandler = (values) => {
     if (!provinceText || !cityText) {
       return customToast("error", "استان و شهر خود را انتخاب کنید");
     }
+    const data = {
+      ...values,
+      province: provinceText,
+      city: cityText,
+      userId: newAddress.userId,
+    };
+    console.log("data", { data, id: newAddress.id });
+    updateUserAddress(
+      { id: newAddress.id, data },
+      {
+        onSuccess: () => {
+          customToast("success", "با موفقیت ثبت شد");
+          queryClient.invalidateQueries({ queryKey: ["userAddress-data"] });
+          setIsShowAddressForm((prev) => !prev);
+          window.scrollTo(0, 0);
+        },
+        onError: () =>
+          customToast("error", "مشکلی پیش آمده لطفا دوباره امتحان کنید"),
+      }
+    );
   };
+
   if (isCities) return <Loader />;
   return (
-    <div>
-      <h1 className=" my-5 pb-5 font-danaBold text-2xl text-zinc-900 dark:text-white border-b-2 border-gray-200 dark:border-gray-700">
+    <div className="text-zinc-900 dark:text-white">
+      <h1 className=" my-5 pb-5 font-danaBold text-2xl  border-b-2 border-gray-200 dark:border-gray-700">
         جزییات حساب کاربری
       </h1>
       <div className="font-dana">
         <h2 className="font-danaBold text-xl">آدرس ثبت شده</h2>
         <div>
-          <p>رامین کریم پور</p>
-          <p>آذربایجان شرقی</p>
-          <p>بناب</p>
           <p>
-            بناب خیابان مطهری-خیابان وحدت شرقی -کوچه فردیس33جنب آموزشگاه رانندگی
-            سهند
+            {newAddress?.name} {newAddress?.lastName}
           </p>
-          <p> 5551979496</p>
+          <p> {newAddress?.province}</p>
+          <p>{newAddress?.city}</p>
+          <p>{newAddress?.location}</p>
+          <p> {newAddress?.PostalCode}</p>
         </div>
       </div>
+      <button
+        className="inline-block px-3 py-2 my-5 bg-primary-200 hover:bg-primary-100 font-dana text-white rounded-lg"
+        onClick={() => setIsShowAddressForm((prev) => !prev)}
+      >
+        تغییر اطلاعات آدرس
+      </button>
       <form
-        className="flex flex-col md:flex-row items-start justify-between gap-x-5 w-full p-5"
+        className={`${
+          isShowAddressForm ? "opacity-100 visible" : "h-0 opacity-0 invisible"
+        } flex flex-col md:flex-row items-start justify-between gap-x-5 w-full p-5 transition-all duration-200`}
         onSubmit={handleSubmit(SubmitHandler)}
       >
         {/* customer Details */}

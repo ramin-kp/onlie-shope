@@ -3,6 +3,7 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 
 //context
 import { useUser } from "../../context/UserInfoContextProvider";
+import { useTheme } from "../../context/ThemContextProvider";
 
 //Fn
 import { customToast } from "../../utils/customToast";
@@ -17,6 +18,7 @@ function UserPanel() {
 
   //context
   const [userInfo, setUserInfo] = useUser();
+  const [theme, setTheme] = useTheme();
 
   //useEffect
   useEffect(() => {
@@ -29,6 +31,12 @@ function UserPanel() {
   }, [activeLink]);
 
   //Fn
+  const darkModeHandler = () => {
+    setTheme("dark");
+  };
+  const lightModeHandler = () => {
+    setTheme("light");
+  };
   const logoutHandler = () => {
     navigate("/");
     customToast("success", "با موفقیت از حساب خود خارج شدید");
@@ -129,6 +137,33 @@ function UserPanel() {
         </ul>
       </aside>
       <section className="max-w-[1432px] xl:grow mx-2.5 lg:mx-auto xl:px-10 bg-gray-100 dark:bg-dark-200 my-10 p-10 shadow-lg rounded-[35px]">
+        <div className="flex items-start justify-between">
+          <h1 className="pb-5 my-5 font-danaBold text-2xl text-zinc-900 dark:text-white">
+            {userInfo?.username} عزیز؛ خوش اومدی 🙌
+          </h1>
+          <div>
+            <div
+              className={`${
+                theme === "dark" ? "lg:flex-center" : ""
+              } hidden w-10 h-10 bg-dark-100 rounded-full hover:cursor-pointer text-yellow-500`}
+              onClick={lightModeHandler}
+            >
+              <svg className="w-6 h-6 ">
+                <use href="#sun"></use>
+              </svg>
+            </div>
+            <div
+              className={`${
+                theme === "light" ? "lg:flex-center" : ""
+              } hidden w-10 h-10 bg-white rounded-full hover:cursor-pointer text-blue-800`}
+              onClick={darkModeHandler}
+            >
+              <svg className="w-6 h-6">
+                <use href="#moon"></use>
+              </svg>
+            </div>
+          </div>
+        </div>
         <Outlet />
       </section>
     </main>

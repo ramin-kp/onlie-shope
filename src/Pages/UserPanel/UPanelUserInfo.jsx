@@ -33,10 +33,11 @@ function UPanelUserInfo() {
     resetField("newPassword");
   };
   return (
-    <div>
+    <div className="text-zinc-900 dark:text-white">
       <h1 className="my-5 pb-5 font-danaBold text-2xl text-zinc-900 dark:text-white border-b-2 border-gray-200 dark:border-gray-700">
         جزییات حساب کاربری
       </h1>
+      
       <form
         className="w-full lg:w-1/2 mx-auto"
         onSubmit={handleSubmit(submitHandler)}
