@@ -1,8 +1,10 @@
-const authorizationUser = (response, userData) =>
-  response.data.find(
+const authorizationUser = (response, userData) => {
+  const res = response.data.find(
     (user) =>
       user.email === userData.email && user.password === userData.password
   );
+  return res;
+};
 
 const setBrandName = (name) => {
   let newName = null;

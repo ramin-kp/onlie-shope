@@ -12,11 +12,14 @@ import { fetchUserLogin } from "../Services/auth";
 import Loader from "./../components/Loader";
 
 //Fn
-import { setCookie } from "../utils/cookie";
+import { getCookie, setCookie } from "../utils/cookie";
 import { authorizationUser } from "../utils/helpers";
 
 //config
 import { loginUserSchema } from "../Configs/schema";
+
+//context
+import { useUser } from "../context/UserInfoContextProvider";
 
 function LoginPage() {
   const [inputType, setInputType] = useState(true);
@@ -30,20 +33,24 @@ function LoginPage() {
   //navigate
   const navigate = useNavigate();
 
+  //context
+  const [userInfo, setUserInfo] = useUser();
+
   //hook-form
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ defaultValues: {}, resolver: yupResolver(loginUserSchema) });
+  } = useForm({ resolver: yupResolver(loginUserSchema) });
 
   //Fn
   const submitHandler = async (values) => {
     if (!data) return;
     const res = authorizationUser(data, values);
     if (res) {
-      toast.success("با موفقیت  وارد شدید");
       setCookie(res);
+      setUserInfo(getCookie("userData"));
+      toast.success("با موفقیت  وارد شدید");
       navigate("/");
     } else {
       toast.error("نام کاربری یا  پسورد وارد شده صحیح نمی‌باشد.");
@@ -55,11 +62,13 @@ function LoginPage() {
   return (
     <main className="flex flex-col justify-center items-center h-screen ">
       <div className="p-5 mx-2 bg-gray-300 shadow-lg  rounded-lg">
-        <img
-          src="/images/logo-1.png"
-          alt="log-icon"
-          className="w-[400px] mx-auto"
-        />
+        <Link to="/" className="inline-block">
+          <img
+            src="/images/logo-1.png"
+            alt="log-icon"
+            className="w-[400px] mx-auto"
+          />
+        </Link>
         <form
           className="flex flex-col justify-center items-center gap-y-5 max-w-full childe:w-full"
           onSubmit={handleSubmit(submitHandler)}

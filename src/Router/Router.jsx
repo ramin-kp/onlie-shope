@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
 //pages
@@ -35,8 +35,13 @@ import Modal from "../components/Modal";
 //services
 import { getProductsData } from "../Services/products";
 import { getSubMenus } from "../Services/menus";
+import { useUser } from "../context/UserInfoContextProvider";
 
 function Router() {
+  const [userInfo, setUserInfo] = useUser();
+  console.log(userInfo);
+
+  //Query
   const { isPending: isProductsLoading } = useQuery({
     queryKey: ["products-data"],
     queryFn: getProductsData,
@@ -45,14 +50,19 @@ function Router() {
     queryKey: ["menu-data"],
     queryFn: getSubMenus,
   });
-
   if (isProductsLoading && isMenuLoading) return <Modal />;
 
   return (
     <Routes>
       <Route index element={<HomePage />} />
-      <Route path="/register" element={<RegisterPage />} />
-      <Route path="/login" element={<LoginPage />} />
+      <Route
+        path="/register"
+        element={userInfo ? <Navigate to="/my-account" /> : <RegisterPage />}
+      />
+      <Route
+        path="/login"
+        element={userInfo ? <Navigate to="/my-account" /> : <LoginPage />}
+      />
       <Route path="/products" element={<Products />} />
       <Route path="/contact-us" element={<ContactUs />} />
       <Route path="/orders" element={<Orders />} />
@@ -62,14 +72,26 @@ function Router() {
         path="products/brand/:brandName/:category"
         element={<ProductsByCategory />}
       />
-      <Route path="/my-account/*" element={<UserPanel />}>
+      <Route
+        path="/my-account/*"
+        element={userInfo ? <UserPanel /> : <Navigate to="/register" />}
+      >
         <Route index element={<UPaneIndex />} />
         <Route path="orders" element={<UPanelOrders />} />
         <Route path="address" element={<UPanelAddress />} />
         <Route path="ticket" element={<UPanelTicket />} />
         <Route path="edit-account" element={<UPanelUserInfo />} />
       </Route>
-      <Route path="/admin-panel/*" element={<AdminPanel />}>
+      <Route
+        path="/admin-panel/*"
+        element={
+          userInfo && userInfo.role === "ADMIN" ? (
+            <AdminPanel />
+          ) : (
+            <Navigate to="/" />
+          )
+        }
+      >
         <Route index element={<APanelIndex />} />
         <Route path="users" element={<APanelUser />} />
         <Route path="brand" element={<APanelBrand />} />

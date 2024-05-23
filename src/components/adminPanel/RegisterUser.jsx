@@ -54,7 +54,7 @@ function RegisterUser() {
   };
 
   return (
-    <div>
+    <div className="pb-10 border-b border-gray-300 dark:border-gray-700">
       <h1 className="mb-5 font-danaBold text-zinc-900 dark:text-white text-xl">
         ثبت نام کاربر جدید
       </h1>

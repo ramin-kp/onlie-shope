@@ -21,6 +21,7 @@ import Router from "./Router/Router";
 
 //styles
 import "aos/dist/aos.css";
+import UserInfoContextProvider from "./context/UserInfoContextProvider";
 
 function App() {
   const queryClient = new QueryClient({
@@ -30,13 +31,15 @@ function App() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <ThemContextProvider>
-          <CardContextProvider>
-            <Router />
-            <ScrollToTop />
-          </CardContextProvider>
-        </ThemContextProvider>
-        <ReactQueryDevtools />
+        <UserInfoContextProvider>
+          <ThemContextProvider>
+            <CardContextProvider>
+              <Router />
+              <ScrollToTop />
+            </CardContextProvider>
+          </ThemContextProvider>
+          <ReactQueryDevtools />
+        </UserInfoContextProvider>
       </QueryClientProvider>
       <SvgIcons />
       <Toaster

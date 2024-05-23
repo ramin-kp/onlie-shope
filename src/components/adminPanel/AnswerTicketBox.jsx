@@ -47,7 +47,7 @@ function AnswerTicketBox({
 
   return (
     <>
-      <div className="fixed top-[30%] w-[500px] min-h-[250px] p-5 bg-white dark:bg-dark-100 rounded-xl z-50">
+      <div className="fixed top-[30%] w-[300px] xs:w-[400px] md:w-[500px] min-h-[250px] p-5 bg-white dark:bg-dark-100 rounded-xl z-50">
         <h3 className="font-morabba text-xl">متن پاسخ تیکت را وارد کنید</h3>
         <form onSubmit={handleSubmit(submitHandler)}>
           <div className="form-field">

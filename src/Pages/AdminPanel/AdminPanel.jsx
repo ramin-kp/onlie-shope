@@ -1,13 +1,36 @@
 import React, { useEffect, useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+
+//context
+import { useUser } from "../../context/UserInfoContextProvider";
+
+//Fn
+import { deleteCookie } from "../../utils/cookie";
+import { customToast } from "../../utils/customToast";
 
 function AdminPanel() {
   const [activeLink, setActiveLink] = useState(
     localStorage.getItem("activeLinkAPanel") || "index"
   );
+  const navigate = useNavigate();
+  //context
+  const [userInfo, setUserInfo] = useUser();
+  //useEffect
+  useEffect(() => {
+    if (activeLink === "index") return navigate(`/admin-panel`);
+    navigate(`/admin-panel/${activeLink}`);
+  }, [activeLink, navigate]);
   useEffect(() => {
     localStorage.setItem("activeLinkAPanel", activeLink);
   }, [activeLink]);
+
+  //Fn
+  const logoutHandler = () => {
+    navigate("/");
+    customToast("success", "با موفقیت از حساب خود خارج شدید");
+    setUserInfo("");
+    deleteCookie("userData");
+  };
   return (
     <main className="flex flex-col lg:flex-row gap-x-2 xl:gap-x-14 px-2.5  xl:px-10 2xl:px-14 bg-white dark:bg-dark-100">
       <aside
@@ -120,7 +143,7 @@ function AdminPanel() {
             </Link>
           </li>
           <li>
-            <Link to="#" className="dashboard__li">
+            <Link to="#" className="dashboard__li" onClick={logoutHandler}>
               <svg className="w-7 h-7">
                 <use href="#arrow-right-start-on-rectangle"></use>
               </svg>

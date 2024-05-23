@@ -9,10 +9,13 @@ import { userRegister } from "../Services/auth";
 
 //Fn
 import { customToast } from "../utils/customToast";
-import { setCookie } from "../utils/cookie";
+import { getCookie, setCookie } from "../utils/cookie";
 
 //config
 import { registerUserSchema } from "../Configs/schema";
+
+//context
+import { useUser } from "../context/UserInfoContextProvider";
 
 function RegisterPage() {
   const [inputType, setInputType] = useState(true);
@@ -33,7 +36,8 @@ function RegisterPage() {
   } = useForm({
     resolver: yupResolver(registerUserSchema),
   });
-
+  //context
+  const [userInfo, setUserInfo] = useUser();
   //Fn
   const submitHandler = (values) => {
     const { username, email, phone, password } = values;
@@ -49,6 +53,8 @@ function RegisterPage() {
       onSuccess: () => {
         customToast("success", "با موفقیت ثبت نام انجام شد.");
         setCookie(userData);
+        setUserInfo(getCookie("userData"));
+
         navigate("/");
       },
       onError: () =>
@@ -58,11 +64,13 @@ function RegisterPage() {
   return (
     <main className="flex flex-col justify-center items-center h-screen ">
       <div className="p-5 mx-2 bg-gray-300 shadow-lg  rounded-lg">
-        <img
-          src="/images/logo-1.png"
-          alt="log-icon"
-          className="w-[400px] mx-auto"
-        />
+        <Link to="/" className="inline-block">
+          <img
+            src="/images/logo-1.png"
+            alt="log-icon"
+            className="w-[400px] mx-auto"
+          />
+        </Link>
         <form
           className="flex flex-col justify-center items-center gap-y-5 max-w-full childe:w-full"
           onSubmit={handleSubmit(submitHandler)}

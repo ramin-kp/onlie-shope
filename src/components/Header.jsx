@@ -1,29 +1,42 @@
 import React, { useState } from "react";
-import api from "../Configs/api";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
-import MobileHeader from "./MobileHeader";
+//services
 import { getSubMenus } from "../Services/menus";
+
+//components
+import MobileHeader from "./MobileHeader";
+
+//context
 import { useTheme } from "../context/ThemContextProvider";
-import { customToast } from "../utils/customToast";
 import { useCard } from "../context/CardContextProvider";
+import { useUser } from "../context/UserInfoContextProvider";
+
+//Fn
+import { customToast } from "../utils/customToast";
 
 function Header() {
   const [theme, setTheme] = useTheme();
   const [isShown, setIsShown] = useState(false);
   const [state] = useCard();
+  const [userInfo, setUserInfo] = useUser();
+
+  //query
   const { data, isError } = useQuery({
     queryKey: ["menu-data"],
     queryFn: getSubMenus,
   });
 
+  //Fn
   const darkModeHandler = () => {
     setTheme("dark");
   };
   const lightModeHandler = () => {
     setTheme("light");
   };
+
+  //Loader
   if (isError) return customToast("error", "مشکلی پیش آمده");
 
   return (
@@ -124,14 +137,42 @@ function Header() {
               <use href="#moon"></use>
             </svg>
           </div>
-          <Link
-            to="/my-account"
-            className="flex-center hover:text-primary-200 lg:w-10 lg:h-10 lg:hover:bg-gray-100 lg:dark:hover:bg-dark-200 rounded-full hover:cursor-pointer group"
-          >
-            <svg className="w-5 h-5 stroke-2">
-              <use href="#user"></use>
-            </svg>
-          </Link>
+          {userInfo && userInfo.role === "ADMIN" && (
+            <Link
+              to="/admin-panel"
+              className="flex-center hover:text-primary-200 lg:w-10 lg:h-10 lg:hover:bg-gray-100 lg:dark:hover:bg-dark-200 rounded-full hover:cursor-pointer group"
+            >
+              <svg className="w-5 h-5 stroke-2">
+                <use href="#setting"></use>
+              </svg>
+            </Link>
+          )}
+          {userInfo ? (
+            <Link
+              to="/my-account"
+              className="flex-center hover:text-primary-200 lg:w-10 lg:h-10 lg:hover:bg-gray-100 lg:dark:hover:bg-dark-200 rounded-full hover:cursor-pointer group"
+            >
+              <svg className="w-5 h-5 stroke-2">
+                <use href="#user"></use>
+              </svg>
+            </Link>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="hidden lg:inline-block px-3 py-2 bg-primary-200 hover:bg-primary-100 text-white transition-all duration-100 rounded-lg"
+              >
+                ثبت‌نام | ورود
+              </Link>
+              <Link
+                to="/login"
+                className="flex-center lg:hidden  px-3 pb-2 bg-primary-200 hover:bg-primary-100 text-white transition-all duration-100 rounded-lg"
+              >
+                ورود
+              </Link>
+            </>
+          )}
+
           <Link
             className="relative flex-center hover:text-primary-200 lg:w-10 lg:h-10 lg:hover:bg-gray-100 lg:dark:hover:bg-dark-200 rounded-full hover:cursor-pointer"
             to="/orders"
