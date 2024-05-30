@@ -227,20 +227,14 @@ const addersSchema = yup.object({
     ),
 });
 const userInfoSchema = yup.object({
-  name: yup
+  username: yup
     .string()
     .required("نام کاربری را وارد کنید.")
-    .min(3, "نام  باید بیشتر از 3 کاراکتر باشد.")
-    .max(20, "نام  باید کمتر از 20 کاراکتر باشد.")
+    .min(3, "نام کاربری  باید بیشتر از 3 کاراکتر باشد.")
+    .max(20, "نام کاربری  باید کمتر از 20 کاراکتر باشد.")
 
     .transform((value) => value.trim()),
-  lastName: yup
-    .string()
-    .required("نام کاربری را وارد کنید.")
-    .min(3, "نام خانوادگی باید بیشتر از 3 کاراکتر باشد.")
-    .max(20, "نام خانوادگی باید کمتر از 20 کاراکتر باشد.")
 
-    .transform((value) => value.trim()),
   email: yup
     .string()
     .required("ایمیل را وارد کنید.")
@@ -249,7 +243,7 @@ const userInfoSchema = yup.object({
       "ایمیل وارد شده معتبر نمی‌باشد."
     )
     .transform((value) => value.trim()),
-  mobile: yup
+  phone: yup
     .string()
     .required("لطفا شماره موبایل خود را وارد کنید")
     .min(11, "شماره موبایل شما نباید کمتر از11 کاراکتر باشد")
@@ -259,6 +253,8 @@ const userInfoSchema = yup.object({
       "لطفا شماره موبایل خود را به درستی وارد کنید"
     )
     .transform((value) => value.trim()),
+});
+const passwordSchema = yup.object({
   oldPassword: yup
     .string()
     .required("پسورد را وارد کنید.")
@@ -343,6 +339,7 @@ export {
   customerSchema,
   addersSchema,
   userInfoSchema,
+  passwordSchema,
   ticketSchema,
   loginUserSchema,
   registerUserSchema,

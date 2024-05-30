@@ -151,10 +151,6 @@
     @apply inline-flex items-center justify-start gap-x-5 w-full px-2 py-2 font-danaMedium text-lg hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors duration-150;
   }
   /* whiteSpace: 'pre-wrap', overflowWrap: 'break-word; */
-  .text-wrape {
-    overflow-wrap: pre-wrap;
-    white-space: initial;
-  }
 }
 @layer utilities {
   .flex-center {

@@ -69,7 +69,7 @@ function UPanelTicket() {
   if (isTicketLoader) return <Loader />;
   return (
     <div className="text-zinc-900 dark:text-white">
-      {tickets.data.id && (
+      {tickets?.data.id && (
         <>
           <h1 className="my-5 pb-5 font-danaBold text-2xl text-zinc-900 dark:text-white border-b-2 border-gray-200 dark:border-gray-700">
             تیکت‌های پاسخ داده شده
