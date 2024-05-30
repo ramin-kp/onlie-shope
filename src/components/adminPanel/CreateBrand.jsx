@@ -31,7 +31,6 @@ function CreateBrand({ queryClient }) {
 
   //Fn
   const submitHandler = (values) => {
-    console.log(values);
     mutate(values, {
       onSuccess: () => {
         customToast("success", "برند محصول مورد نظر با موفقیت ایجاد شد");

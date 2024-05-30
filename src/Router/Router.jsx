@@ -27,6 +27,7 @@ import APanelProducts from "../Pages/AdminPanel/APanelProducts";
 import APanelOrders from "../Pages/AdminPanel/APanelOrders";
 import APanelOrderDetails from "../Pages/AdminPanel/APanelOrderDetails";
 import APanelTicket from "../Pages/AdminPanel/APanelTicket";
+import AnswerTicketBox from "../Pages/AdminPanel/AnswerTicketBox";
 import NotFoundPage from "../Pages/NotFoundPage";
 
 //components
@@ -39,8 +40,6 @@ import { useUser } from "../context/UserInfoContextProvider";
 
 function Router() {
   const [userInfo, setUserInfo] = useUser();
-  console.log(userInfo);
-
   //Query
   const { isPending: isProductsLoading } = useQuery({
     queryKey: ["products-data"],
@@ -98,9 +97,28 @@ function Router() {
         <Route path="category" element={<APanelCategory />} />
         <Route path="products" element={<APanelProducts />} />
         <Route path="orders" element={<APanelOrders />} />
-        <Route path="orders/:id" element={<APanelOrderDetails />} />
         <Route path="ticket" element={<APanelTicket />} />
       </Route>
+      <Route
+        path="/admin-panel/ticket/answer/:id"
+        element={
+          userInfo && userInfo.role === "ADMIN" ? (
+            <AnswerTicketBox />
+          ) : (
+            <Navigate to="/" />
+          )
+        }
+      />
+      <Route
+        path="/admin-panel/orders/details/:id"
+        element={
+          userInfo && userInfo.role === "ADMIN" ? (
+            <APanelOrderDetails />
+          ) : (
+            <Navigate to="/" />
+          )
+        }
+      />
       <Route path="/*" element={<NotFoundPage />} />
     </Routes>
   );

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 //services
 import { getTicket, removeTicket } from "../../Services/Ticket";
 
 //component
-import AnswerTicketBox from "../../components/adminPanel/AnswerTicketBox";
 import Loader from "../../components/Loader";
 import DataTable from "../../components/adminPanel/DataTable";
 
@@ -14,23 +14,21 @@ import DataTable from "../../components/adminPanel/DataTable";
 import { customToast } from "../../utils/customToast";
 
 function APanelTicket() {
-  const [isShowAnswerTicketBox, setIsShowAnswerTicketBox] = useState(false);
-  const [ticketAnswerData, setTicketAnswerData] = useState({});
-
   //query
   const queryKey = ["tickets-data"];
   const { data: tickets, isPending } = useQuery({
     queryKey,
     queryFn: getTicket,
   });
+
+  console.log(tickets?.data);
+
   //mutation
   const { mutate: removeTicketMutate, isPending: isRemoveTicketLoader } =
     useMutation({ mutationFn: removeTicket });
 
   //queryClient
   const queryClient = useQueryClient();
-
-  console.log(tickets?.data);
 
   //Fn
   const removeHandler = (ticketId) => {
@@ -78,21 +76,10 @@ function APanelTicket() {
       </div>
     ));
   };
-  console.log(tickets?.data);
   //loader
   if (isPending) return <Loader />;
   return (
     <>
-      {/* answerTicket */}
-      {isShowAnswerTicketBox && (
-        <div className="relative inset-0 flex-center">
-          <AnswerTicketBox
-            setIsShowAnswerTicketBox={setIsShowAnswerTicketBox}
-            ticketAnswerData={ticketAnswerData}
-            queryClient={queryClient}
-          />
-        </div>
-      )}
       {/* ticketTable */}
       <div className="w-full grow">
         <DataTable text={"تیکت‌های کاربران"}>
@@ -129,23 +116,14 @@ function APanelTicket() {
                     </td>
                     <td className="rounded-l-xl">
                       {ticket.answer === 0 ? (
-                        <button
+                        <Link
+                          to={`answer/${ticket.id}`}
                           className="px-3 py-2 bg-blue-600 hover:bg-blue-500 text-white font-dana transition-all duration-150 rounded-lg"
-                          onClick={() => {
-                            setIsShowAnswerTicketBox((prev) => !prev);
-                            setTicketAnswerData(ticket);
-                          }}
                         >
                           پاسخ
-                        </button>
+                        </Link>
                       ) : (
-                        <button
-                          className="px-3 py-2 bg-green-600 hover:bg-green-500 text-white font-dana transition-all duration-150 rounded-lg"
-                          onClick={() => {
-                            setIsShowAnswerTicketBox((prev) => !prev);
-                            setTicketAnswerData(ticket);
-                          }}
-                        >
+                        <button className="px-3 py-2 bg-green-600 hover:bg-green-500 text-white font-dana transition-all duration-150 rounded-lg">
                           پاسخ داده شده
                         </button>
                       )}
@@ -155,7 +133,9 @@ function APanelTicket() {
               </tbody>
             </table>
           ) : (
-            <h1>empty</h1>
+            <h1 className="p-2.5 my-5 bg-primary-200 font-danaBold text-xl text-white text-center rounded-lg">
+              تیکتی وجود نداد
+            </h1>
           )}
         </DataTable>
       </div>

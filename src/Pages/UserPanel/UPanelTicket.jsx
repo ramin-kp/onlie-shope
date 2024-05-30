@@ -1,20 +1,37 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 //services
-import { sendTicket } from "../../Services/Ticket";
+import { getTicketById, sendTicket } from "../../Services/Ticket";
 
 //config
 import { ticketSchema } from "../../Configs/schema";
+
+//component
+import Loader from "../../components/Loader";
+
+//context
+import { useUser } from "../../context/UserInfoContextProvider";
 
 //Fn
 import { customToast } from "../../utils/customToast";
 
 function UPanelTicket() {
+  //context
+  const [userInfo] = useUser();
+  //query
+  const queryKey = ["tickets-data", userInfo.id];
+  const { data: tickets, isPending: isTicketLoader } = useQuery({
+    queryKey,
+    queryFn: () => getTicketById(userInfo.id),
+  });
+
   //mutation
   const { mutate, isPending } = useMutation({ mutationFn: sendTicket });
+
+  //hook-form
   const {
     register,
     resetField,
@@ -33,6 +50,7 @@ function UPanelTicket() {
     const ticketData = {
       answer: 0,
       title: values.title,
+      userId: userInfo.id,
       ticketData: [{ text: values.text, role: "USER" }],
     };
     mutate(ticketData, {
@@ -48,10 +66,34 @@ function UPanelTicket() {
         customToast("error", "مشکلی پیش آمده لطفا دوباره امتحان کنید"),
     });
   };
-
+  if (isTicketLoader) return <Loader />;
   return (
     <div className="text-zinc-900 dark:text-white">
-      <h1 className="my-5 pb-5 font-danaBold text-2xl text-zinc-900 dark:text-white border-b-2 border-gray-200 dark:border-gray-700">ارسال تیکت</h1>
+      {tickets.data.id && (
+        <>
+          <h1 className="my-5 pb-5 font-danaBold text-2xl text-zinc-900 dark:text-white border-b-2 border-gray-200 dark:border-gray-700">
+            تیکت‌های پاسخ داده شده
+          </h1>
+          <div className="w-full flex flex-col">
+            {tickets.data.ticketData.map((ticket, index) => (
+              <div
+                key={index}
+                className={`${
+                  ticket.role === "ADMIN"
+                    ? "mr-auto bg-blue-500 text-left"
+                    : "ml-auto bg-gray-600 text-right"
+                } inline-block my-2.5 text-white p-2.5 rounded-md`}
+              >
+                {ticket.text}
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+
+      <h1 className="my-5 pb-5 font-danaBold text-2xl text-zinc-900 dark:text-white border-b-2 border-gray-200 dark:border-gray-700">
+        ارسال تیکت
+      </h1>
       <form
         className="flex flex-col md:flex-row items-start justify-between gap-x-5 w-full p-5"
         onSubmit={handleSubmit(SubmitHandler)}

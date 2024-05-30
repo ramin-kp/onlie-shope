@@ -15,12 +15,10 @@ function APanelOrderDetails() {
     queryFn: () => getOrderDetails(id),
   });
 
-  console.log(orderDetails?.data);
-
   if (isPending) return <Loader />;
 
   return (
-    <div className="w-full overflow-x-auto">
+    <div className="w-full p-5 overflow-x-auto">
       <FactureTable orderDetails={orderDetails.data} />
       <button
         onClick={() => window.print()}

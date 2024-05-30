@@ -1,9 +1,9 @@
 const setCookie = (data) => {
-  const { username, email, password, phone, role,id } = data;
+  const { username, email, password, phone, role, id } = data;
   const userData = btoa(
-    JSON.stringify({ username, email, password, phone, role,id })
+    JSON.stringify({ username, email, password, phone, role, id })
   );
-  document.cookie = `userData=${userData}; max-age=${30 * 60 * 60}`;
+  document.cookie = `userData=${userData}; path="/"; max-age=${30 * 60 * 60}`;
 };
 const getCookie = (name) => {
   const value = `; ${document.cookie}`;

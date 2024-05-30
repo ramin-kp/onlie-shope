@@ -10,7 +10,6 @@ function UserInfoContextProvider({ children }) {
   useEffect(() => {
     const res = getCookie("userData");
     setUserInfo(res);
-    console.log(res);
   }, []);
   return (
     <UserContext.Provider value={{ userInfo, setUserInfo }}>

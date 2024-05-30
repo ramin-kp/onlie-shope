@@ -2,6 +2,7 @@ import React from "react";
 
 //components
 import DataTable from "./DataTable";
+import { Link } from "react-router-dom";
 
 function FactureTable({ orderDetails }) {
   const {
@@ -18,11 +19,17 @@ function FactureTable({ orderDetails }) {
     productsDetails: { selectedItems },
   } = orderDetails;
 
-  console.log(orderDetails);
-
   return (
     <div className="w-full grow">
       <DataTable text={"فاکتور سفارش محصولات"} font={"font-morabba text-2xl"}>
+        <div className="text-left">
+          <Link
+            to="/admin-panel/orders"
+            className="px-3 py-2 bg-primary-200 hover:bg-primary-100 font-dana text-white  rounded-lg"
+          >
+            بازگشت
+          </Link>
+        </div>
         <div className="flex items-center justify-between mx-2.5">
           <div className="childe:my-2.5 font-dana">
             <p>

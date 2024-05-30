@@ -23,7 +23,6 @@ function APanelBrand() {
     queryKey,
     queryFn: getCategory,
   });
-  console.log(categories?.data);
   //mutation
   const { mutate, isPending: isRemoveCategoryLoader } = useMutation({
     mutationFn: removeCategory,

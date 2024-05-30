@@ -54,8 +54,6 @@ function UPanelAddress() {
   //queryClient
   const queryClient = useQueryClient();
 
-  console.log(userAddress?.data);
-
   //hook-form
   const {
     register,
@@ -73,7 +71,6 @@ function UPanelAddress() {
       (address) => address.userId === userInfo.id
     );
     setNewAddress(res);
-    console.log("res", res);
   }, [userAddress]);
 
   useEffect(() => {
@@ -96,7 +93,6 @@ function UPanelAddress() {
       city: cityText,
       userId: newAddress.userId,
     };
-    console.log("data", { data, id: newAddress.id });
     updateUserAddress(
       { id: newAddress.id, data },
       {
@@ -111,7 +107,7 @@ function UPanelAddress() {
       }
     );
   };
-
+  console.log(newAddress);
   if (isCities) return <Loader />;
   return (
     <div className="text-zinc-900 dark:text-white">
@@ -120,15 +116,21 @@ function UPanelAddress() {
       </h1>
       <div className="font-dana">
         <h2 className="font-danaBold text-xl">آدرس ثبت شده</h2>
-        <div>
-          <p>
-            {newAddress?.name} {newAddress?.lastName}
-          </p>
-          <p> {newAddress?.province}</p>
-          <p>{newAddress?.city}</p>
-          <p>{newAddress?.location}</p>
-          <p> {newAddress?.PostalCode}</p>
-        </div>
+        {newAddress.id ? (
+          <div>
+            <p>
+              {newAddress?.name} {newAddress?.lastName}
+            </p>
+            <p> {newAddress?.province}</p>
+            <p>{newAddress?.city}</p>
+            <p>{newAddress?.location}</p>
+            <p> {newAddress?.PostalCode}</p>
+          </div>
+        ) : (
+          <div className="p-2.5 my-5 bg-primary-200 font-danaBold text-xl text-white text-center rounded-lg">
+            آدرسی ثبت نشده است
+          </div>
+        )}
       </div>
       <button
         className="inline-block px-3 py-2 my-5 bg-primary-200 hover:bg-primary-100 font-dana text-white rounded-lg"
