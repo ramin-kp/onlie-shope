@@ -60,7 +60,7 @@ function Router() {
       />
       <Route
         path="/login"
-        element={userInfo ? <Navigate to="/my-account" /> : <LoginPage />}
+        // element={userInfo ? <Navigate to="/my-account" /> : <LoginPage />}
       />
       <Route path="/products" element={<Products />} />
       <Route path="/contact-us" element={<ContactUs />} />
@@ -96,8 +96,8 @@ function Router() {
         <Route path="brand" element={<APanelBrand />} />
         <Route path="category" element={<APanelCategory />} />
         <Route path="products" element={<APanelProducts />} />
-        <Route path="orders" element={<APanelOrders />} />
         <Route path="ticket" element={<APanelTicket />} />
+        <Route path="orders" element={<APanelOrders />} />
       </Route>
       <Route
         path="/admin-panel/ticket/answer/:id"

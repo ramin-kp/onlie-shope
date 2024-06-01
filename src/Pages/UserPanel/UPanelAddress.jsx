@@ -116,7 +116,7 @@ function UPanelAddress() {
       </h1>
       <div className="font-dana">
         <h2 className="font-danaBold text-xl">آدرس ثبت شده</h2>
-        {newAddress.id ? (
+        {newAddress?.id ? (
           <div>
             <p>
               {newAddress?.name} {newAddress?.lastName}

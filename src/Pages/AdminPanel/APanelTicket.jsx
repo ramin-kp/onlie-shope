@@ -117,7 +117,7 @@ function APanelTicket() {
                     <td className="rounded-l-xl">
                       {ticket.answer === 0 ? (
                         <Link
-                          to={`answer/${ticket.id}`}
+                          to={`/admin-panel/ticket/answer/${ticket.id}`}
                           className="px-3 py-2 bg-blue-600 hover:bg-blue-500 text-white font-dana transition-all duration-150 rounded-lg"
                         >
                           پاسخ

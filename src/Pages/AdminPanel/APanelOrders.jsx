@@ -143,7 +143,7 @@ function APanelOrders() {
   if (isPending) return <Loader />;
   return (
     <>
-      <div className="w-full grow overflow-x-auto">
+      <div className="w-full grow overflow-x-auto ">
         <DataTable text={"سفارش‌ها"}>
           <table className="border-separate border-spacing-y-2 w-full font-dana text-zinc-900 dark:text-white">
             <thead>
@@ -164,7 +164,7 @@ function APanelOrders() {
               </tr>
             </thead>
             <tbody>
-              {orders.data
+              {orders?.data
                 .slice()
                 .reverse()
                 .map((order, index) => (
@@ -188,7 +188,7 @@ function APanelOrders() {
                     </td>
                     <td>
                       <Link
-                        to={`${order.id}`}
+                        to={`/admin-panel/orders/details/${order.id}`}
                         className="px-3 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors duration-150"
                       >
                         مشاهده

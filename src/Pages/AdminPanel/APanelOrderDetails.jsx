@@ -11,9 +11,10 @@ import Loader from "../../components/Loader";
 function APanelOrderDetails() {
   const { id } = useParams();
   const { data: orderDetails, isPending } = useQuery({
-    queryKey: ["get-orderDetails", id],
+    queryKey: ["get-orderDetails"],
     queryFn: () => getOrderDetails(id),
   });
+  console.log("APanelOrderDetails");
 
   if (isPending) return <Loader />;
 

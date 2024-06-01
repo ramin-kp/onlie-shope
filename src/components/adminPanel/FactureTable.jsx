@@ -4,7 +4,7 @@ import React from "react";
 import DataTable from "./DataTable";
 import { Link } from "react-router-dom";
 
-function FactureTable({ orderDetails }) {
+function FactureTable({ orderDetails, isPending }) {
   const {
     id,
     name,
@@ -20,12 +20,12 @@ function FactureTable({ orderDetails }) {
   } = orderDetails;
 
   return (
-    <div className="w-full grow">
+    <div className="w-full grow dark:text-white">
       <DataTable text={"فاکتور سفارش محصولات"} font={"font-morabba text-2xl"}>
         <div className="text-left">
           <Link
             to="/admin-panel/orders"
-            className="px-3 py-2 bg-primary-200 hover:bg-primary-100 font-dana text-white  rounded-lg"
+            className="px-3 py-2 bg-primary-200 hover:bg-primary-100 font-dana text-white  rounded-lg print:hidden"
           >
             بازگشت
           </Link>
@@ -78,7 +78,7 @@ function FactureTable({ orderDetails }) {
             </tr>
           </thead>
           <tbody>
-            {selectedItems.map((product, index) => (
+            {productsDetails.selectedItems.map((product, index) => (
               <tr
                 key={product.id}
                 className="text-center childe:py-5 childe:odd:bg-white dark:childe:odd:bg-dark-100 childe:even:bg-gray-300 dark:childe:even:bg-zinc-700"
