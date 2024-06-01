@@ -60,7 +60,7 @@ function Router() {
       />
       <Route
         path="/login"
-        // element={userInfo ? <Navigate to="/my-account" /> : <LoginPage />}
+        element={userInfo ? <Navigate to="/my-account" /> : <LoginPage />}
       />
       <Route path="/products" element={<Products />} />
       <Route path="/contact-us" element={<ContactUs />} />
